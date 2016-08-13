@@ -1,0 +1,13 @@
+﻿<service>
+  <id>msb_apiroute</id>
+  <name>msb_apiroute</name>
+  <description>This service runs apiroute.</description>
+  <workingdirectory>%BASE%</workingdirectory>
+  <env name="JAVA_HOME" value="c:\jdk"/>
+  <env name="RUNHOME" value="%BASE%"/>
+  <executable>java</executable>
+  <arguments>-jar "apiroute-service.jar" server "conf/apiroute.yml"</arguments>
+  <stopexecutable>stop.bat</stopexecutable>
+  <logmode>rotate</logmode>
+  <!-- stopparentprocessfirst>true</stopparentprocessfirst -->
+</service>
