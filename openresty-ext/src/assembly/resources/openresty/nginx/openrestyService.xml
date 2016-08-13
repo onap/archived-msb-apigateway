@@ -1,0 +1,13 @@
+﻿<service>
+  <id>msb_openresty</id>
+  <name>msb_openresty</name>
+  <description>This service runs openresty.</description>
+  <workingdirectory>%BASE%</workingdirectory>
+  <env name="RUNHOME" value="%BASE%"/>
+  <executable>nginx.exe</executable>
+  <stopexecutable>nginx.exe</stopexecutable>
+  <stopargument>-s</stopargument>
+  <stopargument>stop</stopargument>
+  <logmode>rotate</logmode>
+  <!-- stopparentprocessfirst>true</stopparentprocessfirst -->
+</service>
