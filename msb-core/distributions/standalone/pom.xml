@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+ 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+ 
+            http://www.apache.org/licenses/LICENSE-2.0
+ 
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ 
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>org.openo.msb.msb-core</groupId>
+        <artifactId>distributions-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>  
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.openo.msb.msb-core.distributions</groupId>
+    <artifactId>msb-core-standalone</artifactId>
+    <name>openo/msb/msb-core/distributions/standalone</name>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+      <packageid>msb-standalone</packageid>
+      <linux64id>linux64</linux64id>
+      <win64id>win64</win64id>
+      <linux64outputdir>target/assembly/${linux64id}</linux64outputdir>
+      <win64outputdir>target/assembly/${win64id}</win64outputdir>
+    </properties>
+
+	<dependencies>
+    <dependency>
+      <groupId>org.openo.msb.msb-core.apiroute</groupId>
+      <artifactId>apiroute-standalone</artifactId>
+      <version>${project.version}</version>
+      <type>zip</type>
+      <optional>true</optional>
+    </dependency>
+	
+    <dependency>
+        <groupId>org.openo.msb.msb-core</groupId>
+        <artifactId>redis</artifactId>
+        <type>zip</type>
+        <classifier>win64</classifier>
+        <version>${project.version}</version>
+        <optional>true</optional>
+    </dependency>
+    <dependency>
+        <groupId>org.openo.msb.msb-core</groupId>
+        <artifactId>redis</artifactId>
+        <type>tar.gz</type>
+        <classifier>linux64</classifier>
+        <version>${project.version}</version>
+        <optional>true</optional>
+    </dependency>
+    <dependency>
+        <groupId>org.openo.msb.msb-core</groupId>
+        <artifactId>redis-ext</artifactId>
+        <type>zip</type>
+        <version>${project.version}</version>
+        <optional>true</optional>
+    </dependency>
+
+    <dependency>
+        <groupId>org.openo.msb.msb-core</groupId>
+        <artifactId>openresty</artifactId>
+        <type>zip</type>
+        <classifier>win64</classifier>
+        <version>${project.version}</version>
+        <optional>true</optional>
+    </dependency>
+    <dependency>
+        <groupId>org.openo.msb.msb-core</groupId>
+        <artifactId>openresty</artifactId>
+        <type>tar.gz</type>
+        <classifier>linux64</classifier>
+        <version>${project.version}</version>
+        <optional>true</optional>
+    </dependency>
+
+    <dependency>
+        <groupId>org.openo.msb.msb-core</groupId>
+        <artifactId>openresty-ext</artifactId>
+        <type>zip</type>
+        <version>${project.version}</version>
+        <optional>true</optional>
+    </dependency>
+
+
+  </dependencies>   
+	<build>
+	
+	<plugins>    
+    <plugin>
+      <artifactId>maven-resources-plugin</artifactId>
+      <executions>
+        <execution>
+            <id>copy-resources-dockerfile</id>                 
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>            
+              <outputDirectory>${version.output}</outputDirectory>
+              <includeEmptyDirs>true</includeEmptyDirs>
+              <resources>     
+                <resource>
+                  <directory>${dockerFileDir}</directory>
+                  <filtering>false</filtering>
+                  <includes>
+                    <include>**/*</include>
+                  </includes>
+                </resource>  
+              </resources>
+              <overwrite>true</overwrite>
+            </configuration>
+        </execution>  
+        <execution>
+          <id>copy-msb-resources-${linux64id}</id>                 
+          <phase>prepare-package</phase>
+          <goals>
+            <goal>copy-resources</goal>
+          </goals>
+          <configuration>
+            <outputDirectory>${linux64outputdir}</outputDirectory>
+  		      <includeEmptyDirs>true</includeEmptyDirs>
+            <resources>		  
+              <resource>
+                <directory>src/assembly/resource/</directory>
+                <filtering>false</filtering>
+                <includes>
+                  <include>**/*</include>
+                </includes>
+                <excludes>
+                  <exclude>**/*.bat</exclude>
+                </excludes>
+              </resource>  
+            </resources>
+            <overwrite>true</overwrite>
+          </configuration>
+        </execution>
+  	  
+  	    <execution>
+          <id>copy-msb-resources-${win64id}</id>                 
+          <phase>prepare-package</phase>
+          <goals>
+            <goal>copy-resources</goal>
+          </goals>
+          <configuration>
+            <outputDirectory>${win64outputdir}</outputDirectory>
+  		      <includeEmptyDirs>true</includeEmptyDirs>
+            <resources>		  
+              <resource>
+                <directory>src/assembly/resource/</directory>
+                <filtering>false</filtering>
+                <includes>
+                  <include>**/*</include>
+                </includes>
+                <excludes>
+                  <exclude>**/*.sh</exclude>
+                </excludes>
+              </resource>  
+            </resources>
+            <overwrite>true</overwrite>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+    
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-dependency-plugin</artifactId>
+      <executions>
+        <execution>
+            <id>unpacktolinux64</id>
+            <goals>
+                <goal>unpack</goal>
+            </goals>
+            <phase>prepare-package</phase>
+            <configuration>
+              <artifactItems>
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core.apiroute</groupId>
+                    <artifactId>apiroute-standalone</artifactId>
+                    <type>zip</type>
+                  </artifactItem>  						  
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core</groupId>
+                    <artifactId>redis</artifactId>
+                    <type>tar.gz</type>
+                    <classifier>linux64</classifier>               
+                  </artifactItem> 
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core</groupId>
+                    <artifactId>redis-ext</artifactId>
+                    <type>zip</type>           
+                  </artifactItem> 
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core</groupId>
+                    <artifactId>openresty</artifactId>
+                    <type>tar.gz</type>
+                    <classifier>linux64</classifier>               
+                  </artifactItem> 
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core</groupId>
+                    <artifactId>openresty-ext</artifactId>
+                    <type>zip</type>            
+                  </artifactItem>                         
+              </artifactItems>
+              <excludes>**/*.bat,*.cmd</excludes>
+              <outputDirectory>${linux64outputdir}</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
+            </configuration>
+        </execution>
+        <execution>
+            <id>unpacktowin64</id>
+            <goals>
+                <goal>unpack</goal>
+            </goals>
+            <phase>prepare-package</phase>
+            <configuration>
+              <artifactItems>
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core.apiroute</groupId>
+                    <artifactId>apiroute-standalone</artifactId>
+                    <type>zip</type>
+                  </artifactItem>               
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core</groupId>
+                    <artifactId>redis</artifactId>
+                    <type>zip</type>
+                    <classifier>win64</classifier>               
+                  </artifactItem> 
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core</groupId>
+                    <artifactId>redis-ext</artifactId>
+                    <type>zip</type>           
+                  </artifactItem> 
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core</groupId>
+                    <artifactId>openresty</artifactId>
+                    <type>zip</type>
+                    <classifier>win64</classifier>               
+                  </artifactItem> 
+                  <artifactItem>
+                    <groupId>org.openo.msb.msb-core</groupId>
+                    <artifactId>openresty-ext</artifactId>
+                    <type>zip</type>            
+                  </artifactItem>            
+              </artifactItems>
+              <excludes>*.sh,*/*.sh,*/*/*.sh</excludes>
+              <outputDirectory>${win64outputdir}</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
+            </configuration>
+        </execution>
+      </executions>
+    </plugin>
+    
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-antrun-plugin</artifactId>
+      <executions>
+        <execution>
+            <id>distribution</id>
+            <phase>package</phase>
+            <goals>
+                <goal>run</goal>
+            </goals>
+            <configuration>
+                <target name="distribution">
+                    <tar destfile="${version.output}/${packageid}-${project.version}-linux64.tar.gz" longfile="posix" compression="gzip">
+                        <tarfileset dir="target/assembly/linux64" filemode="0644" dirmode="0755">
+                            <exclude name="**/*.sh"/>
+                            <exclude name="openresty/nginx/sbin/nginx"/>
+                            <exclude name="redis/redis-*"/>
+                        </tarfileset>
+                        <tarfileset dir="target/assembly/linux64" filemode="0755" dirmode="0755">
+                            <include name="**/*.sh"/>
+                            <include name="openresty/nginx/sbin/nginx"/>
+                            <include name="redis/redis-*"/>
+                        </tarfileset>
+                    </tar>
+                    <attachartifact file="${version.output}/${packageid}-${project.version}-linux64.tar.gz" classifier="linux64" type="tar.gz"/>
+
+
+                      <zip destfile="${version.output}/${packageid}-${project.version}-win64.zip" update="true">
+                      <zipfileset dir="target/assembly/win64" includes="**"/>
+                    </zip>
+                    <attachartifact file="${version.output}/${packageid}-${project.version}-win64.zip" classifier="win64" type="zip"/>
+                </target>
+            </configuration>
+        </execution>
+      </executions>
+    </plugin>
+	</plugins>
+	</build>
+
+</project>
+

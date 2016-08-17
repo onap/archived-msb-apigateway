@@ -1,0 +1,52 @@
+defaultWorkspace: ../apiroute-works
+
+defaultName: ${DW_DEFAULT_NAME:-Stranger}
+
+propertiesName: redis.properties
+propertiesDir: conf
+
+# use the discover config if you want to monitor a discover service and register microservices change
+discoverInfo:
+   ip: 127.0.0.1
+   port: 10081
+   enabled: false
+
+consulInfo:
+   ip: 127.0.0.1
+   port: 8500
+ 
+# use the simple server factory if you only want to run on a single port
+server:
+  type: simple
+  rootPath: '/api/microservices/v1/*'
+  applicationContextPath: /
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 8086
+
+# Logging settings.
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: ALL
+
+  # Logger-specific levels.
+  loggers:
+
+    # Sets the level for 'com.example.app' to DEBUG.
+    com.example: DEBUG
+
+  appenders:
+    - type: console
+      threshold: INFO
+      timeZone: UTC
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+    - type: file
+      threshold: INFO
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      currentLogFilename: ../apiroute-works/logs/application.log
+      archivedLogFilenamePattern: ../apiroute-works/logs/application-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 7
+      timeZone: UTC
+

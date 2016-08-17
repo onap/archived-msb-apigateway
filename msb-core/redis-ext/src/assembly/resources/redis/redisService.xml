@@ -1,0 +1,13 @@
+﻿<service>
+  <id>msb_redis</id>
+  <name>msb_redis</name>
+  <description>This service runs redis.</description>
+  <workingdirectory>%BASE%</workingdirectory>
+  <env name="RUNHOME" value="%BASE%"/>
+  <executable>redis-server.exe</executable>
+  <arguments>redis.conf</arguments>
+  <stopexecutable>redis-cli.exe</stopexecutable>
+  <stopargument>shutdown</stopargument>
+  <logmode>rotate</logmode>
+  <!-- stopparentprocessfirst>true</stopparentprocessfirst -->
+</service>
