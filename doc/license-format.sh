@@ -1,1 +1,0 @@
-mvn com.mycila:license-maven-plugin:format -Dlicense.header=doc/java-license-header.txt

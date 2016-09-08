@@ -1,4 +1,4 @@
 {
-	"iuiRootPath" : "iui",
-	"apiRootPath" : "api"
+	"iuiRootPath" : "openoui",
+	"apiRootPath" : "openoapi"
 }

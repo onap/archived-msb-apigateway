@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 ZTE, Inc. and others.
+ * Copyright 2016 2015-2016 ZTE, Inc. and others. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.openo.msb.wrapper.consul.cache;
 
 import java.math.BigInteger;
