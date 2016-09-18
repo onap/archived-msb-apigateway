@@ -82,22 +82,17 @@ local function query_allkeys_updatecache(red)
 		ngx.log(ngx.ERR,err)
 		return ""
 	end
-	--把所有键值处理后放到集合中，去除重复
 	local key_set={}
 	for key, value in ipairs(allkeys) do
 		name = string.gsub(string.gsub(string.gsub(value,"msb:routing:custom:",""),":info",""),":lb:server1","")
 		key_set[name]=true						   
 	end
-	--取出所有的�?放到table中准备排�?
 	local key_table = {}
 	local index = 1
 	for key,_ in pairs(key_set) do
-		--为了避免效率问题，暂时不用table.insert()
-		--table.insert(key_table,key)
 		key_table[index] = key
 		index = index + 1
 	end
-	--对所有键进行倒序排序，用于实现最长前缀匹配
 	table.sort(key_table, function (a, b)
 			return a > b
 		end)
@@ -154,11 +149,9 @@ local function query_router_info()
 	end
 
 	local delimiter = "<>"
-	-- '.-' 表示最短匹�?
 	for key in string.gmatch(servicenames,"(.-)"..delimiter) do
 		ngx.log(ngx.WARN, "==key_table key:", key)
 		local from, to, err = ngx.re.find(uri, "^"..key.."(/(.*))?$", "jo")
-		--判断key是否为输入uri�?前缀"
 		if from then
 			ngx.log(ngx.WARN,"Matched! start-end:",from,"-",to)
 			local result = query_ipurl_updatecache(red,key)
