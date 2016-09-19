@@ -35,6 +35,9 @@ start /D %RUNHOME%apiroute run.bat run
 echo ### Starting openresty
 start /D %RUNHOME%openresty run.bat  
 
+echo ### Starting external API gateway
+start /D %RUNHOME%eag run.bat  
+
 echo Startup will be finished in background...
 echo  + Run "start .\apiroute-works\logs\application.log" to see what's happening
 echo  + Wait a minute

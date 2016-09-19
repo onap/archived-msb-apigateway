@@ -41,6 +41,11 @@ cd ./openresty
 ./run.sh &
 cd $RUNHOME
 
+echo "### Starting external API gateway...";
+# nohup ./startup.sh >>./nohup.log 2>&1 &
+cd ./eag
+./run.sh &
+cd $RUNHOME
 
 echo "Startup will be finished in background...";
 echo " + Run 'tail ./apiroute-works/logs/application.log -f' to see what's happening";

@@ -96,6 +96,13 @@
         <version>${project.version}</version>
         <optional>true</optional>
     </dependency>
+    <dependency>
+        <groupId>org.openo.common-services.microservice-bus</groupId>
+        <artifactId>eag-openresty-ext</artifactId>
+        <type>zip</type>
+        <version>${project.version}</version>
+        <optional>true</optional>
+    </dependency>
 
 
   </dependencies>
@@ -225,6 +232,35 @@
               <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
             </configuration>
         </execution>
+
+        <execution>
+            <id>eag-unpacktolinux64</id>
+            <goals>
+                <goal>unpack</goal>
+            </goals>
+            <phase>prepare-package</phase>
+            <configuration>
+              <artifactItems>
+                  <artifactItem>
+                    <groupId>org.openo.common-services.microservice-bus</groupId>
+                    <artifactId>openresty</artifactId>
+                    <type>tar.gz</type>
+                    <classifier>linux64</classifier>
+                  </artifactItem>
+                  <artifactItem>
+                    <groupId>org.openo.common-services.microservice-bus</groupId>
+                    <artifactId>eag-openresty-ext</artifactId>
+                    <type>zip</type>
+                  </artifactItem>
+              </artifactItems>
+              <excludes>**/*.bat,*.cmd</excludes>
+              <outputDirectory>${linux64outputdir}/eag</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
+            </configuration>
+        </execution>
+
         <execution>
             <id>unpacktowin64</id>
             <goals>
@@ -268,6 +304,34 @@
               <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
             </configuration>
         </execution>
+
+        <execution>
+            <id>eag-unpacktowin64</id>
+            <goals>
+                <goal>unpack</goal>
+            </goals>
+            <phase>prepare-package</phase>
+            <configuration>
+              <artifactItems>
+                  <artifactItem>
+                    <groupId>org.openo.common-services.microservice-bus</groupId>
+                    <artifactId>openresty</artifactId>
+                    <type>zip</type>
+                    <classifier>win64</classifier>
+                  </artifactItem>
+                  <artifactItem>
+                    <groupId>org.openo.common-services.microservice-bus</groupId>
+                    <artifactId>eag-openresty-ext</artifactId>
+                    <type>zip</type>
+                  </artifactItem>
+              </artifactItems>
+              <excludes>*.sh,*/*.sh,*/*/*.sh</excludes>
+              <outputDirectory>${win64outputdir}/eag</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
+            </configuration>
+        </execution>
       </executions>
     </plugin>
 
@@ -275,6 +339,44 @@
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-antrun-plugin</artifactId>
       <executions>
+
+        <execution>
+          <id>prepare-eag-openresty-linux</id>
+          <phase>prepare-package</phase>
+          <goals>
+            <goal>run</goal>
+          </goals>
+          <configuration>
+            <target>
+              <copy todir="${linux64outputdir}/eag/">
+                <fileset dir="${linux64outputdir}/eag/openresty"/>
+              </copy>
+              <delete 
+                dir="${linux64outputdir}/eag/openresty"
+                includeemptydirs="true"/>
+            </target>          
+          </configuration>
+        </execution>
+
+        <execution>
+          <id>prepare-eag-openresty-win</id>
+          <phase>prepare-package</phase>
+          <goals>
+            <goal>run</goal>
+          </goals>
+          <configuration>
+            <target>
+              <copy todir="${win64outputdir}/eag/">
+                <fileset dir="${win64outputdir}/eag/openresty"/>
+              </copy>
+              <delete 
+                dir="${win64outputdir}/eag/openresty"
+                includeemptydirs="true"/>
+            </target>          
+          </configuration>
+        </execution>
+
+
         <execution>
             <id>distribution</id>
             <phase>package</phase>

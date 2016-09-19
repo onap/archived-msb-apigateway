@@ -33,6 +33,7 @@
     <modules>
         <module>openresty</module>
         <module>openresty-ext</module>
+        <module>eag-openresty-ext</module>
         <module>redis</module>
         <module>redis-ext</module>
         <module>apiroute</module>

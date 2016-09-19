@@ -28,6 +28,12 @@ cd ./openresty
 ./stop.sh &
 cd $RUNHOME
 
+echo "### Stopping external API gateway...";
+# nohup ./startup.sh >>./nohup.log 2>&1 &
+cd ./eag
+./stop.sh &
+cd $RUNHOME
+
 echo "\n\n### Stopping apiroute"
 cd ./apiroute
 ./stop.sh &

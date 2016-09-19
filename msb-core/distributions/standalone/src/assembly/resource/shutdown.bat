@@ -29,6 +29,9 @@ rem For /f %%i in (%~dp0\stop.tmp) DO start %%i
 echo ### Stopping openresty
 start /D %RUNHOME%openresty stop.bat  
 
+echo ### Stopping external API gateway
+start /D %RUNHOME%eag stop.bat
+
 echo ### Stopping apiroute
 start /D %RUNHOME%apiroute stop.bat
 

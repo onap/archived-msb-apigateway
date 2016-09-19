@@ -22,5 +22,5 @@ local _M = {}
 _M._VERSION = '1.0.0'
 
 return {
-    auth_plugin_status = "off"
+    auth_plugin_status = "on"
 }
