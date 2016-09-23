@@ -389,11 +389,13 @@
                         <tarfileset dir="target/assembly/linux64" filemode="0644" dirmode="0755">
                             <exclude name="**/*.sh"/>
                             <exclude name="openresty/nginx/sbin/nginx"/>
+                            <include name="eag/nginx/sbin/nginx"/>
                             <exclude name="redis/redis-*"/>
                         </tarfileset>
                         <tarfileset dir="target/assembly/linux64" filemode="0755" dirmode="0755">
                             <include name="**/*.sh"/>
                             <include name="openresty/nginx/sbin/nginx"/>
+                            <include name="eag/nginx/sbin/nginx"/>
                             <include name="redis/redis-*"/>
                         </tarfileset>
                     </tar>
