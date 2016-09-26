@@ -26,7 +26,7 @@
     <groupId>org.openo.oparent</groupId>
     <artifactId>oparent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <relativePath>../../../oparent</relativePath>
+    <relativePath></relativePath>
   </parent>
 
 
