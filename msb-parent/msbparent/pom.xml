@@ -42,14 +42,20 @@
   </scm>
 
 
-  <properties>
+ <properties>
     <!-- Supporting Libraries -->
     <dropwizard.version>0.8.0</dropwizard.version>
-    <swagger.version>1.5.3</swagger.version>
+    <swagger.version>1.5.3</swagger.version>  
     <jedis.version>2.7.3</jedis.version>
     <lombok.version>1.16.4</lombok.version>
-    <json-lib.version>2.4</json-lib.version>
     <junit.version>4.11</junit.version>
+    <jetty.version>9.2.9.v20150224</jetty.version>
+    <jackson-version>2.5.1</jackson-version>      
+    <jersey.version>2.16</jersey.version>
+    <slf4j.version>1.7.12</slf4j.version>     
+    <logback.version>1.1.3</logback.version>
+    <httpclient.version>4.5</httpclient.version>
+	<powermock.version>1.5.5</powermock.version>	
   </properties>
 
   <dependencyManagement>
@@ -62,6 +68,19 @@
         <version>${junit.version}</version>
         <scope>test</scope>
       </dependency>
+	  <dependency> 
+		  <groupId>org.powermock</groupId>
+		  <artifactId>powermock-module-junit4</artifactId> 
+		   <version>${powermock.version}</version>
+		  <scope>test</scope>
+	</dependency> 
+
+	<dependency>
+		  <groupId>org.powermock</groupId>
+		  <artifactId>powermock-api-mockito</artifactId> 
+		   <version>${powermock.version}</version>
+		  <scope>test</scope>
+	</dependency>
 
       <!-- Supporting Libraries -->
       <dependency>
@@ -80,7 +99,7 @@
         <groupId>io.dropwizard</groupId>
         <artifactId>dropwizard-client</artifactId>
         <version>${dropwizard.version}</version>
-      </dependency>
+      </dependency>    
 
       <dependency>
         <groupId>io.swagger</groupId>
@@ -93,16 +112,140 @@
         <groupId>redis.clients</groupId>
         <artifactId>jedis</artifactId>
         <version>${jedis.version}</version>
-      </dependency>
+      </dependency>     
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>${lombok.version}</version>
       </dependency>
+      <!--jersey-->
       <dependency>
-        <groupId>net.sf.json-lib</groupId>
-        <artifactId>json-lib</artifactId>
-        <version>${json-lib.version}</version>
+        <groupId>org.glassfish.jersey.media</groupId>
+        <artifactId>jersey-media-multipart</artifactId>
+        <version>${jersey.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-servlet-core</artifactId>
+        <version>${jersey.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jersey.core</groupId>
+        <artifactId>jersey-common</artifactId>
+        <version>${jersey.version}</version>
+      </dependency>
+
+      <!--jackson-->
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${jackson-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${jackson-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.dataformat</groupId>
+        <artifactId>jackson-dataformat-xml</artifactId>
+        <version>${jackson-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.dataformat</groupId>
+        <artifactId>jackson-dataformat-yaml</artifactId>
+        <version>${jackson-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.module</groupId>
+        <artifactId>jackson-module-jaxb-annotations</artifactId>
+        <version>${jackson-version}</version>
+      </dependency>
+
+      <!--jetty-->
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-io</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-util</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-http</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-client</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-continuation</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-jmx</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-webapp</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-xml</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-servlet</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-security</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-server</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <!-- logger-->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>       
+
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>   
+
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${logback.version}</version>
+      </dependency> 
+
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>${httpclient.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
