@@ -47,12 +47,7 @@ public class CustomRouteServiceWrapper {
     }
 
 
-    /**
-     * @Title: getAllCustomRouteService
-     * @Description: TODO(获取全部内容服务列表)
-     * @param: @return
-     * @return: CustomRouteInfo[]
-     */
+    
     public CustomRouteInfo[] getAllCustomRouteInstances() {
 
 
@@ -65,7 +60,6 @@ public class CustomRouteServiceWrapper {
                         "fetch from jedis pool failed,null object!");
             }
 
-            // 获取全部服务列表
             String routekey =
                     RouteUtil.getPrefixedKey("", RouteUtil.CUSTOMROUTE, "*",
                             RouteUtil.ROUTE_PATH_INFO);
@@ -95,13 +89,6 @@ public class CustomRouteServiceWrapper {
 
 
 
-    /**
-     * @Title: getCustomRouteInstance
-     * @Description: TODO(通过服务名获取单个内容服务对象信息)
-     * @param: @param serviceName
-     * @param: @return
-     * @return: CustomRouteInfo
-     */
     public CustomRouteInfo getCustomRouteInstance(String serviceName) {
 
         if (StringUtils.isBlank(serviceName)) {
@@ -146,7 +133,6 @@ public class CustomRouteServiceWrapper {
         CustomRouteInfo customRouteInfo = null;
 
 
-        // 获取info信息
         String routekey =
                 RouteUtil.getPrefixedKey("", RouteUtil.CUSTOMROUTE, serviceName,
                         RouteUtil.ROUTE_PATH_INFO);
@@ -161,7 +147,6 @@ public class CustomRouteServiceWrapper {
             customRouteInfo.setUseOwnUpstream(infomap.get("useOwnUpstream"));
 
 
-            // 获取负载均衡信息
             String serviceLBkey =
                     RouteUtil.getPrefixedKey("", RouteUtil.CUSTOMROUTE, serviceName,
                             RouteUtil.ROUTE_PATH_LOADBALANCE);
@@ -186,14 +171,6 @@ public class CustomRouteServiceWrapper {
         return customRouteInfo;
     }
 
-    /**
-     * @Title: updateCustomRouteInstance
-     * @Description: TODO(更新单个服务信息)
-     * @param: @param serviceName
-     * @param: @param CustomRouteInfo
-     * @param: @return
-     * @return: CustomRouteInfo
-     */
     public synchronized CustomRouteInfo updateCustomRouteInstance(String serviceName,
             CustomRouteInfo customRouteInfo, String serverPort) {
         if (StringUtils.isBlank(serviceName)) {
@@ -203,10 +180,8 @@ public class CustomRouteServiceWrapper {
         try {
 
             if (serviceName.equals(customRouteInfo.getServiceName())) {
-                // 删除已存在负载均衡服务器信息
                 deleteCustomRoute(serviceName, RouteUtil.ROUTE_PATH_LOADBALANCE + "*", serverPort);
             } else {
-                // 如果已修改服务名，先删除此服务全部已有信息
                 deleteCustomRoute(serviceName, "*", serverPort);
             }
 
@@ -228,14 +203,6 @@ public class CustomRouteServiceWrapper {
 
     }
 
-    /**
-     * @Title updateCustomRouteStatus
-     * @Description TODO(更新单个服务状态)
-     * @param serviceName
-     * @param status
-     * @return
-     * @return RouteResult
-     */
     public synchronized CustomRouteInfo updateCustomRouteStatus(String serviceName, String status) {
 
         if (StringUtils.isBlank(serviceName)) {
@@ -252,7 +219,6 @@ public class CustomRouteServiceWrapper {
 
 
 
-        // 准备info信息
         String serviceInfokey =
                 RouteUtil.getPrefixedKey("", RouteUtil.CUSTOMROUTE, serviceName,
                         RouteUtil.ROUTE_PATH_INFO);
@@ -267,7 +233,6 @@ public class CustomRouteServiceWrapper {
                 throw new ExtendedInternalServerErrorException(
                         "fetch from jedis pool failed,null object!");
             }
-            // 保存info信息
             jedis.hmset(serviceInfokey, serviceInfoMap);
             new_customRouteInfo.setStatus(status);
 
@@ -284,13 +249,6 @@ public class CustomRouteServiceWrapper {
         return new_customRouteInfo;
     }
 
-    /**
-     * @Title: saveCustomRouteInstance
-     * @Description: TODO(存储单个服务信息)
-     * @param: @param CustomRouteInfo
-     * @param: @return
-     * @return: CustomRouteInfo
-     */
     public synchronized CustomRouteInfo saveCustomRouteInstance(CustomRouteInfo customRouteInfo,
             String serverPort) {
 
@@ -339,7 +297,6 @@ public class CustomRouteServiceWrapper {
                             + RouteUtil.show(RouteUtil.useOwnUpstreamRangeMatches) + ")");
         }
 
-        // 检查服务实例格式
         RouteServer[] serverList = customRouteInfo.getServers();
         for (int i = 0; i < serverList.length; i++) {
             RouteServer server = serverList[i];
@@ -355,7 +312,6 @@ public class CustomRouteServiceWrapper {
         }
 
 
-        // 准备info信息
         String serviceInfokey =
                 RouteUtil.getPrefixedKey(serverPort, RouteUtil.CUSTOMROUTE,
                         customRouteInfo.getServiceName().trim(), RouteUtil.ROUTE_PATH_INFO);
@@ -370,7 +326,6 @@ public class CustomRouteServiceWrapper {
 
 
 
-        // 准备负载均衡信息
         String serviceLBkey =
                 RouteUtil.getPrefixedKey(serverPort, RouteUtil.CUSTOMROUTE,
                         customRouteInfo.getServiceName(), RouteUtil.ROUTE_PATH_LOADBALANCE);
@@ -383,10 +338,8 @@ public class CustomRouteServiceWrapper {
                 throw new ExtendedInternalServerErrorException(
                         "fetch from jedis pool failed,null object!");
             }
-            // 保存info信息
             jedis.hmset(serviceInfokey, serviceInfoMap);
 
-            // 保存负载均衡信息
 
             for (int i = 0; i < serverList.length; i++) {
                 Map<String, String> servermap = new HashMap<String, String>();
@@ -414,15 +367,6 @@ public class CustomRouteServiceWrapper {
 
 
 
-    /**
-     * @Title: deleteCustomRoute
-     * @Description: TODO(删除单个服务信息)
-     * @param: @param type
-     * @param: @param serviceName
-     * @param: @param delKey
-     * @param: @return
-     * @return: void
-     */
     public synchronized void deleteCustomRoute(String serviceName, String delKey, String serverPort) {
 
         if (StringUtils.isBlank(serviceName)) {
@@ -438,7 +382,6 @@ public class CustomRouteServiceWrapper {
                         "fetch from jedis pool failed,null object!");
             }
 
-            // 获取info信息
             String routekey =
                     RouteUtil
                             .getPrefixedKey(serverPort, RouteUtil.CUSTOMROUTE, serviceName, delKey);
@@ -452,7 +395,6 @@ public class CustomRouteServiceWrapper {
 
             String[] paths = new String[infoSet.size()];
 
-            // Set-->数组
             infoSet.toArray(paths);
 
             jedis.del(paths);

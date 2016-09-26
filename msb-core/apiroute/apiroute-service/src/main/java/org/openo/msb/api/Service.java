@@ -25,24 +25,24 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service<T> implements Serializable {
     private static final long serialVersionUID = 1L;
-    // 服务名
+
     @ApiModelProperty(required = true)
     private String serviceName;
-    // 版本号
+
     @ApiModelProperty(example = "v1")
     private String version="";
-    // 服务url
+
     @ApiModelProperty(value = "Target Service URL,start with /",example = "/api/serviceName/v1", required = true)
     private String url="";
-    // 服务对应协议，比如REST、UI、MQ、FTP、SNMP、TCP、UDP
+
     @ApiModelProperty(value = "Service Protocol", allowableValues = "REST,UI, MQ, FTP,SNMP,TCP,UDP", example = "REST",required = true)
     private String protocol = "";
     
-    //服务的可见范围   系统间:0   系统内:1 
+
     @ApiModelProperty(value = "[visual Range]interSystem:0,inSystem:1", allowableValues = "0,1", example = "1")
     private String visualRange = "1";
    
-    //负载均衡策略类型
+
     @ApiModelProperty(value = "lb policy", allowableValues = "round-robin,hash,least_conn", example = "hash")
     private String lb_policy="";
    

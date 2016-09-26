@@ -46,13 +46,6 @@ public class IuiRouteServiceWrapper {
         return instance;
     }
 
-
-    /**
-     * @Title: getAllIuiRouteService
-     * @Description: TODO(获取全部内容服务列表)
-     * @param: @return
-     * @return: IuiRouteInfo[]
-     */
     public IuiRouteInfo[] getAllIuiRouteInstances() {
 
 
@@ -65,7 +58,6 @@ public class IuiRouteServiceWrapper {
                         "fetch from jedis pool failed,null object!");
             }
 
-            // 获取全部服务列表
             String routekey =
                     RouteUtil
                             .getPrefixedKey("", RouteUtil.IUIROUTE, "*", RouteUtil.ROUTE_PATH_INFO);
@@ -93,14 +85,6 @@ public class IuiRouteServiceWrapper {
     }
 
 
-
-    /**
-     * @Title: getIuiRouteInstance
-     * @Description: TODO(通过服务名获取单个内容服务对象信息)
-     * @param: @param serviceName
-     * @param: @return
-     * @return: IuiRouteInfo
-     */
     public IuiRouteInfo getIuiRouteInstance(String serviceName) {
 
         if (StringUtils.isBlank(serviceName)) {
@@ -145,7 +129,6 @@ public class IuiRouteServiceWrapper {
         IuiRouteInfo iuiRouteInfo = null;
 
 
-        // 获取info信息
         String routekey =
                 RouteUtil.getPrefixedKey("", RouteUtil.IUIROUTE, serviceName,
                         RouteUtil.ROUTE_PATH_INFO);
@@ -160,7 +143,6 @@ public class IuiRouteServiceWrapper {
             iuiRouteInfo.setUseOwnUpstream(infomap.get("useOwnUpstream"));
 
 
-            // 获取负载均衡信息
             String serviceLBkey =
                     RouteUtil.getPrefixedKey("", RouteUtil.IUIROUTE, serviceName,
                             RouteUtil.ROUTE_PATH_LOADBALANCE);
@@ -185,14 +167,6 @@ public class IuiRouteServiceWrapper {
         return iuiRouteInfo;
     }
 
-    /**
-     * @Title: updateIuiRouteInstance
-     * @Description: TODO(更新单个服务信息)
-     * @param: @param serviceName
-     * @param: @param IuiRouteInfo
-     * @param: @return
-     * @return: IuiRouteInfo
-     */
     public synchronized IuiRouteInfo updateIuiRouteInstance(String serviceName,
             IuiRouteInfo iuiRouteInfo) {
 
@@ -202,11 +176,9 @@ public class IuiRouteServiceWrapper {
 
         try {
             if (serviceName.equals(iuiRouteInfo.getServiceName())) {
-                // 删除已存在负载均衡服务器信息
                 deleteIuiRoute(serviceName, RouteUtil.ROUTE_PATH_LOADBALANCE + "*");
 
             } else {
-                // 如果已修改服务名，先删除此服务全部已有信息
                 deleteIuiRoute(serviceName, "*");
             }
             saveIuiRouteInstance(iuiRouteInfo);
@@ -223,14 +195,6 @@ public class IuiRouteServiceWrapper {
 
     }
 
-    /**
-     * @Title updateIuiRouteStatus
-     * @Description TODO(更新单个服务状态)
-     * @param serviceName
-     * @param status
-     * @return
-     * @return RouteResult
-     */
     public synchronized IuiRouteInfo updateIuiRouteStatus(String serviceName, String status) {
 
 
@@ -246,7 +210,6 @@ public class IuiRouteServiceWrapper {
 
         IuiRouteInfo new_iuiRouteInfo = getIuiRouteInstance(serviceName);
 
-        // 准备info信息
         String serviceInfokey =
                 RouteUtil.getPrefixedKey("", RouteUtil.IUIROUTE, serviceName,
                         RouteUtil.ROUTE_PATH_INFO);
@@ -261,7 +224,6 @@ public class IuiRouteServiceWrapper {
                 throw new ExtendedInternalServerErrorException(
                         "fetch from jedis pool failed,null object!");
             }
-            // 保存info信息
             jedis.hmset(serviceInfokey, serviceInfoMap);
             new_iuiRouteInfo.setStatus(status);
 
@@ -277,13 +239,6 @@ public class IuiRouteServiceWrapper {
         return new_iuiRouteInfo;
     }
 
-    /**
-     * @Title: saveIuiRouteInstance
-     * @Description: TODO(存储单个服务信息)
-     * @param: @param IuiRouteInfo
-     * @param: @return
-     * @return: IuiRouteInfo
-     */
     public synchronized IuiRouteInfo saveIuiRouteInstance(IuiRouteInfo iuiRouteInfo) {
 
         if (StringUtils.isBlank(iuiRouteInfo.getServiceName())
@@ -324,7 +279,6 @@ public class IuiRouteServiceWrapper {
                             + RouteUtil.show(RouteUtil.useOwnUpstreamRangeMatches) + ")");
         }
 
-        // 检查服务实例格式
         RouteServer[] serverList = iuiRouteInfo.getServers();
         for (int i = 0; i < serverList.length; i++) {
             RouteServer server = serverList[i];
@@ -340,7 +294,6 @@ public class IuiRouteServiceWrapper {
         }
 
 
-        // 准备info信息
         String serviceInfokey =
                 RouteUtil.getPrefixedKey("", RouteUtil.IUIROUTE, iuiRouteInfo.getServiceName().trim(),
                         RouteUtil.ROUTE_PATH_INFO);
@@ -353,7 +306,6 @@ public class IuiRouteServiceWrapper {
         serviceInfoMap.put("useOwnUpstream", iuiRouteInfo.getUseOwnUpstream());
 
 
-        // 准备负载均衡信息
         String serviceLBkey =
                 RouteUtil.getPrefixedKey("", RouteUtil.IUIROUTE, iuiRouteInfo.getServiceName(),
                         RouteUtil.ROUTE_PATH_LOADBALANCE);
@@ -366,10 +318,8 @@ public class IuiRouteServiceWrapper {
                 throw new ExtendedInternalServerErrorException(
                         "fetch from jedis pool failed,null object!");
             }
-            // 保存info信息
             jedis.hmset(serviceInfokey, serviceInfoMap);
 
-            // 保存负载均衡信息
             for (int i = 0; i < serverList.length; i++) {
                 Map<String, String> servermap = new HashMap<String, String>();
                 RouteServer server = serverList[i];
@@ -395,15 +345,6 @@ public class IuiRouteServiceWrapper {
 
 
 
-    /**
-     * @Title: deleteIuiRoute
-     * @Description: TODO(删除单个服务信息)
-     * @param: @param type
-     * @param: @param serviceName
-     * @param: @param delKey
-     * @param: @return
-     * @return: void
-     */
     public synchronized void deleteIuiRoute(String serviceName, String delKey) {
 
         if (StringUtils.isBlank(serviceName)) {
@@ -418,7 +359,6 @@ public class IuiRouteServiceWrapper {
                         "fetch from jedis pool failed,null object!");
             }
 
-            // 获取info信息
             String routekey = RouteUtil.getPrefixedKey("", RouteUtil.IUIROUTE, serviceName, delKey);
             Set<String> infoSet = jedis.keys(routekey);
 
@@ -429,7 +369,6 @@ public class IuiRouteServiceWrapper {
 
             String[] paths = new String[infoSet.size()];
 
-            // Set-->数组
             infoSet.toArray(paths);
 
             jedis.del(paths);

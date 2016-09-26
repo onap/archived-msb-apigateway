@@ -39,14 +39,6 @@ import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 
 
-
-/**
- * @ClassName: ApiRouteServiceWrapper
- * @Description: TODO(ApiRoute服务类)
- * @author tanghua10186366
- * @date 2015年9月25日 上午9:44:04
- * 
- */
 public class ApiRouteServiceWrapper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApiRouteServiceWrapper.class);
@@ -60,12 +52,7 @@ public class ApiRouteServiceWrapper {
         return instance;
     }
 
-    /**
-     * @Title: getAllApiRouteInstances
-     * @Description: TODO(获取全部服务列表)
-     * @param: @return
-     * @return: ApiRouteInfoBean[]
-     */
+  
     public ApiRouteInfo[] getAllApiRouteInstances() {
 
 
@@ -78,7 +65,7 @@ public class ApiRouteServiceWrapper {
                         "fetch from jedis pool failed,null object!");
             }
 
-            // 获取全部服务列表
+      
             String routekey =
                     RouteUtil
                             .getPrefixedKey("", RouteUtil.APIROUTE, "*", RouteUtil.ROUTE_PATH_INFO);
@@ -126,14 +113,7 @@ public class ApiRouteServiceWrapper {
         return false;
     }
 
-    /**
-     * @Title: getApiRouteInstance
-     * @Description: TODO(通过服务名+版本号获取单个服务对象信息)
-     * @param: @param serviceName
-     * @param: @param version
-     * @param: @return
-     * @return: ApiRouteInfo
-     */
+ 
     public ApiRouteInfo getApiRouteInstance(String serviceName, String version) {
 
         if (StringUtils.isBlank(serviceName)) {
@@ -191,7 +171,7 @@ public class ApiRouteServiceWrapper {
         ApiRouteInfo apiRouteInfo = null;
 
 
-        // 获取info信息
+   
         String routekey =
                 RouteUtil.getPrefixedKey("", RouteUtil.APIROUTE, serviceName, version,
                         RouteUtil.ROUTE_PATH_INFO);
@@ -210,7 +190,7 @@ public class ApiRouteServiceWrapper {
             apiRouteInfo.setUseOwnUpstream(infomap.get("useOwnUpstream"));
 
 
-            // 获取负载均衡信息
+        
             String serviceLBkey =
                     RouteUtil.getPrefixedKey("", RouteUtil.APIROUTE, serviceName, version,
                             RouteUtil.ROUTE_PATH_LOADBALANCE);
@@ -230,34 +210,14 @@ public class ApiRouteServiceWrapper {
 
             apiRouteInfo.setServers(apiRouteServerList);
 
-            // 获取生命周期信息
-
-//            ApiRouteLifeCycle lifeCycle = new ApiRouteLifeCycle();
-//            String serviceLifekey =
-//                    RouteUtil.getPrefixedKey("", RouteUtil.APIROUTE, serviceName, version,
-//                            RouteUtil.APIROUTE_PATH_LIFE);
-//            Map<String, String> serviceLifeMap = jedis.hgetAll(serviceLifekey);
-//
-//            lifeCycle.setInstallPath(serviceLifeMap.get("path"));
-//            lifeCycle.setStartScript(serviceLifeMap.get("start"));
-//            lifeCycle.setStopScript(serviceLifeMap.get("stop"));
-//
-//            apiRouteInfo.setLifeCycle(lifeCycle);
+         
         }
 
 
         return apiRouteInfo;
     }
 
-    /**
-     * @Title: updateApiRouteInstance
-     * @Description: TODO(更新单个服务信息)
-     * @param: @param serviceName
-     * @param: @param version
-     * @param: @param apiRouteInfo
-     * @param: @return
-     * @return: ApiRouteInfo
-     */
+  
     public synchronized ApiRouteInfo updateApiRouteInstance(String serviceName, String version,
             ApiRouteInfo apiRouteInfo, String serverPort) {
 
@@ -284,12 +244,12 @@ public class ApiRouteServiceWrapper {
 
             if (serviceName.equals(apiRouteInfo.getServiceName())
                     && version.equals(apiRouteInfo.getVersion())) {
-                // 删除已存在负载均衡服务器信息
+          
                 deleteApiRoute(serviceName, version, RouteUtil.ROUTE_PATH_LOADBALANCE + "*",
                         serverPort);
 
             } else {
-                // 如果已修改服务名或者版本号，先删除此服务全部已有信息
+           
                 deleteApiRoute(serviceName, version, "*", serverPort);
             }
 
@@ -310,15 +270,7 @@ public class ApiRouteServiceWrapper {
 
     }
 
-    /**
-     * @Title updateApiRouteStatus
-     * @Description TODO(更新单个服务状态)
-     * @param serviceName
-     * @param version
-     * @param status
-     * @return
-     * @return RouteResult
-     */
+   
     public synchronized ApiRouteInfo updateApiRouteStatus(String serviceName, String version,
             String status) {
 
@@ -346,7 +298,7 @@ public class ApiRouteServiceWrapper {
         ApiRouteInfo new_apiRouteInfo = getApiRouteInstance(serviceName, version);
 
 
-        // 准备info信息
+
         String serviceInfokey =
                 RouteUtil.getPrefixedKey("", RouteUtil.APIROUTE, serviceName, version,
                         RouteUtil.ROUTE_PATH_INFO);
@@ -360,7 +312,7 @@ public class ApiRouteServiceWrapper {
             if (jedis == null) {
                 throw new Exception("fetch from jedis pool failed,null object!");
             }
-            // 保存info信息
+   
             jedis.hmset(serviceInfokey, serviceInfoMap);
             new_apiRouteInfo.setStatus(status);
 
@@ -378,13 +330,7 @@ public class ApiRouteServiceWrapper {
     }
 
 
-    /**
-     * @Title: saveApiRouteInstance
-     * @Description: TODO(存储单个服务信息)
-     * @param: @param apiRouteInfo
-     * @param: @return
-     * @return: ApiRouteInfo
-     */
+   
     public synchronized ApiRouteInfo saveApiRouteInstance(ApiRouteInfo apiRouteInfo,
             String serverPort) {
 
@@ -435,7 +381,7 @@ public class ApiRouteServiceWrapper {
                             + RouteUtil.show(RouteUtil.useOwnUpstreamRangeMatches) + ")");
         }
 
-        // 检查服务实例格式
+       
         RouteServer[] serverList = apiRouteInfo.getServers();
         for (int i = 0; i < serverList.length; i++) {
             RouteServer server = serverList[i];
@@ -450,7 +396,7 @@ public class ApiRouteServiceWrapper {
             }
         }
 
-        // 准备info信息
+
         String serviceInfokey =
                 RouteUtil.getPrefixedKey(serverPort, RouteUtil.APIROUTE,
                         apiRouteInfo.getServiceName().trim(), apiRouteInfo.getVersion().trim(),
@@ -466,7 +412,7 @@ public class ApiRouteServiceWrapper {
         serviceInfoMap.put("visualRange", apiRouteInfo.getVisualRange());
         serviceInfoMap.put("useOwnUpstream", apiRouteInfo.getUseOwnUpstream());
 
-        // 准备负载均衡信息
+
         String serviceLBkey =
                 RouteUtil.getPrefixedKey(serverPort, RouteUtil.APIROUTE,
                         apiRouteInfo.getServiceName(), apiRouteInfo.getVersion(),
@@ -480,10 +426,9 @@ public class ApiRouteServiceWrapper {
                 throw new ExtendedInternalServerErrorException(
                         "fetch from jedis pool failed,null object!");
             }
-            // 保存info信息
             jedis.hmset(serviceInfokey, serviceInfoMap);
 
-            // 保存负载均衡信息
+   
             for (int i = 0; i < serverList.length; i++) {
                 Map<String, String> servermap = new HashMap<String, String>();
                 RouteServer server = serverList[i];
@@ -494,22 +439,7 @@ public class ApiRouteServiceWrapper {
 
                 jedis.hmset(serviceLBkey + ":server" + (i + 1), servermap);
             }
-            // 保存生命周期信息
-
-//            ApiRouteLifeCycle lifeCycle = apiRouteInfo.getLifeCycle();
-//            if (lifeCycle != null) {
-//                String serviceLifekey =
-//                        RouteUtil.getPrefixedKey(serverPort, RouteUtil.APIROUTE,
-//                                apiRouteInfo.getServiceName(), apiRouteInfo.getVersion(),
-//                                RouteUtil.APIROUTE_PATH_LIFE);
-//                Map<String, String> serviceLifeMap = new HashMap<String, String>();
-//                serviceLifeMap.put("path", lifeCycle.getInstallPath());
-//                serviceLifeMap.put("start", lifeCycle.getStartScript());
-//                serviceLifeMap.put("stop", lifeCycle.getStopScript());
-//                jedis.hmset(serviceLifekey, serviceLifeMap);
-//            }
-
-
+           
 
         } catch (Exception e) {
             LOGGER.error("call redis throw exception", e);
@@ -525,16 +455,7 @@ public class ApiRouteServiceWrapper {
 
 
 
-    /**
-     * @Title: deleteApiRoute
-     * @Description: TODO(删除单个服务信息)
-     * @param: @param type
-     * @param: @param serviceName
-     * @param: @param version
-     * @param: @param delKey
-     * @param: @return
-     * @return: void
-     */
+
     public synchronized void deleteApiRoute(String serviceName, String version, String delKey,
             String serverPort) {
 
@@ -562,7 +483,7 @@ public class ApiRouteServiceWrapper {
                         "fetch from jedis pool failed,null object!");
             }
 
-            // 获取info信息
+
             String routekey =
                     RouteUtil.getPrefixedKey(serverPort, RouteUtil.APIROUTE, serviceName, version,
                             delKey);
@@ -575,7 +496,7 @@ public class ApiRouteServiceWrapper {
 
             String[] paths = new String[infoSet.size()];
 
-            // Set-->数组
+
             infoSet.toArray(paths);
 
             jedis.del(paths);
@@ -594,12 +515,7 @@ public class ApiRouteServiceWrapper {
 
     }
 
-    /**
-     * @Title: getAllApiDocs
-     * @Description: TODO(获取本地ext\initSwaggerJson目录的全部json文件目录)
-     * @param: @return
-     * @return: String[]
-     */
+ 
     public String[] getAllApiDocs() {
         URL apiDocsPath = ApiRouteServiceWrapper.class.getResource("/ext/initSwaggerJson");
         if (apiDocsPath != null) {
@@ -625,9 +541,6 @@ public class ApiRouteServiceWrapper {
         return null;
     }
 
-    /**
-     * 读取某个文件夹下的所有文件
-     */
     public String[] readfile(String filepath) throws FileNotFoundException, IOException {
         File file = new File(filepath);
         if (file.isDirectory()) {

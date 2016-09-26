@@ -38,7 +38,7 @@ public class CustomRouteInfo implements Serializable{
     private String visualRange = "1"; 
    
     @ApiModelProperty(value = "[LB Policy]non_ip_hash:0,ip_hash:1", allowableValues = "0,1", example = "0")
-    private String useOwnUpstream="0"; //负载均衡策略   
+    private String useOwnUpstream="0"; 
 
     @ApiModelProperty(required = true)
 	private RouteServer servers[]; 

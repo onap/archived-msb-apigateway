@@ -80,7 +80,7 @@ public static void main(String[] args) {
 					}
 				 
 
-					// 设置连接池基本信息
+					
 					String strHost = bundle.getString("redis.host");
 					if(StringUtils.isNotEmpty(strHost)){
 						host = strHost;

@@ -256,7 +256,6 @@ public class MicroServiceWrapper {
 
     public synchronized MicroServiceFullInfo saveMicroServiceInstance(
             MicroServiceInfo microServiceInfo, boolean createOrUpdate,String requestIP,String serverPort) {
-        // 保存数据格式判断
 
         if (StringUtils.isBlank(microServiceInfo.getServiceName())
                 || StringUtils.isBlank(microServiceInfo.getProtocol())
