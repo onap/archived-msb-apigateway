@@ -25,5 +25,29 @@
 				"weight" : 0
 			}
 		]
+	},
+	{
+		"serviceName" : "/winery-topologymodeler",
+		"url" : "/winery-topologymodeler",
+		"control" : "0",
+		"status" : "1",
+		"servers" : [{
+				"ip" : "127.0.0.1",
+				"port" : "8202",
+				"weight" : 0
+			}
+		]
+	},
+	{
+		"serviceName" : "/winery",
+		"url" : "/winery",
+		"control" : "0",
+		"status" : "1",
+		"servers" : [{
+				"ip" : "127.0.0.1",
+				"port" : "8202",
+				"weight" : 0
+			}
+		]
 	}
 ]
