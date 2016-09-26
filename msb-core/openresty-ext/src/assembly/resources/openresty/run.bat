@@ -1,5 +1,5 @@
 @REM
-@REM Copyright 2016 2015-2016 ZTE, Inc. and others. All rights reserved.
+@REM Copyright 2016 ZTE Corporation.
 @REM
 @REM Licensed under the Apache License, Version 2.0 (the "License");
 @REM you may not use this file except in compliance with the License.
