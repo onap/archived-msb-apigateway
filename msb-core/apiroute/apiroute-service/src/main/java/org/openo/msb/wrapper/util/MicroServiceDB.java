@@ -107,7 +107,7 @@ public class MicroServiceDB {
         serviceInfoMap.put("protocol", microServiceInfo.getProtocol());
         serviceInfoMap.put("visualRange",microServiceInfo.getVisualRange());
         serviceInfoMap.put("lb_policy",microServiceInfo.getLb_policy());
-        serviceInfoMap.put("status", "0");
+        serviceInfoMap.put("status", "1");
         
         
 
