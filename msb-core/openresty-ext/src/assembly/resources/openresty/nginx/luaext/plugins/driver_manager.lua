@@ -41,6 +41,7 @@ end
 local function get_driver_url(driver_header)
   local cjson = require "cjson"
   local query_url = get_query_url(driver_header)
+  ngx.req.clear_header(_HEADER)
   local res = ngx.location.capture(query_url, { method = ngx.HTTP_GET})
   ngx.log (ngx.ERR, "Driver manager resp url : ", tostring(res.body))
   if (res.status == 200 and res.body ~= nil and res.body ~= '')
