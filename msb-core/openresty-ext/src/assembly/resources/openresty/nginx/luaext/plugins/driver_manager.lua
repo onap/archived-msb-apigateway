@@ -41,8 +41,10 @@ end
 local function get_driver_url(driver_header)
   local cjson = require "cjson"
   local query_url = get_query_url(driver_header)
+  local driver_header_value = get_driver_header();
   ngx.req.clear_header(_HEADER)
   local res = ngx.location.capture(query_url, { method = ngx.HTTP_GET})
+  ngx.req.set_header(_HEADER, driver_header_value);
   ngx.log (ngx.ERR, "Driver manager resp url : ", tostring(res.body))
   if (res.status == 200 and res.body ~= nil and res.body ~= '')
   then
@@ -50,6 +52,14 @@ local function get_driver_url(driver_header)
   else
     return ''
   end
+end
+
+-- get the ori query param string
+local function get_ori_query()
+  local args = ngx.req.get_uri_args();
+  local ori_query_param = "?"..ngx.encode_args(args);
+  ngx.log(ngx.ERR, "The original request query parameter is ", ori_query_param);
+  return ori_query_param;
 end
 
 -- get headers
@@ -86,7 +96,7 @@ function _M.access()
     if (driver_header ~= "")
     then 
       
-      local driver_url = get_driver_url(driver_header)
+      local driver_url = get_driver_url(driver_header)..get_ori_query();
       ngx.log (ngx.ERR, "Driver manager URl:: ", driver_url)
      
       local http = require "resty.http"
