@@ -490,16 +490,15 @@ public class ApiRouteServiceWrapper {
             Set<String> infoSet = jedis.keys(routekey);
 
             if (infoSet.isEmpty()) {
-                throw new ExtendedNotFoundException("delete ApiRoute FAIL:serviceName-"
-                        + serviceName + ",version:" + version + " not fond ");
+              LOGGER.warn("delete ApiRoute FAIL:serviceName-"
+                  + serviceName + ",version:" + version + " not fond ");
             }
+            else{
 
-            String[] paths = new String[infoSet.size()];
-
-
-            infoSet.toArray(paths);
-
-            jedis.del(paths);
+			  String[] paths = new String[infoSet.size()];
+              infoSet.toArray(paths);
+              jedis.del(paths);
+            }
 
 
         } catch (ExtendedNotFoundException e) {

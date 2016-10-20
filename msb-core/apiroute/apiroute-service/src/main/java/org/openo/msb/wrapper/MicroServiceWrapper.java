@@ -303,50 +303,31 @@ public class MicroServiceWrapper {
                             + RouteUtil.PROTOCOL_LIST + ")");
         }
 
-        MicroServiceFullInfo existingMicroServiceInfo;
+     
         try {
-            //To determine whether a service already exists
-            existingMicroServiceInfo =
-                    MicroServiceDB.getInstance().getMicroServiceInstance(
-                            microServiceInfo.getServiceName().trim(), microServiceInfo.getVersion().trim(),serverPort);
-
-            MicroServiceFullInfo newMicroServiceInfo ;
-            if (existingMicroServiceInfo != null) {
-                //a service already exists
-
-                if (!existingMicroServiceInfo.getProtocol().equals(microServiceInfo.getProtocol())) {
-                    throw new ExtendedNotSupportedException(
-                            "MicroServiceInfo with different protocols and same serviceName is already existing");
-                }
+          
+           
 
                 if (createOrUpdate == false) {
                     //After the first remove added
                     MicroServiceDB.getInstance().deleteMicroService(
                             microServiceInfo.getServiceName(), microServiceInfo.getVersion(),serverPort);
 
-                    MicroServiceDB.getInstance().saveMicroServiceInfo2Redis(microServiceInfo,serverPort);
+                    //Notify the listeners
+                    MicroServiceDB.getInstance().noticeApiListener(microServiceInfo, "DELETE",serverPort);
          
-                } else {
-                    //Add the original record and save directly
-                    MicroServiceDB.getInstance().saveMicroServiceInfo2Redis(microServiceInfo,serverPort);
-                }
+                } 
                 
-                newMicroServiceInfo =
-                        MicroServiceDB.getInstance().getMicroServiceInstance(
-                                microServiceInfo.getServiceName(), microServiceInfo.getVersion(),serverPort);
-
-                //Notify the listeners
-                MicroServiceDB.getInstance().noticeUpdateApiListener(microServiceInfo.getServiceName(),microServiceInfo.getVersion(),newMicroServiceInfo,serverPort);
-
-            } else {
                 //Save the new record
                 MicroServiceDB.getInstance().saveMicroServiceInfo2Redis(microServiceInfo,serverPort);
                 //Notify the listeners
                 MicroServiceDB.getInstance().noticeApiListener(microServiceInfo, "ADD",serverPort);
-                newMicroServiceInfo =
-                        MicroServiceDB.getInstance().getMicroServiceInstance(
-                                microServiceInfo.getServiceName(), microServiceInfo.getVersion(),serverPort);
-            }
+                
+                
+               
+                MicroServiceFullInfo newMicroServiceInfo =
+                    MicroServiceDB.getInstance().getMicroServiceInstance(
+                            microServiceInfo.getServiceName(), microServiceInfo.getVersion(),serverPort);
 
   
 
