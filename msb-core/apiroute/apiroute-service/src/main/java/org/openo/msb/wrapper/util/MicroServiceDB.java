@@ -346,11 +346,17 @@ public class MicroServiceDB {
             String routekey = MicroServiceUtil.getPrefixedKey(serverPort,serviceName, version, "*");
             Set<String> infoSet = jedis.keys(routekey);
 
+            if (infoSet.isEmpty()) {
+              LOGGER.error("delete MicroService FAIL:serviceName-"
+                  + serviceName + ",version:" + version + " not fond ");
+            }
+            else{
             String[] paths = new String[infoSet.size()];
 
             infoSet.toArray(paths);
 
             jedis.del(paths);
+            }
         } catch (Exception e) {
             LOGGER.error("call redis throw exception", e);
             throw new Exception("call redis throw exception:"+e.getMessage());

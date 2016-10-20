@@ -388,16 +388,15 @@ public class CustomRouteServiceWrapper {
             Set<String> infoSet = jedis.keys(routekey);
 
             if (infoSet.isEmpty()) {
-                throw new ExtendedNotFoundException("delete CustomRoute FAIL:serviceName-"
+              LOGGER.warn("delete CustomRoute FAIL:serviceName-"
                         + serviceName + " not fond ");
             }
+            else{
 
-
-            String[] paths = new String[infoSet.size()];
-
-            infoSet.toArray(paths);
-
-            jedis.del(paths);
+              String[] paths = new String[infoSet.size()];
+              infoSet.toArray(paths);
+              jedis.del(paths);
+            }
 
         } catch (ExtendedNotFoundException e) {
             throw e;

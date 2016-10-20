@@ -363,15 +363,15 @@ public class IuiRouteServiceWrapper {
             Set<String> infoSet = jedis.keys(routekey);
 
             if (infoSet.isEmpty()) {
-                throw new ExtendedNotFoundException("delete IuiRoute FAIL:serviceName-"
+              LOGGER.warn("delete IuiRoute FAIL:serviceName-"
                         + serviceName + " not fond ");
             }
+            else{
 
-            String[] paths = new String[infoSet.size()];
-
-            infoSet.toArray(paths);
-
-            jedis.del(paths);
+              String[] paths = new String[infoSet.size()];
+              infoSet.toArray(paths);
+              jedis.del(paths);
+            }
 
 
         } catch (ExtendedNotFoundException e) {
