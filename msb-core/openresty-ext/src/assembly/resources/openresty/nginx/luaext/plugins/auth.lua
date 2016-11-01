@@ -25,7 +25,13 @@ local redirect_url = "/openoui/common/login.html"
 local white_list= {
   auth_token_url,
   redirect_url,
-  '/portal-package/common/'
+  '/openoui/common/css',
+  '/openoui/common/js',
+  '/openoui/common/thirdparty',
+  '/openoui/common/i18n',
+  '/openoui/common/image',
+  '/openoui/common/login.html',
+  '/openoui/common/json'
 };
 
 local function verify_value(value)
