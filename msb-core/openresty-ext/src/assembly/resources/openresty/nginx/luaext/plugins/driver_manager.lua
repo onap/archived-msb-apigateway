@@ -104,7 +104,9 @@ function _M.access()
       local actual_body = get_body_params()
 
       ngx.log(ngx.ERR, "HTTP request to driver... ", " Request to driver manager")
-      local res, err = http.new():request_uri(driver_url, {
+      local httpc = http.new();
+      httpc:set_timeout(300000);
+      local res, err = httpc:request_uri(driver_url, {
             method = ngx.req.get_method(),
             body = actual_body,
             headers = actual_headers

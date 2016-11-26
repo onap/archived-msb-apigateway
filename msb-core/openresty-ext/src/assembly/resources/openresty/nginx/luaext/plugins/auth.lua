@@ -20,12 +20,18 @@ _M._VERSION = '1.0.0'
 local auth_url = '/openoapi/auth/v1';
 local auth_token_url = auth_url..'/tokens';
 local auth_token_key = "X-Auth-Token";
-local redirect_url = "/openoui/auth/v1/login/html/login.html"
+local redirect_url = "/openoui/common/login.html"
 
 local white_list= {
   auth_token_url,
   redirect_url,
-  '/openoui/auth/v1/login/'
+  '/openoui/common/css',
+  '/openoui/common/js',
+  '/openoui/common/thirdparty',
+  '/openoui/common/i18n',
+  '/openoui/common/image',
+  '/openoui/common/login.html',
+  '/openoui/common/json'
 };
 
 local function verify_value(value)
@@ -104,7 +110,7 @@ local function get_service_url()
     proto = "http://";
   end
   --get url
-  local uri = ngx.var.rui;
+  local uri = ngx.var.uri;
   --form complete service url.
   --local complete_url = proto..host..port..url
   local complete_url = uri;
