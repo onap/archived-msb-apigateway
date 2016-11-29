@@ -26,7 +26,7 @@
     <groupId>org.openo.oparent</groupId>
     <artifactId>oparent</artifactId>
     <version>1.1.0-SNAPSHOT</version>
-    <relativePath></relativePath>
+    <relativePath/>
   </parent>
 
 
@@ -34,7 +34,7 @@
   <artifactId>msbparent-lite</artifactId>
   <version>1.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>msbparent-lite</name>
+  <name>common-services-microservice-bus/msb-parent/msbparent-lite</name>
 
   <properties>
     <stream>latest</stream><!-- CI should pass in -Dstream={stream} -->

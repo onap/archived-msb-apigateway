@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>msb-core-parent</artifactId>
     <version>1.1.0-SNAPSHOT</version>
-    <name>openo/msb/msb-core-parent</name>
+    <name>common-services-microservice-bus/msb-core</name>
     <packaging>pom</packaging>
     <modules>
         <module>openresty</module>

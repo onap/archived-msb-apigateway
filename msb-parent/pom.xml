@@ -31,7 +31,7 @@
 
 <artifactId>msbparent-aggregator</artifactId>
 <version>1.0.0</version>
-<name>msbparent-aggregator</name>
+<name>common-services-microservice-bus/msb-parent</name>
 <packaging>pom</packaging>
 
 
