@@ -30,11 +30,18 @@
     <version>1.1.0-SNAPSHOT</version>
     <name>common-services-microservice-bus/msb-core</name>
     <packaging>pom</packaging>
+    <properties>
+        <openresty.version>1.11.2.2</openresty.version>
+        <redis.version>3.2.6</redis.version>
+        <classifier.linux64>linux64</classifier.linux64>
+        <linux64outputdir>target/assembly/${classifier.linux64}/</linux64outputdir>
+        <version.output>target/version</version.output>
+    </properties>
     <modules>
         <module>openresty</module>
         <module>openresty-ext</module>
         <module>eag-openresty-ext</module>
-        <module>redis</module>
+        <!--<module>redis</module>-->
         <module>redis-ext</module>
         <module>apiroute</module>
         <module>distributions</module>
