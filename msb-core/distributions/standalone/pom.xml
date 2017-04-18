@@ -55,28 +55,11 @@
         <version>${project.version}</version>
         <optional>true</optional>
     </dependency>
-
-    <dependency>
-        <groupId>org.openo.common-services.microservice-bus</groupId>
-        <artifactId>openresty</artifactId>
-        <type>zip</type>
-        <classifier>win64</classifier>
-        <version>${project.version}</version>
-        <optional>true</optional>
-    </dependency>
-    <dependency>
-        <groupId>org.openo.common-services.microservice-bus</groupId>
-        <artifactId>openresty</artifactId>
-        <type>tar.gz</type>
-        <classifier>linux64</classifier>
-        <version>${project.version}</version>
-        <optional>true</optional>
-    </dependency>
-
     <dependency>
         <groupId>org.openo.common-services.microservice-bus</groupId>
         <artifactId>openresty-ext</artifactId>
-        <type>zip</type>
+        <type>tar.gz</type>
+        <classifier>linux64</classifier>
         <version>${project.version}</version>
         <optional>true</optional>
     </dependency>
@@ -169,14 +152,9 @@
                   </artifactItem>
                   <artifactItem>
                     <groupId>org.openo.common-services.microservice-bus</groupId>
-                    <artifactId>openresty</artifactId>
+                    <artifactId>openresty-ext</artifactId>
                     <type>tar.gz</type>
                     <classifier>linux64</classifier>
-                  </artifactItem>
-                  <artifactItem>
-                    <groupId>org.openo.common-services.microservice-bus</groupId>
-                    <artifactId>openresty-ext</artifactId>
-                    <type>zip</type>
                   </artifactItem>
               </artifactItems>
               <excludes>**/*.bat,*.cmd</excludes>
@@ -195,9 +173,9 @@
             <phase>prepare-package</phase>
             <configuration>
               <artifactItems>
-                  <artifactItem>
+                 <artifactItem>
                     <groupId>org.openo.common-services.microservice-bus</groupId>
-                    <artifactId>openresty</artifactId>
+                    <artifactId>openresty-ext</artifactId>
                     <type>tar.gz</type>
                     <classifier>linux64</classifier>
                   </artifactItem>

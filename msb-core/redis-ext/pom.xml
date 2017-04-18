@@ -64,7 +64,6 @@
                       <artifactItem>
                         <groupId>org.redis.centos.7</groupId>
                         <artifactId>redis</artifactId>
-						<version>${redis.version}</version>
                         <type>tar.gz</type>
                         <outputDirectory>${linux64outputdir}</outputDirectory>        
                       </artifactItem>                                   

@@ -38,58 +38,125 @@
       <packageid>openresty-ext</packageid>
     </properties>
 
+  <dependencies>
+    <dependency>
+          <groupId>org.openresty.centos.6</groupId>
+          <artifactId>openresty</artifactId>
+          <version>${openresty.version}</version>
+          <type>tar.gz</type>
+        </dependency>
+    </dependencies>
+
     <build>
     <plugins>
-    <plugin>
-      <artifactId>maven-resources-plugin</artifactId>
-        <configuration>
-      <includeEmptyDirs>true</includeEmptyDirs>
-      </configuration>
-      <executions>
-        <execution>
-          <id>copy-resources</id>
-          <phase>process-resources</phase>
-          <goals>
-            <goal>copy-resources</goal>
-          </goals>
-          <configuration>
-            <outputDirectory>${outputdir}</outputDirectory>
-            <resources>
-                    <resource>
-                <directory>src/assembly/resources/</directory>
-                <filtering>false</filtering>
-                <includes>
-                  <include>**/*</include>
-                </includes>
-              </resource>
-            </resources>
-            <overwrite>true</overwrite>
-          </configuration>
-        </execution>
-      </executions>
-      </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-dependency-plugin</artifactId>
+              <executions>      
+                <execution>
+                  <id>unpack-dependency-file-linux</id>
+                  <goals>
+                    <goal>unpack</goal>
+                  </goals>
+                  <!--解压顺序，在最前面-->
+                  <phase>generate-resources</phase>
+                  <configuration>
+                    <artifactItems>   
+                      <artifactItem>
+                        <groupId>org.openresty.centos.6</groupId>
+                        <artifactId>openresty</artifactId>
+                        <type>tar.gz</type>
+                        <outputDirectory>${linux64outputdir}</outputDirectory>         
+                      </artifactItem>
+                    </artifactItems>
+                    <excludes>**/pod/**,**/*.pdb</excludes>
+                    <overWriteReleases>false</overWriteReleases>
+                    <overWriteSnapshots>true</overWriteSnapshots>
+                    <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
+                  </configuration>
+                </execution>          
+              </executions>
+            </plugin> 
 
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-antrun-plugin</artifactId>
-      <executions>
-        <execution>
-            <id>distribution</id>
-            <phase>package</phase>
-            <goals>
-                <goal>run</goal>
-            </goals>
-            <configuration>
-                <target name="distribution">
-                    <zip destfile="target/${packageid}-${project.version}.zip" update="true">
-                      <zipfileset dir="target/assembly/" includes="**"/>
-                    </zip>
-                    <attachartifact file="target/${packageid}-${project.version}.zip" type="zip"/>
-                </target>
-            </configuration>
-        </execution>
-      </executions>
-    </plugin>
+            <plugin>
+              <groupId>com.coderplus.maven.plugins</groupId>
+              <artifactId>copy-rename-maven-plugin</artifactId>
+              <version>1.0.1</version>
+              <executions>          
+                <execution>
+                  <id>rename-nginx-dir</id>
+                  <phase>process-resources</phase>
+                  <goals>
+                    <goal>rename</goal>
+                  </goals>
+                  <configuration>
+                    <sourceFile>${linux64outputdir}/openresty-${openresty.version}</sourceFile>
+                    <destinationFile>${linux64outputdir}/openresty</destinationFile>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>    
+
+            <plugin>
+              <artifactId>maven-resources-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>copy-msb-resources-linux64</id>                 
+                  <phase>process-resources</phase>
+                  <goals>
+                    <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                    <outputDirectory>${linux64outputdir}</outputDirectory>
+                    <includeEmptyDirs>true</includeEmptyDirs>
+                    <resources>     
+                      <resource>
+                        <directory>src/assembly/resources/</directory>
+                        <filtering>false</filtering>
+                        <includes>
+                          <include>**/*</include>
+                        </includes>
+                        <excludes>
+                          <exclude>**/*.bat</exclude>
+                          <exclude>**/openrestyService*</exclude>
+                        </excludes>
+                      </resource>  
+                    </resources>
+                    <overwrite>true</overwrite>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+          
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <executions>
+                <execution>
+                    <id>distribution-linux</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <configuration>
+                        <target name="distribution">
+                            <tar destfile="${version.output}/${packageid}-${project.version}-${classifier.linux64}.tar.gz" longfile="posix" compression="gzip">
+                                <tarfileset dir="${linux64outputdir}" filemode="0644" dirmode="0755">
+                                    <exclude name="**/*.sh"/>
+                                    <exclude name="openresty/nginx/sbin/nginx"/>                  
+                                </tarfileset>
+                                <tarfileset dir="${linux64outputdir}" filemode="0755" dirmode="0755">
+                                    <include name="**/*.sh"/>
+                                    <include name="openresty/nginx/sbin/nginx"/>                  
+                                </tarfileset>
+                            </tar>
+                            <attachartifact file="${version.output}/${packageid}-${project.version}-${classifier.linux64}.tar.gz" classifier="${classifier.linux64}" type="tar.gz"/>
+                        </target>
+                    </configuration>
+                </execution>
+              </executions>
+            </plugin>
 
     </plugins>
     </build>
