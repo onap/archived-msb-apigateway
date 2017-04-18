@@ -38,7 +38,6 @@
         <version.output>target/version</version.output>
     </properties>
     <modules>
-        <module>openresty</module>
         <module>openresty-ext</module>
         <module>eag-openresty-ext</module>
         <module>redis-ext</module>
