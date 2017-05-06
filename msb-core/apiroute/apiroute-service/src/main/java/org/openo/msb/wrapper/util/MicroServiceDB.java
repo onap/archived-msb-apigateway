@@ -395,7 +395,7 @@ public class MicroServiceDB {
      * @return
      */
     private boolean isNeedNotifyByProtocol(String protocol) {
-        return "UI".equalsIgnoreCase(protocol) ||("REST".equalsIgnoreCase(protocol));
+        return "UI".equalsIgnoreCase(protocol) || "REST".equalsIgnoreCase(protocol)  || "HTTP".equalsIgnoreCase(protocol);
     }
     
     /**

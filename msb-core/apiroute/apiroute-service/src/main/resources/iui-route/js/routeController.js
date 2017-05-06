@@ -35,7 +35,7 @@ var vm = avalon
 			},
 			showAPIType:"0",
 			showAPITypeName:[$.i18n.prop("org_openo_msb_route_swagger_type_predefined"),$.i18n.prop("org_openo_msb_route_swagger_type_custominput")],
-			$msbProtocol :["REST","UI","MQ","FTP","SNMP","TCP","UDP"],
+			$msbProtocol :["REST","UI","HTTP","MQ","FTP","SNMP","TCP","UDP"],
 			$msbType:["UI","NAF","SAF"],
 			apiJson:{
 				local:"",

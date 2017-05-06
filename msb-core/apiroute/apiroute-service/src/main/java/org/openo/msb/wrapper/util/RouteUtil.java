@@ -47,7 +47,7 @@ public class RouteUtil {
 	
 	public static final String REQUEST_FAIL = "FAIL";
 	
-    public static String PROTOCOL_LIST="REST,UI,MQ,FTP,SNMP,TCP,UDP"; 
+    public static String PROTOCOL_LIST="REST,UI,HTTP,MQ,FTP,SNMP,TCP,UDP"; 
     
     public static DiscoverInfo discoverInfo=new DiscoverInfo();
     
