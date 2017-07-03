@@ -1,0 +1,31 @@
+[{
+		"serviceName" : "microservices",
+		"version" : "v1",
+		"url" : "/api/microservices/v1",
+		"apiJson" : "/api/microservices/v1/swagger.json",
+		"apiJsonType" : "1",
+		"metricsUrl" : "/admin/metrics",
+		"control" : "1",
+		"status" : "1",
+		"host":"msb",
+		"servers" : [{
+				"ip" : "127.0.0.1",
+				"port" : "8066",
+				"weight" : 0
+			}
+		]
+	},	
+	{
+		"serviceName" : "microservices",
+		"url" : "/iui/microservices",
+		"control" : "1",
+		"status" : "1",
+		"host":"msb",
+		"servers" : [{
+				"ip" : "127.0.0.1",
+				"port" : "8066",
+				"weight" : 0
+			}
+		]
+	}
+]
