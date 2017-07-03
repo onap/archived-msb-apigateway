@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>org.onap.msb.apigateway.distributions</groupId>
+    <artifactId>distributions-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.onap.msb.apigateway.distributions</groupId>
+  <artifactId>msb-apigateway</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>onap/msb/apigateway/distributions/msb-apigateway</name>
+  <packaging>pom</packaging>
+
+  <properties>
+    <packageid>msb-apigateway</packageid>
+    <version.output>target/version</version.output>
+  </properties>
+
+  <profiles>
+    <profile>
+      <id>linux</id>
+      <activation>
+          <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+            <groupId>org.onap.msb.apigateway.apiroute</groupId>
+            <artifactId>apiroute-standalone</artifactId>
+            <type>zip</type>   
+            <version>${project.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.onap.msb.apigateway</groupId>
+            <artifactId>redis-ext</artifactId>
+            <type>tar.gz</type>      
+            <classifier>${classifier.linux64}</classifier>
+            <version>${project.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+          <groupId>org.onap.msb.apigateway</groupId>
+          <artifactId>openresty-ext</artifactId>
+          <type>tar.gz</type>      
+          <classifier>${classifier.linux64}</classifier>
+          <version>${project.version}</version>
+          <optional>true</optional>
+        </dependency>
+      </dependencies>
+
+      <build>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <executions>
+            <execution>
+                <id>unpacktolinux64</id>
+                <goals>
+                    <goal>unpack</goal>
+                </goals>
+                <phase>prepare-package</phase>
+                <configuration>
+                  <artifactItems>
+                      <artifactItem>
+                        <groupId>org.onap.msb.apigateway.apiroute</groupId>
+                        <artifactId>apiroute-standalone</artifactId>
+                        <type>zip</type>   
+                      </artifactItem>               
+                      <artifactItem>
+                        <groupId>org.onap.msb.apigateway</groupId>
+                        <artifactId>redis-ext</artifactId>
+                        <type>tar.gz</type>      
+                        <classifier>${classifier.linux64}</classifier>           
+                      </artifactItem>  
+                      <artifactItem>
+                        <groupId>org.onap.msb.apigateway</groupId>
+                        <artifactId>openresty-ext</artifactId>
+                        <type>tar.gz</type>      
+                        <classifier>${classifier.linux64}</classifier>          
+                      </artifactItem>                      
+                  </artifactItems>
+                  <excludes>**/*.bat,**/*.cmd,**/*.exe</excludes>
+                  <outputDirectory>${linux64outputdir}</outputDirectory>
+                  <overWriteReleases>false</overWriteReleases>
+                  <overWriteSnapshots>true</overWriteSnapshots>
+                  <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
+                </configuration>
+            </execution>      
+          </executions>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>copy-msb-resources-linux</id>                 
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>copy-resources</goal>
+              </goals>
+              <configuration>
+                <outputDirectory>${linux64outputdir}</outputDirectory>
+                <includeEmptyDirs>true</includeEmptyDirs>
+                <resources>     
+                  <resource>
+                    <directory>src/assembly/resources/</directory>
+                    <filtering>false</filtering>
+                    <includes>
+                      <include>**/*</include>
+                    </includes>
+                    <excludes>
+                      <exclude>**/*.bat</exclude>
+                    </excludes>
+                  </resource>  
+                </resources>
+                <overwrite>true</overwrite>
+              </configuration>
+            </execution>
+            <execution>
+              <id>copy-resources-dockerfile</id>                 
+              <phase>process-resources</phase>
+              <goals>
+                <goal>copy-resources</goal>
+              </goals>
+              <configuration>            
+                <outputDirectory>${version.output}</outputDirectory>
+                <includeEmptyDirs>true</includeEmptyDirs>
+                <resources>     
+                  <resource>
+                    <directory>${dockerFileDir}</directory>
+                    <filtering>false</filtering>
+                    <includes>
+                      <include>**/*</include>
+                    </includes>
+                  </resource>  
+                </resources>
+                <overwrite>true</overwrite>
+              </configuration>
+            </execution>     
+          </executions>
+        </plugin>  
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>distribution</id>
+              <phase>package</phase>
+              <goals>
+                <goal>run</goal>
+              </goals>
+              <configuration>
+                <target name="distribution">
+
+                  <tstamp>
+                    <format property="last.updated" pattern="yyyy-MM-dd HH:mm:ss"/>
+                  </tstamp>
+                  <echo file="${linux64outputdir}/msb.version.properties" message="build.time=${last.updated}${line.separator}build.version=${project.version}"/>
+                  <tar destfile="${version.output}/${packageid}-${project.version}-${classifier.linux64}.tar.gz" longfile="posix" compression="gzip">
+                    <tarfileset dir="${linux64outputdir}" prefix="${packageid}" filemode="0644" dirmode="0755">
+                      <exclude name="**/*.sh"/>
+                      <exclude name="openresty/nginx/sbin/nginx"/>
+                      <exclude name="redis/redis-*"/>
+                    </tarfileset>
+                    <tarfileset dir="${linux64outputdir}" prefix="${packageid}" filemode="0755" dirmode="0755">
+                      <include name="**/*.sh"/>
+                      <include name="openresty/nginx/sbin/nginx"/>
+                      <include name="redis/redis-*"/>
+                    </tarfileset>
+                  </tar>
+                </target>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin> 
+
+
+      </plugins>
+      </build>
+    </profile>
+
+  </profiles>    
+
+</project>
+

@@ -1,0 +1,1028 @@
+<!--
+
+Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title id="org_onap_msb_route_title" name_i18n="org_onap_msb_route_ui_i18n"></title>
+<link rel="shortcut icon" href="img/zte_logo_16.gif" />
+<link
+	href="js/fontAwesome/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link
+	href="js/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" />
+
+
+
+<link href="css/route.css" rel="stylesheet" type="text/css" />
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<link href="css/animate.min.css" rel="stylesheet" type="text/css" />
+<link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+
+<style>
+.ms-controller {
+	visibility: hidden
+}
+</style>
+
+  <script type="text/javascript"  src="js/jquery/jquery-1.10.2.min.js"></script>
+ <script type="text/javascript">
+      var iuiRootPath="iui";
+      var apiRootPath="api";
+    
+      $.ajaxSettings.async = false;
+        $.getJSON("./ext/initUrlRootPath/initUrlRootPath.json",function(json){
+         iuiRootPath=json.iuiRootPath;
+         apiRootPath=json.apiRootPath;
+        });
+      
+
+      var apiBasePath="/"+apiRootPath+"/microservices/v1";
+      var iuiBasePath="/"+iuiRootPath+"/microservices";
+
+</script>
+
+
+
+
+</head>
+<body class="ms-controller"  ms-controller="routeController">
+
+
+
+    <div  id="routeHead">
+        <div class="navbar-inner container-fluid" id="top-bar">
+            <header class="row-fluid">            
+            <div class="logoimg"><img class="logo" src="img/logo.png" alt="Logo"></div>
+            <div class="chineseTitle" id="org_onap_msb_route_chinese_name" name_i18n="org_onap_msb_route_ui_i18n"></div>
+            <div class="englishTitle" id="org_onap_msb_route_english_name" name_i18n="org_onap_msb_route_ui_i18n"></div>
+            </header>
+        </div>
+</div>
+
+ <script type="text/javascript">
+ if (self != top) {document.getElementById("routeHead").style.display="none";}
+
+ var currentLang = navigator.language;  
+if(!currentLang) {currentLang = navigator.browserLanguage; } 
+if(currentLang.toLowerCase() != "zh-cn") {$("#logo").hide(); }
+ </script>
+
+<div style=" background-color: #f1f3fa !important; ">
+
+
+ <div class="row row1 container-fluid" ms-visible="boxVisible">
+
+   <ul class="nav nav-tabs" id="panelTab" style="margin-top: 10px;">
+  <li  class="active" ><a href="#apiPanel" data-toggle="tab" id="apiTab"><i class="fa fa-cloud fa-1x"></i> <span id="org_onap_msb_route_tab_api" name_i18n="org_onap_msb_route_ui_i18n"></span> </a></li>
+  <li ><a href="#iuiPanel" data-toggle="tab" id="iuiTab"><i class="fa fa-tv fa-1x"></i> <span id="org_onap_msb_route_tab_iui" name_i18n="org_onap_msb_route_ui_i18n"></span></a></li>
+  <li ><a href="#customPanel" data-toggle="tab" id="customTab"><i class="fa fa-cogs fa-1x"></i> <span id="org_onap_msb_route_tab_custom" name_i18n="org_onap_msb_route_ui_i18n"></span> </a></li> 
+   <li ms-visible="!discoverInfo.enabled" ><a href="#msbPanel" data-toggle="tab" id="msbTab"><i class="fa fa-cubes fa-1x"></i> <span id="org_onap_msb_route_tab_msb" name_i18n="org_onap_msb_route_ui_i18n"></span> </a></li>  
+</ul>
+<div class="tab-content" >
+ <div id="apiPanel" class="tab-pane active"> 
+    <div class="row" style=" margin-top: 10px;text-align:right;  margin-right: 20px;">
+   
+          <button ms-visible="!discoverInfo.enabled" class="btn btn-primary" id="app-new-btn" ms-click="$showApiRouteDlg()" >
+                  <i class=" fa fa-plus-circle"></i> <span id="org_onap_msb_route_btn_add_api" name_i18n="org_onap_msb_route_ui_i18n"></span>
+               </button>
+       
+    </div>
+
+
+<div id="routeDlg" class="modal  fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content Changepasswd">
+                <div class="content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                        <h3 id="myModalLabel" ms-text="routeDlgInfo.titleName"></h3>
+                    </div>
+                    <div class="modal-body">
+                     <div class="alert alert-info" ms-visible="server_rtn.info_block"></div>
+                    <div class="alert alert-danger " ms-visible="server_rtn.warning_block" ms-text="server_rtn.rtn_info"></div>
+                   
+
+    
+
+ <div id="info" class="tab-pane active">                     
+                      
+      <form class="form-horizontal" id="routeForm" role="form">   
+           
+               <div class="tipArea" id="org_onap_msb_route_form_sourceservice" name_i18n="org_onap_msb_route_ui_i18n"></div> 
+                <div class="form-group" ms-visible="!discoverInfo.enabled">
+                            
+                             <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_address" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                  <span class="required" aria-required="true">*</span>
+                                </label>   
+                          
+                              
+                                 <div class="col-sm-6" style="padding-right: 5px;">
+                                 <div class="item-tip" id="org_onap_msb_route_form_host_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>
+                                <input type="text" ms-duplex="apiRouteInfo.server"  name="server" class="form-control form-tip"  ms-attr-disabled="discoverInfo.enabled" style="display:inline-block;" />
+                                 <span class="help-block"></span>
+                                 </div>
+                                  <div class="col-sm-1" style=" padding-left: 0px;" >  
+                                 <a href="#" ms-click="addapiHost()"  class="btn btn-default " title="org_onap_msb_route_form_btn_addhost" name_i18n="org_onap_msb_route_ui_i18n"><i class="fa fa-plus-circle"></i></a>
+                                 </div>
+                             </div>
+
+                              <div class="form-group">
+                            <label class="control-label col-sm-3">
+                               <span ms-visible="discoverInfo.enabled" id="org_onap_msb_route_form_address" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                            </label>     
+                           <div  class="hostTableDiv col-sm-7">
+                                 <table class="table table-striped hostTable">
+                                   <thead>
+                                      <tr>
+                                         <th id="org_onap_msb_route_form_node_no" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                         <th>IP</th>
+                                         <th>PORT</th>
+                                         <th ms-visible="!discoverInfo.enabled" id="org_onap_msb_route_form_node_control" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                      </tr>
+                                   </thead>
+                                   <tbody ms-each-server="vm.apiRouteInfo.servers">
+                                      <tr>
+                                         <td>{{$index+1}}</td>
+                                         <td ms-text="server.ip"></td>
+                                         <td ms-text="server.port"></td>
+                                         <td ms-visible="!discoverInfo.enabled"><a href="#" ms-click="delapiHost(server.ip,server.port)" style="padding: 0px 6px;" class="btn btn-default btn-s"><i class="fa fa-trash-o"></i></a></td>
+                                      </tr> 
+                                     
+                   
+                                   </tbody>
+                                   </table> 
+                                </div> 
+
+                        </div>
+              
+                         <div class="form-group" tyle="margin-bottom: 0;">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_url" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                    <span class="required" aria-required="true">*</span> 
+                                </label>
+                            <div class="col-sm-7">
+                                
+                                <input type="text" ms-duplex="apiRouteInfo.url"  name="url" class="form-control" id="form-url" value="/" ms-attr-disabled="discoverInfo.enabled"/>
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+                 <div class="tipArea" id="org_onap_msb_route_form_target_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>       
+               <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_target_service" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                              
+                                </label>
+                            <div class="col-sm-7 line_break">{{vm.apiRouteInfo.publishProtocol}}://{{vm.route.routeHost}}/{{vm.route.apiRootPath}}/{{vm.apiRouteInfo.serviceName}}/{{vm.apiRouteInfo.version}}</div>
+                            
+                        </div>    
+             <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_servicename" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                    <span class="required" aria-required="true">*</span>
+                                </label>
+                            <div class="col-sm-7">  
+                                <input type="text" ms-duplex="apiRouteInfo.serviceName"  name="serviceName"  class="form-control" ms-attr-disabled="discoverInfo.enabled" />
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+            
+             <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_version" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                   
+                                </label>
+                            <div class="col-sm-7">                            
+                             <div class="item-tip" ms-class-item-tip-none ="routeDlgInfo.saveType=='update'" id="org_onap_msb_route_form_version_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>
+                                <input type="text" ms-duplex="apiRouteInfo.version"  name="version" class="form-control form-tip"  ms-attr-disabled="discoverInfo.enabled" />
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+                         
+            
+            
+                         <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span><a href="javascript:;"  class="collapse-box" data-toggle="collapse" 
+                             data-target="#apiJsonFullurl">
+                                    <i class="fa fa-plus" id="apiJsonCollapse"></i> <span id="org_onap_msb_route_form_swagger" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                  </a></span>
+                                
+                                </label>
+                            <div class="col-sm-7">
+                               <div class="input-group">
+                        <input type="text" class="form-control"  ms-if="apiRouteInfo.apiJsonType=='1'" ms-duplex="apiJson.custom"  ms-attr-disabled="routeDlgInfo.saveType=='view'"/>
+                        <select class="form-control m-b" ms-if="apiRouteInfo.apiJsonType=='0'"  ms-each="jsonApiSelectList.selectItems"   ms-duplex="apiJson.local" id="apiJsonSelect" ms-attr-disabled="routeDlgInfo.saveType=='view'">             
+                            <option ms-attr-value='el'>{{el}}</option>
+                        </select>
+
+                            <div class="input-group-btn">
+                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false" ms-attr-disabled="routeDlgInfo.saveType=='view'">{{showAPITypeName[apiRouteInfo.apiJsonType]}} <span class="caret"></span></button>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a ms-click="setAPIType(0)">{{showAPITypeName[0]}}</a></li>          
+                                    <li><a ms-click="setAPIType(1)">{{showAPITypeName[1]}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                                <span class="help-block"></span>
+                            </div>
+                         
+
+                        
+                            
+                        </div>
+
+                        <div id="apiJsonFullurl" class="form-group collapse in">
+                         <label class="control-label col-sm-3"><span id="org_onap_msb_route_form_swagger_address" name_i18n="org_onap_msb_route_ui_i18n"></span></label>
+                                <div  class="col-sm-9">
+                                <div> 
+                                  <i class="fa fa-home fa-fw"></i> <span id="org_onap_msb_route_form_target_address" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                  <span ms-if="vm.apiRouteInfo.apiJsonType==0">{{vm.route.routeHost}}/{{vm.route.iuiRootPath}}/microservices/ext/initSwaggerJson/{{vm.apiJson.local}}</span>
+                                  <span ms-if="vm.apiRouteInfo.apiJsonType==1">{{vm.apiRouteInfo.servers[0].ip+":"+vm.apiRouteInfo.servers[0].port}}{{vm.apiJson.custom}}</span>
+                                  </div>
+                                  <div> 
+                                  <i class="fa fa-cloud-upload fa-fw"></i><span id="org_onap_msb_route_form_publish_address" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                  <span ms-if="vm.apiRouteInfo.apiJsonType==0">{{vm.route.routeHost}}/{{vm.route.iuiRootPath}}/microservices/ext/initSwaggerJson/{{vm.apiJson.local}}</span>
+                                  <span ms-if="vm.apiRouteInfo.apiJsonType==1">{{vm.route.routeHost}}/apijson/{{vm.apiRouteInfo.serviceName}}/{{vm.apiRouteInfo.version}}</span>
+                                </div> 
+
+                                
+                                </div>
+                        </div>
+
+                     
+            </form>
+   </div>         
+      
+
+          
+
+                    </div>
+                    <div class="modal-footer" 
+                         ms-visible="routeDlgInfo.saveType!='view'">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true" id="org_onap_msb_route_form_btn_cancel" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                        <button class="btn btn-primary" type="submit" ms-click="$saveApiRoute()" id="org_onap_msb_route_form_btn_save" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                    </div>
+                    <div class="modal-footer" 
+                         ms-visible="routeDlgInfo.saveType=='view'">
+                        <button class="btn  btn-primary" data-dismiss="modal" aria-hidden="true" id="org_onap_msb_route_form_btn_close" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                       
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+     <div class="row" data-name="route_zone" >
+
+        <span class="response_throbber" ms-visible="vm.routeLoading"></span>
+
+    <div ms-each-group="apiGroupByPortArray">
+          <div class="form-title">
+              <span><a data-toggle="collapse"   ms-html="routeUtil.showGroupPort($index,group)"></a>
+                <span class="label label-info" style="margin-left: 10px;">{{apiGroupByPortArray[$index].length}}</span>
+              </span>
+               <div class="panel-tools">                   
+                    <a class="showhide" data-toggle="collapse"><i class="fa fa-chevron-up"></i></a>
+                </div>
+            </div>
+          <div style="width: 100%;" class="collapseContent collapse in">
+
+
+            <div class="stats_box"  ms-each-route="group">
+
+                 <div class="routeDiv">
+                   <div class="sparkline"  ms-click="gotoTarget(route,'api')"  data-name="route_click_zone">                    
+                    <i class="fa fa-cloud fa-3x" ms-class-route-valid ="route.status === '1'" ms-class-route-invalid ="route.status === '0'"></i>
+                   {{routeUtil.showPotocol(route.publish_port,route.publishProtocol)|html}}
+                  </div>
+                  <div class="stat_text"  ms-click="gotoTarget(route,'api')" data-name="route_click_zone">                    
+                    <strong ms-text="routeUtil.cutString(route.serviceName)" ms-attr-title="route.serviceName" ></strong> 
+                    <span><b id="org_onap_msb_route_box_version" name_i18n="org_onap_msb_route_ui_i18n"></b>{{route.version}}</span>
+                            
+                    </div> 
+                     
+                  <span ms-visible="!discoverInfo.enabled">
+                    
+                         <a class="btn btn-default"  ms-click="updateApiRoute(route,'update')" title="org_onap_msb_route_box_btn_update" name_i18n="org_onap_msb_route_ui_i18n"><i class="fa  fa-pencil-square-o" > </i></a>          
+                       <a class="btn btn-default" ms-click="delApiRoute(route.serviceName,route.version)" ms-visible="route.control !='1'" title="org_onap_msb_route_box_btn_delete" name_i18n="org_onap_msb_route_ui_i18n"><i class="fa fa-trash-o" > </i></a>
+                       <a class="btn btn-default" ms-visible="route.status === '1' && route.control !='1'" title="org_onap_msb_route_box_btn_disable" name_i18n="org_onap_msb_route_ui_i18n"  ms-click="updateApiRouteStatus(route.serviceName,route.version,'0')"><i class="fa fa-stop" style="color:red;font-size:10px"></i></a>
+                       <a class="btn btn-default" ms-visible="route.status === '0' && route.control !='1'" title="org_onap_msb_route_box_btn_able" name_i18n="org_onap_msb_route_ui_i18n"  ms-click="updateApiRouteStatus(route.serviceName,route.version,'1')"><i class="fa fa-play"  style="color:green;font-size:10px"></i></a>
+                    </span> 
+                    <span ms-visible="discoverInfo.enabled">
+        <a class="btn btn-default"  ms-click="updateApiRoute(route,'update')"><i class="fa  fa-pencil-square-o" title="org_onap_msb_route_box_btn_update" name_i18n="org_onap_msb_route_ui_i18n"> </i></a> 
+                    <a class="btn btn-default"  ms-click="updateApiRoute(route,'view')"><i class="fa  fa-file-text-o" title="org_onap_msb_route_box_btn_view" name_i18n="org_onap_msb_route_ui_i18n"> </i></a>  </span>
+                 
+                </div>
+
+                </div>
+            </div>
+          </div>      
+
+      </div>
+
+
+ </div>
+ <div id="iuiPanel" class="tab-pane"> 
+    <div class="row" style=" margin-top: 10px;text-align:right;  margin-right: 20px;">
+        <button ms-visible="!discoverInfo.enabled" class="btn btn-primary" id="app-new-btn" ms-click="$showiuiRouteDlg()" >
+                  <i class=" fa fa-plus-circle"></i> <span id="org_onap_msb_route_btn_add_iui" name_i18n="org_onap_msb_route_ui_i18n">
+               </button>
+       
+  </div>
+
+  <div id="iuirouteDlg" class="modal  fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content Changepasswd">
+                <div class="content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                        <h3 id="myModalLabel" ms-text="routeDlgInfo.titleName"></h3>
+                    </div>
+                    <div class="modal-body">
+                     <div class="alert alert-info" ms-visible="server_rtn.info_block"></div>
+                    <div class="alert alert-danger " ms-visible="server_rtn.warning_block" ms-text="server_rtn.rtn_info"></div>
+
+      <form class="form-horizontal" id="iuirouteForm" role="form">   
+             
+          <div class="tipArea" id="org_onap_msb_route_form_sourceservice" name_i18n="org_onap_msb_route_ui_i18n"></div>   
+               <div class="form-group"  ms-visible="!discoverInfo.enabled">
+                            
+                             <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_address" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                  <span class="required" aria-required="true">*</span>
+                                </label>   
+                          
+                              
+                                 <div class="col-sm-6" style="padding-right: 5px;">
+                                 <div class="item-tip" id="org_onap_msb_route_form_host_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>
+                                <input type="text" ms-duplex="iuiRouteInfo.server"  name="iuiserver" class="form-control form-tip"  style="display:inline-block;"  ms-attr-disabled="discoverInfo.enabled" />
+                                 <span class="help-block"></span>
+                                 </div>
+                                  <div class="col-sm-1" style=" padding-left: 0px;" >  
+                                 <a href="#" ms-click="addiuiHost()" class="btn btn-default " title="org_onap_msb_route_form_btn_addhost" name_i18n="org_onap_msb_route_ui_i18n"><i class="fa fa-plus-circle"></i></a>
+                                 </div>
+                             </div>
+
+                              <div class="form-group">
+                            <label class="control-label col-sm-3" >
+                              
+                               <span ms-visible="discoverInfo.enabled" id="org_onap_msb_route_form_address" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                            </label>     
+                           <div  class="hostTableDiv col-sm-7">
+                                 <table class="table table-striped hostTable">
+                                   <thead>
+                                      <tr>
+                                         <th id="org_onap_msb_route_form_node_no" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                         <th>IP</th>
+                                         <th>PORT</th>
+                                         <th ms-visible="routeDlgInfo.saveType!='view'" id="org_onap_msb_route_form_node_control" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                      </tr>
+                                   </thead>
+                                   <tbody ms-each-server="vm.iuiRouteInfo.servers">
+                                      <tr>
+                                         <td>{{$index+1}}</td>
+                                         <td ms-text="server.ip"></td>
+                                         <td ms-text="server.port"></td>
+                                         <td ms-visible="routeDlgInfo.saveType!='view'"><a href="#" ms-click="deliuiHost(server.ip,server.port)" style="padding: 0px 6px;" class="btn btn-default btn-s"><i class="fa fa-trash-o"></i></a></td>
+                                      </tr> 
+                                     
+                   
+                                   </tbody>
+                                   </table> 
+                                </div> 
+
+                        </div>
+
+               
+                         <div class="form-group" tyle="margin-bottom: 0;">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_url" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                    <span class="required" aria-required="true">*</span>
+                                </label>
+                            <div class="col-sm-7">
+                                
+                                <input type="text" ms-duplex="iuiRouteInfo.url"  name="iuiurl" class="form-control" value="/"   ms-attr-disabled="discoverInfo.enabled" />
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="tipArea" id="org_onap_msb_route_form_target_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>
+               <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_target_service" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                              
+                                </label>
+                            <div class="col-sm-7 line_break" >{{vm.iuiRouteInfo.publishProtocol}}://{{vm.route.routeHost}}/{{vm.route.iuiRootPath}}/{{vm.iuiRouteInfo.serviceName}}</div>
+                             <!--i class="fa fa-info-circle fa-lg tip_color" data-toggle="tooltip" data-placement="bottom" title="org_onap_msb_route_form_iui_tip" name_i18n="org_onap_msb_route_ui_i18n" ></i-->
+                            
+                        </div>    
+             <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_servicename" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                    <span class="required" aria-required="true">*</span>
+                                </label>
+                            <div class="col-sm-7">  
+                                <input type="text" ms-duplex="iuiRouteInfo.serviceName"  name="iuiserviceName"  class="form-control"  ms-attr-disabled="discoverInfo.enabled" />
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+            
+             
+                       
+            
+            
+                    
+            </form>
+       
+         
+        </div>
+          
+
+                    </div>
+                    <div class="modal-footer" ms-visible="routeDlgInfo.saveType!='view'">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true"  id="org_onap_msb_route_form_btn_cancel" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                        <button class="btn btn-primary" type="submit" ms-click="$saveiuiRoute()" id="org_onap_msb_route_form_btn_save" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                    </div>
+                    <div class="modal-footer" 
+                         ms-visible="routeDlgInfo.saveType=='view'">
+                        <button class="btn  btn-primary" data-dismiss="modal" aria-hidden="true" id="org_onap_msb_route_form_btn_close" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                       
+                    </div>
+                </div>
+
+            </div>
+  </div>
+
+     <div class="row" data-name="route_zone" >
+
+        <span class="response_throbber" ms-visible="vm.routeLoading"></span>
+
+      <div ms-each-group="iuiGroupByPortArray">
+          <div class="form-title">
+              <span><a data-toggle="collapse"  ms-html="routeUtil.showGroupPort($index,group)"></a>
+                <span class="label label-info" style="margin-left: 10px;">{{iuiGroupByPortArray[$index].length}}</span>
+              </span>
+               <div class="panel-tools">                   
+                    <a class="showhide" data-toggle="collapse"><i class="fa fa-chevron-up"></i></a>
+                </div>
+            </div>
+          <div style="width: 100%;" class="collapseContent collapse in">
+
+
+            <div class="stats_box"  ms-each-route="group">
+
+                 <div class="routeDiv" ms-visible="route.control !='2'">
+                   <div class="sparkline"  ms-click="gotoTarget(route,'iui')"  data-name="route_click_zone">                    
+                    <i class="fa fa-tv fa-3x"  ms-class-route-valid ="route.status === '1'" ms-class-route-invalid ="route.status === '0'"></i>
+                   {{routeUtil.showPotocol(route.publish_port,route.publishProtocol)|html}}
+                  </div>
+                  <div class="stat_text"  ms-click="gotoTarget(route,'iui')" data-name="route_click_zone">                  
+                    <strong ms-text="routeUtil.cutString(route.serviceName)" ms-attr-title="route.serviceName" ></strong> 
+                    <span>{{route.servers[0].ip}}:{{route.servers[0].port}}</span>          
+                    </div> 
+                  <span ms-visible="!discoverInfo.enabled">
+                    
+                       <a class="btn btn-default"  ms-click="updateiuiRoute(route,'update')"><i class="fa  fa-pencil-square-o" title="org_onap_msb_route_box_btn_update" name_i18n="org_onap_msb_route_ui_i18n" > </i></a>             
+                       <a class="btn btn-default" ms-click="deliuiRoute(route.serviceName)" ms-visible="route.control !='1'"><i class="fa fa-trash-o" title="删除"> </i></a>
+                       <a class="btn btn-default" ms-visible="route.status === '1' && route.control !='1'" title="org_onap_msb_route_box_btn_disable" name_i18n="org_onap_msb_route_ui_i18n" ms-click="updateiuiRouteStatus(route.serviceName,'0')"><i class="fa fa-stop" style="color:red;font-size:10px"></i></a>
+                       <a class="btn btn-default" ms-visible="route.status === '0' && route.control !='1'"  title="org_onap_msb_route_box_btn_able" name_i18n="org_onap_msb_route_ui_i18n" ms-click="updateiuiRouteStatus(route.serviceName,'1')"><i class="fa fa-play"  style="color:green;font-size:10px"></i></a>
+                    </span> 
+                    <span ms-visible="discoverInfo.enabled"><a class="btn btn-default"  ms-click="updateiuiRoute(route,'view')"><i class="fa  fa-file-text-o" title="org_onap_msb_route_box_btn_view" name_i18n="org_onap_msb_route_ui_i18n"> </i></a>  </span>
+                 
+                </div>
+
+                </div>
+             </div>
+           </div>     
+
+      </div>
+
+ </div>
+
+ <div id="customPanel" class="tab-pane"> 
+    <div class="row" style=" margin-top: 10px;text-align:right;  margin-right: 20px;">
+        <button ms-visible="!discoverInfo.enabled" class="btn btn-primary" id="app-new-btn" ms-click="$showcustomRouteDlg()" >
+                  <i class=" fa fa-plus-circle"></i> <span id="org_onap_msb_route_btn_add_custom" name_i18n="org_onap_msb_route_ui_i18n"></span>
+               </button>
+       
+  </div>
+
+  <div id="customrouteDlg" class="modal  fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content Changepasswd">
+                <div class="content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                        <h3 id="myModalLabel" ms-text="routeDlgInfo.titleName"></h3>
+                    </div>
+                    <div class="modal-body">
+                     <div class="alert alert-info" ms-visible="server_rtn.info_block"></div>
+                    <div class="alert alert-danger " ms-visible="server_rtn.warning_block" ms-text="server_rtn.rtn_info"></div>
+
+      <form class="form-horizontal" id="customrouteForm" role="form">   
+             
+            <div class="tipArea" id="org_onap_msb_route_form_sourceservice" name_i18n="org_onap_msb_route_ui_i18n"></div> 
+                <div class="form-group"  ms-visible="!discoverInfo.enabled">
+                            
+                             <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_address" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                  <span class="required" aria-required="true">*</span>
+                                </label>   
+                          
+                              
+                                 <div class="col-sm-6" style="padding-right: 5px;">
+                                 <div class="item-tip" id="org_onap_msb_route_form_host_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>
+                                <input type="text" ms-duplex="customRouteInfo.server"  name="customserver" class="form-control form-tip"  style="display:inline-block;"  ms-attr-disabled="discoverInfo.enabled" />
+                                 <span class="help-block"></span>
+                                 </div>
+                                  <div class="col-sm-1" style=" padding-left: 0px;" ms-visible="routeDlgInfo.saveType!='view'">  
+                                 <a href="#" ms-click="addcustomHost()" class="btn btn-default "  title="org_onap_msb_route_form_btn_addhost" name_i18n="org_onap_msb_route_ui_i18n"><i class="fa fa-plus-circle"></i></a>
+                                 </div>
+                             </div>
+
+                              <div class="form-group">
+                            <label class="control-label col-sm-3">
+                               <span ms-visible="discoverInfo.enabled" id="org_onap_msb_route_form_address" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                            </label>     
+                           <div  class="hostTableDiv col-sm-7">
+                                 <table class="table table-striped hostTable">
+                                   <thead>
+                                      <tr>
+                                         <th id="org_onap_msb_route_form_node_no" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                         <th>IP</th>
+                                         <th>PORT</th>
+                                         <th ms-visible="routeDlgInfo.saveType!='view'" id="org_onap_msb_route_form_node_control" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                      </tr>
+                                   </thead>
+                                   <tbody ms-each-server="vm.customRouteInfo.servers">
+                                      <tr>
+                                         <td>{{$index+1}}</td>
+                                         <td ms-text="server.ip"></td>
+                                         <td ms-text="server.port"></td>
+                                         <td ms-visible="routeDlgInfo.saveType!='view'"><a href="#" ms-click="delcustomHost(server.ip,server.port)" style="padding: 0px 6px;" class="btn btn-default btn-s"><i class="fa fa-trash-o"></i></a></td>
+                                      </tr> 
+                                     
+                   
+                                   </tbody>
+                                   </table> 
+                                </div> 
+
+                        </div>
+
+
+               
+                         <div class="form-group" tyle="margin-bottom: 0;">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_url" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                    <span class="required" aria-required="true">*</span>
+                                </label>
+                            <div class="col-sm-7">
+                                
+                                <input type="text" ms-duplex="customRouteInfo.url"  name="customurl" class="form-control" value="/"  ms-attr-disabled="discoverInfo.enabled" />
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+
+                        <div class="tipArea" id="org_onap_msb_route_form_target_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>
+               <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_target_service" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                              
+                                </label>
+                            <div class="col-sm-7 line_break" >{{vm.customRouteInfo.publishProtocol}}://{{vm.route.routeHost}}{{vm.customRouteInfo.serviceName}}</div>
+                           
+                            
+                        </div>    
+             <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_servicename" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                    
+                                </label>
+                            <div class="col-sm-7">  
+                                <input type="text" ms-duplex="customRouteInfo.serviceName"  name="customserviceName"  class="form-control"  ms-attr-disabled="discoverInfo.enabled"  />
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+            
+                    
+            </form>
+       
+         
+        </div>
+          
+
+                    </div>
+                    <div class="modal-footer" ms-visible="routeDlgInfo.saveType!='view'">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true" id="org_onap_msb_route_form_btn_cancel" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                        <button class="btn btn-primary" type="submit" ms-click="$savecustomRoute()" id="org_onap_msb_route_form_btn_save" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                    </div>
+                    <div class="modal-footer" 
+                         ms-visible="routeDlgInfo.saveType=='view'">
+                        <button class="btn  btn-primary" data-dismiss="modal" aria-hidden="true" id="org_onap_msb_route_form_btn_close" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                       
+                    </div>
+                </div>
+
+            </div>
+  </div>
+
+     <div class="row" data-name="route_zone" >
+
+        <span class="response_throbber" ms-visible="vm.routeLoading"></span>
+
+
+         <div ms-each-group="customGroupByPortArray">
+          <div class="form-title">
+              <span><a data-toggle="collapse"  ms-html="routeUtil.showGroupPort($index,group)"></a>
+                <span class="label label-info" style="margin-left: 10px;">{{customGroupByPortArray[$index].length}}</span>
+              </span>
+               <div class="panel-tools">                   
+                    <a class="showhide" data-toggle="collapse"><i class="fa fa-chevron-up"></i></a>
+                </div>
+            </div>
+          <div style="width: 100%;" class="collapseContent collapse in">
+
+
+            <div class="stats_box"  ms-each-elem="group">
+
+                 <div class="routeDiv" ms-visible="elem.control !='2'">
+                   <div class="sparkline"  data-name="route_click_zone">                    
+                    <i class="fa fa-cogs fa-3x"  ms-class-route-valid ="elem.status === '1'" ms-class-route-invalid ="elem.status === '0'"></i>
+                   {{routeUtil.showPotocol(elem.publish_port,elem.publishProtocol)|html}}
+                  </div>
+                  <div class="stat_text"  data-name="route_click_zone" >
+                   
+                    <strong ms-text="elem.serviceName==''?'/':routeUtil.cutString(elem.serviceName)"  ms-attr-title="elem.serviceName"></strong> 
+                    <span>{{elem.servers[0].ip}}:{{elem.servers[0].port}}</span>          
+                    </div> 
+                  <span ms-visible="!discoverInfo.enabled">
+                    
+                       <a class="btn btn-default"  ms-click="updatecustomRoute(elem,'update')"><i class="fa  fa-pencil-square-o" title="org_onap_msb_route_box_btn_update" name_i18n="org_onap_msb_route_ui_i18n" > </i></a>             
+                       <a class="btn btn-default" ms-click="delcustomRoute(elem.serviceName)" ms-visible="elem.control !='1'"><i class="fa fa-trash-o" title="删除"> </i></a>
+                       <a class="btn btn-default" ms-visible="elem.status === '1' && elem.control !='1'" title="org_onap_msb_route_box_btn_disable" name_i18n="org_onap_msb_route_ui_i18n" ms-click="updatecustomRouteStatus(elem.serviceName,'0')"><i class="fa fa-stop" style="color:red;font-size:10px"></i></a>
+                       <a class="btn btn-default" ms-visible="elem.status === '0' && elem.control !='1'" title="org_onap_msb_route_box_btn_able" name_i18n="org_onap_msb_route_ui_i18n"  ms-click="updatecustomRouteStatus(elem.serviceName,'1')"><i class="fa fa-play"  style="color:green;font-size:10px"></i></a>
+                    </span> 
+                    <span ms-visible="discoverInfo.enabled"><a class="btn btn-default"  ms-click="updatecustomRoute(elem,'view')"><i class="fa  fa-file-text-o" title="org_onap_msb_route_box_btn_view" name_i18n="org_onap_msb_route_ui_i18n"> </i></a>  </span>
+                 
+                </div>
+
+                </div>
+           </div>
+
+        </div>
+
+           
+
+      </div>
+
+ </div>
+
+
+ <div id="msbPanel" class="tab-pane"> 
+    <div class="row" style=" margin-top: 10px;text-align:right;  margin-right: 20px;">
+        <button class="btn btn-primary" id="app-new-btn" ms-click="$showmsbRouteDlg()" >
+                  <i class=" fa fa-plus-circle"></i> <span id="org_onap_msb_route_btn_add_msb" name_i18n="org_onap_msb_route_ui_i18n"></span>
+               </button>
+       
+  </div>
+
+  <div id="msbrouteDlg" class="modal  fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                        <h3 id="myModalLabel" ms-text="routeDlgInfo.titleName"></h3>
+                    </div>
+                    <div class="modal-body">
+                     <div class="alert alert-info" ms-visible="server_rtn.info_block"></div>
+                    <div class="alert alert-danger " ms-visible="server_rtn.warning_block" ms-text="server_rtn.rtn_info"></div>
+
+      <form class="form-horizontal" id="msbForm" role="form">   
+          <div class="tipArea" id="org_onap_msb_route_msb_info" name_i18n="org_onap_msb_route_ui_i18n"></div> 
+                    <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_servicename" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                    <span class="required" aria-required="true">*</span>
+                                </label>
+                            <div class="col-sm-7">  
+                                <input type="text" ms-duplex="msbRouteInfo.serviceName"  name="serviceName"  class="form-control"   ms-attr-disabled="vm.routeDlgInfo.saveType=='update'"/>
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_version" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                </label>
+                            <div class="col-sm-7">                            
+                             <div class="item-tip" id="org_onap_msb_route_form_version_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>
+                                <input type="text" ms-duplex="msbRouteInfo.version"  name="version" class="form-control form-tip"  ms-attr-disabled="vm.routeDlgInfo.saveType=='update'" />
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+
+                     
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_url" name_i18n="org_onap_msb_route_ui_i18n"></span>                                   
+                                </label>
+                            <div class="col-sm-7">
+                              
+                                <input type="text" ms-duplex="msbRouteInfo.url"  name="url" class="form-control" />
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_protocol" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                    <span class="required" aria-required="true">*</span>
+                                </label>
+                            <div class="col-sm-7">
+                                <select class="form-control m-b" ms-each="$msbProtocol"  name="protocol" ms-duplex="msbRouteInfo.protocol" >             
+                                  <option ms-attr-value='el'>{{el}}</option>
+                                 </select>
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_visualrange" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                    <span class="required" aria-required="true">*</span>
+                                </label>
+                            <div class="col-sm-7">
+                             <input  type="checkbox" ms-duplex="msbRouteInfo.visualRangeArray" value="0" ><span style="margin-right: 20px;"  id="org_onap_msb_route_form_intersystem" name_i18n="org_onap_msb_route_ui_i18n" ></span>
+                                     <input type="checkbox" ms-duplex="msbRouteInfo.visualRangeArray" value="1" ><span style="margin-right: 20px;" id="org_onap_msb_route_form_insystem" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                               
+                                <span class="help-block"></span>
+                            </div>
+                            
+                        </div>
+
+                          <div class="tipArea" id="org_onap_msb_route_msb_hostlist" name_i18n="org_onap_msb_route_ui_i18n"></div> 
+
+                            <div class="form-group">
+                            
+                             <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_msb_host" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                                  <span class="required" aria-required="true">*</span>
+                                </label>   
+                          
+                              
+                                 <div class="col-sm-4" style="padding-right: 5px;">
+                                 <div class="item-tip" id="org_onap_msb_route_form_host_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>
+                                
+                                <input type="text"  placeholder=""  ms-duplex="msbRouteInfo.newHost" class="form-control form-tip"   name="newHost" style="display:inline-block;" />
+                                 
+                                 <span class="help-block"></span>
+                                 </div>
+                                  <div class="col-sm-2" style="padding-right: 5px;">
+                                 <div class="item-tip" id="org_onap_msb_route_form_ttl_tip" name_i18n="org_onap_msb_route_ui_i18n"></div>
+                                
+                                <input type="text"  placeholder=""  ms-duplex="msbRouteInfo.newttl" class="form-control form-tip"   name="newttl" style="display:inline-block;" />
+                                 
+                                 <span class="help-block"></span>
+                                 </div>
+                                  <div class="col-sm-1" style=" padding-left: 0px;">  
+                                 <a href="#" ms-click="addmsbHost()" class="btn btn-default " title="org_onap_msb_route_form_btn_addhost" name_i18n="org_onap_msb_route_ui_i18n"><i class="fa fa-plus-circle"></i></a>
+                                 </div>
+                             </div>
+
+                              <div class="form-group">
+                            <label class="control-label col-sm-3"></label>     
+                           <div  class="hostTableDiv col-sm-7">
+                                 <table class="table table-striped hostTable">
+                                   <thead>
+                                      <tr>
+                                         <th id="org_onap_msb_route_form_node_no" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                         <th>IP</th>
+                                         <th>PORT</th>
+                                         <th>TTL</th>
+                                         <th id="org_onap_msb_route_form_node_control" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                      </tr>
+                                   </thead>
+                                   <tbody ms-each-node="vm.msbRouteInfo.nodes">
+                                      <tr>
+                                         <td>{{$index+1}}</td>
+                                         <td ms-text="node.ip"></td>
+                                         <td ms-text="node.port"></td>
+                                         <td ms-text="node.ttl"></td>
+                                         <td><a href="#"  title="org_onap_msb_route_form_btn_delhost" name_i18n="org_onap_msb_route_ui_i18n" ms-click="delmsbHost(node.ip,node.port)" style="padding: 0px 6px;" class="btn btn-default btn-s"><i class="fa fa-trash-o"></i></a></td>
+                                      </tr> 
+                                     
+                   
+                                   </tbody>
+                                   </table> 
+                                </div> 
+
+                        </div>
+
+                        <div class="tipArea"  ms-visible="msbRouteInfo.protocol=='REST'||msbRouteInfo.protocol=='HTTP'||msbRouteInfo.protocol=='UI'" id="org_onap_msb_route_form_target_tip" name_i18n="org_onap_msb_route_ui_i18n"></div> 
+                         <div class="form-group"  ms-visible="msbRouteInfo.protocol=='REST'||msbRouteInfo.protocol=='HTTP'||msbRouteInfo.protocol=='UI'">
+                            <label class="control-label col-sm-3">
+                                    <span id="org_onap_msb_route_form_target_service" name_i18n="org_onap_msb_route_ui_i18n"></span>
+                              
+                                </label>
+                            <div class="col-sm-7 line_break">
+                           {{vm.route.publishProtocol}}://{{vm.targetFullServiceUrl}}             
+                              
+                             
+                            </div>
+                            
+                        </div> 
+          
+            </form>
+       
+         
+        </div>
+          
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true" id="org_onap_msb_route_form_btn_cancel" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                        <button class="btn btn-primary" type="submit" ms-click="$savemsbRoute()" id="org_onap_msb_route_form_btn_save" name_i18n="org_onap_msb_route_ui_i18n"></button>
+                    </div>
+                </div>
+
+            </div>
+  </div>
+
+     <div class="row" data-name="route_zone" >
+
+   
+      <div class="table-responsive">
+               <table class="table table-striped table-bordered  table-hover" id="msbTable">
+                                    <thead>
+                                        <tr>
+                                         <th></th> 
+                                            <th style="display:none"></th> 
+                                            <th id="org_onap_msb_route_form_node_no" name_i18n="org_onap_msb_route_ui_i18n"></th> 
+                                            <th id="org_onap_msb_route_form_servicename" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                            <th id="org_onap_msb_route_form_version" name_i18n="org_onap_msb_route_ui_i18n"></th>                                        
+                                         
+                                            <th id="org_onap_msb_route_form_url" name_i18n="org_onap_msb_route_ui_i18n"></th>                                 
+                                            <th id="org_onap_msb_route_form_protocol" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                            <th id="org_onap_msb_route_form_visualrange" name_i18n="org_onap_msb_route_ui_i18n"></th>
+                                            <!--th>状态</th--> 
+                                             <th id="org_onap_msb_route_form_node_control" name_i18n="org_onap_msb_route_ui_i18n"></th>                                                                                
+                                        </tr>
+                                    </thead>
+                                    <tbody ms-each-msb="msbRouteArray">
+                                        <tr>
+                                         <td class="details-control"></td>
+                                            <td ms-each-node="msb.nodes" style="display:none">
+                                              {{node.ip}}:{{node.port}}:{{node.ttl}}
+                                            </td> 
+                                            <td ms-text="$index+1"></td>
+                                            <td ms-text="msb.serviceName"></td>
+                                            <td ms-text="msb.version"></td>
+                                            
+                                            <td>{{msb.url==""?"/":msb.url}}</td>            
+                                            <td ms-text="msb.protocol"></td>
+                                            <td ms-text="routeUtil.showVisualRange(msb.visualRange)"></td>
+                                            <!--td ms-html="routeUtil.showStatus(msb.status)"></td--> 
+                                            <td>
+                                           
+                                              <a href="#"  title="org_onap_msb_route_box_btn_update" name_i18n="org_onap_msb_route_ui_i18n" class="btn btn-default btn-s" ms-click="updatemsbRoute(msb)"><i class="fa fa  fa-pencil-square-o"></i></a>
+                                              <a href="#"  title="org_onap_msb_route_box_btn_delete" name_i18n="org_onap_msb_route_ui_i18n" class="btn btn-default btn-s" ms-click="delmsbRoute(msb.serviceName,msb.version,this)"><i class="fa fa-trash-o"></i></a>
+                                           
+                                            </td>                                      
+                                        </tr> 
+                                                                            
+                                    </tbody>
+                                </table>
+                           
+                      </div>
+
+      
+
+           
+
+      </div>
+
+ </div>
+
+ </div>
+
+
+
+  <div class="row-fluid separator" id="upArrawDiv">
+           <div ms-visible="boxVisible" class="col-xs-12">
+                <a href="#" ms-click="clickDisplayGraphAlink()"><img src="img/up.png"/></a>
+             </div>
+   </div>
+
+ 
+</div>
+
+<div class="row-fluid separator">
+
+            <div ms-visible="!boxVisible" class="col-xs-12">
+                <a href="#" ms-click="clickDisplayGraphAlink()" ><img src="img/down.png"/></a>
+            </div>
+</div>
+
+   <div class="container-fluid" style="margin-top:20px" id="serviceContent">
+
+       <div class="row" style=" margin-top: 15px;">
+         <div class="col-xs-6 col-md-6 col-sm-6 col-lg-6">
+           <i class="fa fa-file-text-o fa-fw"></i> 
+           <span class=" titlefont" ms-text="routeTargetTitle"></span>
+
+         </div>
+        
+        
+       </div>
+     <div class="separator-line"></div>
+         
+
+        
+  <iframe src="" width="100%" scrolling="no" marginheight="0" frameborder="0" id="msbSubPage"  name="msbSubPage"  class="page-mainIframeisWare"  ></iframe>
+             
+
+      
+  </div>
+ 
+
+</div>
+
+<script type="text/javascript" src="js/jquery.i18n/jquery.i18n.properties-1.0.9.js"></script>
+
+
+  <script type="text/javascript"  src="js/iframeResizer/iframeResizer.min.js"></script>
+  <script type="text/javascript" src="js/iframeResizer/iframeResizer.contentWindow.min.js"></script>
+
+	<script type="text/javascript"	src="js/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript"  src="js/dataTables/jquery.dataTables.min.js"></script>
+  <script type="text/javascript"  src="js/dataTables/dataTables.bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/bootbox/bootbox.min.js"></script>
+  <script src="js/bootstrap-growl.min.js"></script>
+  <script src="js/jquery-validation/jquery.validate.js"></script>
+	<script type="text/javascript"	src="js/avalon.js"></script>
+
+
+<script src="i18n/loadi18nApp_iui-route_view.js"></script>
+
+
+  <script type="text/javascript"   src="js/routeController.js"></script>
+
+
+<script type="text/javascript">
+
+$(function(){
+
+$('iframe').iFrameResize();
+ loadPropertiesSideMenu('', 'msb-iui-route-i18n', 'i18n/'); 
+avalon.scan();
+vm.$initRoute();
+
+
+});
+
+</script>
+  <script src="js/routeUtil.js"></script>
+  <script src="js/routeFunc.js"></script>
+ 
+</body>
+</html>

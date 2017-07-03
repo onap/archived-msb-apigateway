@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+ 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+ 
+            http://www.apache.org/licenses/LICENSE-2.0
+ 
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ 
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.onap.msb.apigateway</groupId>
+  <artifactId>msb-apigateway-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>onap/msb/msb-apigateway-parent</name> 
+
+  <properties>
+<!--     <nexusproxy>http://proxynj.zte.com.cn</nexusproxy>
+    <nexus.repository.release>dav:http://10.74.156.77/repos/content/repositories/releases</nexus.repository.release>
+    <nexus.repository.snapshot>dav:http://10.74.156.77/repos/content/repositories/snapshots</nexus.repository.snapshot> -->
+
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+
+    <openresty.version>1.11.2.2</openresty.version>
+    <openresty-windows.version>1.11.9.1001</openresty-windows.version>
+
+    <redis.version>3.2.6</redis.version>
+    <redis-windows.version>3.2.100</redis-windows.version>
+
+    <classifier.win32>windows_386</classifier.win32>
+    <classifier.win64>windows_amd64</classifier.win64>
+    <classifier.linux64>linux_amd64</classifier.linux64>
+
+    <linux64outputdir>target/assembly/${classifier.linux64}/</linux64outputdir>
+    <win32outputdir>target/assembly/${classifier.win32}/</win32outputdir>
+    <win64outputdir>target/assembly/${classifier.win64}/</win64outputdir>
+
+    <dockerFileDir>src/main/docker</dockerFileDir>
+    <blueprintFileDir>src/main/blueprint</blueprintFileDir>
+    <version.output>target/version</version.output>
+
+  </properties>
+
+  <modules>
+    <module>apiroute</module>
+    <module>openresty-ext</module>
+    <module>redis-ext</module>
+    <module>distributions</module>
+  </modules>
+
+<!--   <distributionManagement>
+    <repository>
+      <id>releases</id>
+      <url>${nexus.repository.release}</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <url>${nexus.repository.snapshot}</url>
+    </snapshotRepository>
+  </distributionManagement> -->
+
+<!--   <profiles>  
+      <profile>  
+          <id>linux</id>  
+          <properties>  
+              <env.separator>:</env.separator>  
+          </properties>  
+          <activation>  
+              <activeByDefault>true</activeByDefault>  
+          </activation>
+      </profile>  
+      <profile>  
+          <id>windows</id>  
+          <properties>  
+              <env.separator>;</env.separator>   
+          </properties>   
+      </profile> 
+  </profiles>   -->
+
+  <build>
+<!--     <extensions>
+        <extension>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-ssh</artifactId>
+            <version>2.10</version>
+        </extension>
+        <extension>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-ftp</artifactId>
+            <version>2.10</version>
+        </extension>
+        <extension>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-webdav-jackrabbit</artifactId>
+            <version>2.10</version>
+        </extension>
+    </extensions> -->
+    <resources>
+        <resource>
+            <filtering>false</filtering>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </resource>
+        <resource>
+            <filtering>true</filtering>
+            <directory>src/main/filters</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </resource>
+    </resources>
+
+    <pluginManagement>
+      <plugins>
+        <!-- Official maven plugins, alpha-sorted by artifactId.
+             We do not need to specify the groupId. -->
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.8</version>
+        </plugin>
+        
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>2.6.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.10</version>          
+        </plugin>
+
+
+<!--         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>${maven.plugin.version}</version>
+        </plugin> -->
+
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.7</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.9.1</version>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven.surefire.version}</version>
+          <configuration>
+            <forkCount>3</forkCount>
+            <reuseForks>true</reuseForks>
+            <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+          </configuration>
+        </plugin>
+       
+      </plugins>
+    </pluginManagement>
+  </build> 
+ 
+
+
+</project>
+
+
