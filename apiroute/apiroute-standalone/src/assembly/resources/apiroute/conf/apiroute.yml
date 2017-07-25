@@ -1,0 +1,47 @@
+defaultWorkspace: ../apiroute-works
+
+defaultName: ${DW_DEFAULT_NAME:-Stranger}
+
+
+# use the discover config if you want to monitor a discover service and register microservices change
+discoverInfo:
+   ip: 127.0.0.1
+   port: 10081
+   enabled: true
+
+ 
+# use the simple server factory if you only want to run on a single port
+server:
+  type: simple
+  rootPath: '/api/microservices/v1/*'
+  applicationContextPath: /
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 8066
+
+# Logging settings.
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: ALL
+
+  # Logger-specific levels.
+  loggers:
+
+    # Sets the level for 'com.example.app' to DEBUG.
+    com.example: DEBUG
+
+  appenders:
+    - type: console
+      threshold: WARN
+      timeZone: UTC
+      logFormat: "%d{yyyy-MM-dd HH:mm:ss SSS} %-5p [%c][%t] - %m%n"
+    - type: file
+      threshold: INFO
+      logFormat: "%d{yyyy-MM-dd HH:mm:ss SSS} %-5p [%c][%t] - %m%n"
+      currentLogFilename: ../apiroute-works/logs/msb-apiroute.log
+      archivedLogFilenamePattern: ../apiroute-works/logs/zip/msb-apiroute-%d{yyyy-MM-dd}.log.gz
+      archivedFileCount: 7
+      timeZone: UTC
+
