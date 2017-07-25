@@ -1,0 +1,12 @@
+{
+    "namespace":"all",	
+	"predefineLabels":
+	{
+	    "visualRange" : "0",
+		"network_plane_type":""
+	},
+	"customLabels":
+	{		
+		"custom-key":"custom-value"
+	}
+}
