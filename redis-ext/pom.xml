@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ 
+    Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+ 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+ 
+            http://www.apache.org/licenses/LICENSE-2.0
+ 
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ 
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.onap.msb.apigateway</groupId>
+        <artifactId>msb-apigateway-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.onap.msb.apigateway</groupId>
+    <artifactId>redis-ext</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>onap/msb/apigateway/redis-ext</name>
+    <packaging>pom</packaging>
+
+    <properties>
+      <outputdir>target/assembly</outputdir>
+      <packageid>redis-ext</packageid>
+    </properties>
+
+
+    <profiles>
+      <profile>
+        <id>linux</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+
+        <dependencies>
+            <!--
+            <dependency>
+               <groupId>org.redis.centos.7</groupId>
+               <artifactId>redis</artifactId>
+               <version>${redis.version}</version>
+               <type>tar.gz</type>
+            </dependency>
+            -->
+        </dependencies>
+        <build>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-dependency-plugin</artifactId>
+              <executions>      
+                <execution>
+                  <id>unpack-dependency-file</id>
+                  <goals>
+                    <goal>unpack</goal>
+                  </goals>
+                  <!--解压顺序，在最前面-->
+                  <phase>generate-resources</phase>
+                  <configuration>
+                     <artifactItems>  
+                       <!--                     
+                       <artifactItem>
+                         <groupId>org.redis.centos.7</groupId>
+                         <artifactId>redis</artifactId>
+                         <type>tar.gz</type>
+                         <outputDirectory>${linux64outputdir}</outputDirectory>
+                       </artifactItem>	
+                       -->                       
+                     </artifactItems>
+                    <excludes>**/redis-benchmark**,**/*.pdb,**/*.docx</excludes>
+                    <overWriteReleases>false</overWriteReleases>
+                    <overWriteSnapshots>true</overWriteSnapshots>
+                    <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
+                  </configuration>
+                </execution>          
+              </executions>
+            </plugin> 
+
+            <plugin>
+              <groupId>com.coderplus.maven.plugins</groupId>
+              <artifactId>copy-rename-maven-plugin</artifactId>
+              <version>1.0.1</version>
+              <executions>
+                <execution>
+                  <id>rename-redis-dir</id>
+                  <phase>process-resources</phase>
+                  <goals>
+                    <goal>rename</goal>
+                  </goals>
+                  <configuration>
+                    <sourceFile>${linux64outputdir}/redis-${redis.version}</sourceFile>
+                    <destinationFile>${linux64outputdir}/redis</destinationFile>
+                  </configuration>
+                </execution>          
+              </executions>
+            </plugin> 
+
+
+            <plugin>
+              <artifactId>maven-resources-plugin</artifactId>
+              <configuration>
+                <includeEmptyDirs>true</includeEmptyDirs>
+              </configuration>
+              <executions>
+                <execution>
+                <id>copy-resources</id>                 
+                <phase>process-resources</phase>
+                <goals>
+                    <goal>copy-resources</goal>
+                </goals>
+                <configuration>    
+                <outputDirectory>${linux64outputdir}</outputDirectory>           
+                    <resources>           
+                        <resource>
+                        <directory>src/assembly/resources/linux</directory>
+                        <filtering>false</filtering>
+                        <includes>
+                            <include>**/*</include>
+                        </includes>
+                        </resource>                  
+                    </resources>
+                    <overwrite>true</overwrite>
+                </configuration>
+                </execution> 
+              </executions>
+            </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <executions>
+                <execution>
+                    <id>distribution</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <configuration>
+                       <target name="distribution">
+                          <tar destfile="${version.output}/${packageid}-${project.version}-${classifier.linux64}.tar.gz" longfile="posix" compression="gzip">
+                              <tarfileset dir="${linux64outputdir}" filemode="0644" dirmode="0755">
+                                  <exclude name="**/*.sh"/>
+                                  <exclude name="redis/redis-*"/>
+                              </tarfileset>
+                              <tarfileset dir="${linux64outputdir}" filemode="0755" dirmode="0755">
+                                  <include name="**/*.sh"/>
+                                  <include name="redis/redis-*"/>
+                              </tarfileset>
+                          </tar>
+                          <attachartifact file="${version.output}/${packageid}-${project.version}-${classifier.linux64}.tar.gz" classifier="${classifier.linux64}" type="tar.gz"/>
+                      </target>
+                    </configuration>
+                </execution>
+              </executions>
+            </plugin>
+
+          </plugins>
+        </build>    
+      </profile>
+    </profiles>
+</project>

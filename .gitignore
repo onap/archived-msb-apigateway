@@ -1,0 +1,10 @@
+.project
+.classpath
+.settings/
+target/
+.vagrant
+/archives/
+*.jar
+*.zip
+*.tar
+*.gz

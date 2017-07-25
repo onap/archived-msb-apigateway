@@ -1,0 +1,16 @@
+.container-fluid2 {
+    padding-left: 15px;
+    padding-right: 15px;
+    float:left;
+}
+
+.routeName{
+	color: rgba(153, 153, 153, 0.71);
+	margin-left: 5px;
+	font-size: 10px;
+}
+
+.form-title{
+	margin-top: 10px;
+	margin-left: 30px;
+}
