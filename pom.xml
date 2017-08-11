@@ -46,11 +46,7 @@
     <dockerFileDir>src/main/docker</dockerFileDir>
     <blueprintFileDir>src/main/blueprint</blueprintFileDir>
     <version.output>target/version</version.output>
-    <onap.nexus.host>nexus.onap.org</onap.nexus.host>
-    <onap.nexus.url>https://${onap.nexus.host}/content</onap.nexus.url>
-    <onap.nexus.snapshot-url>${onap.nexus.url}/repositories/snapshots/</onap.nexus.snapshot-url>
-    <onap.nexus.release-url>${onap.nexus.url}/repositories/releases/</onap.nexus.release-url>
-    <onap.nexus.javadocs-url>dav:${onap.nexus.url}/sites/site/org/onap/msb/apigateway/${project.version}</onap.nexus.javadocs-url>
+    <onap.nexus.javadocs-url>dav:https://nexus.onap.org/content/sites/site/org/onap/msb/apigateway/${project.version}</onap.nexus.javadocs-url>
   </properties>
   <distributionManagement>
     <site>
