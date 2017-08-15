@@ -23,7 +23,7 @@ echo @RUNHOME@ $RUNHOME
 echo @JAVA_HOME@ $JAVA_HOME
 
 #build
-mvn clean install -Dmaven.test.skip=true
+# mvn clean install -Dmaven.test.skip=true
 
 #cooy
 RELEASE_BASE_DIR=$RUNHOME/release
