@@ -1,6 +1,9 @@
-FROM alpine:3.5
-ADD msb-apigateway*.tar.gz /opt/application
+# Dockerfile - msb-apigateway
+FROM msb_base:latest
+COPY msb-apigateway*.tar.gz /usr/src
 
-ENV LD_LIBRARY_PATH /lib64
-WORKDIR /opt/application/msb-apigateway
+RUN tar -xzf /usr/src/msb-apigateway*.tar.gz -C /usr/local --strip-components=1; \
+	rm /usr/src/msb-apigateway*.tar.gz
+	
+WORKDIR /usr/local
 ENTRYPOINT exec $PWD/startup4docker.sh
