@@ -42,9 +42,9 @@ chmod +x build_docker_image.sh
 
 docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
 
-./build_docker_image.sh -n=${DOCKER_IMAGE_NAME} -v=${DOCKER_RELEASE_VERSION} -d=./docker
+./build_docker_image.sh -n=${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME} -v=${DOCKER_RELEASE_VERSION} -d=./docker
 
-echo "Pushing ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}"
+echo "Pushing ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}"
 docker push ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
 
 

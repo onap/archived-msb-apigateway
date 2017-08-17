@@ -48,12 +48,12 @@ chmod 777 build_docker_image.sh
 docker rm -f ${DOCKER_RUN_NAME}
 docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
 
-./build_docker_image.sh -n=${DOCKER_IMAGE_NAME} -v=${DOCKER_RELEASE_VERSION} -d=./docker
+./build_docker_image.sh -n=${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME} -v=${DOCKER_RELEASE_VERSION} -d=./docker
 
 #docker run
 
-docker run -d --net=host  --name ${DOCKER_RUN_NAME} ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
+docker run -d --net=host  --name ${DOCKER_RUN_NAME} ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
 docker ps |grep ${DOCKER_RUN_NAME} 
 
-echo "Pushing ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}"
+echo "Pushing ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}"
 docker push ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
