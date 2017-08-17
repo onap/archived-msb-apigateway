@@ -40,7 +40,7 @@ chmod +x build_docker_image.sh
 
 
 
-docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
+docker rmi ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
 
 ./build_docker_image.sh -n=${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME} -v=${DOCKER_RELEASE_VERSION} -d=./docker
 
