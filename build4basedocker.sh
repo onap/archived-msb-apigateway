@@ -30,6 +30,7 @@ mkdir  $RELEASE_DIR -p
 
 DOCKER_IMAGE_NAME=msb_base
 DOCKER_RELEASE_VERSION=latest
+DOCKER_REPOSITORY=nexus3.onap.org:10003
 
 cp -r $RUNHOME/distributions/msb-apigateway/src/main/basedocker/* ${RELEASE_DIR}
 cp  $RUNHOME/ci/build_docker_image.sh ${RELEASE_DIR}
@@ -42,5 +43,8 @@ chmod +x build_docker_image.sh
 docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
 
 ./build_docker_image.sh -n=${DOCKER_IMAGE_NAME} -v=${DOCKER_RELEASE_VERSION} -d=./docker
+
+echo "Pushing ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}"
+docker push ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
 
 

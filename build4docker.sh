@@ -36,6 +36,7 @@ mkdir  $RELEASE_DIR -p
 DOCKER_RUN_NAME=msb_apigateway
 DOCKER_IMAGE_NAME=msb_apigateway
 DOCKER_RELEASE_VERSION=latest
+DOCKER_REPOSITORY=nexus3.onap.org:10003
 
 cp -r $RUNHOME/distributions/msb-apigateway/target/version/* ${RELEASE_DIR}
 cp  $RUNHOME/ci/build_docker_image.sh ${RELEASE_DIR}
@@ -53,3 +54,6 @@ docker rmi ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
 
 docker run -d --net=host  --name ${DOCKER_RUN_NAME} ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
 docker ps |grep ${DOCKER_RUN_NAME} 
+
+echo "Pushing ${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}"
+docker push ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}
