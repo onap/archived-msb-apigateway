@@ -50,7 +50,7 @@
   </properties>
   <distributionManagement>
     <site>
-      <id>onap-site</id>
+      <id>ecomp-site</id>
       <url>${onap.nexus.javadocs-url}</url>
     </site>         
   </distributionManagement>
