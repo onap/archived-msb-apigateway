@@ -1,3 +1,16 @@
+/*******************************************************************************
+ * Copyright 2016-2017 ZTE, Inc. and others.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package org.onap.msb.apiroute.wrapper.consulextend.expose;
 
 import java.math.BigInteger;
@@ -34,123 +47,109 @@ import com.orbitz.consul.option.CatalogOptions;
 import com.orbitz.consul.option.QueryOptions;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ Http.class })
-@PowerMockIgnore({ "javax.net.ssl.*" })
+@PrepareForTest({Http.class})
+@PowerMockIgnore({"javax.net.ssl.*"})
 public class WatchServiceHealthTaskTest {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(WatchServiceHealthTaskTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WatchServiceHealthTaskTest.class);
 
-	private Consul consul;
+    private Consul consul;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Before
-	public void init() {
-		
-		List<ServiceHealth> list = new ArrayList<ServiceHealth>();
-		
-		Service service = ImmutableService.builder().id("").port(0).address("")
-				.service("huangleibo").addTags("").createIndex(1).modifyIndex(1).build();
-		ServiceHealth serviceHealth = ImmutableServiceHealth.builder()
-				.service(service)
-				.node(ImmutableNode.builder().node("").address("").build())
-				.build();
-		list.add(serviceHealth);
-				
-		long lastContact = 1;
-		boolean knownLeader = true;
-		BigInteger index = BigInteger.valueOf(1);
-		final ConsulResponse<List<ServiceHealth>> response = new ConsulResponse<List<ServiceHealth>>(
-				list, lastContact, knownLeader, index);
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    @Before
+    public void init() {
 
-		//
-		Http http = PowerMockito.mock(Http.class);
-		
-		PowerMockito
-				.doAnswer(new Answer() {
-					@Override
-					public Object answer(InvocationOnMock invocation)
-							throws Throwable {
-						Object[] args = invocation.getArguments();
-						((ConsulResponseCallback) args[2]).onComplete(response);						
-						return null;
-					}
-				})
-				.when(http)
-				.asyncGet(Mockito.anyString(),
-						Mockito.any(TypeReference.class),
-						Mockito.any(ConsulResponseCallback.class));
-		
-		//
-		PowerMockito.spy(Http.class);
-		PowerMockito.when(Http.getInstance()).thenReturn(http);
-		
-	}
+        List<ServiceHealth> list = new ArrayList<ServiceHealth>();
 
-	@Test
-	public void testgetServiceName() {
-		consul = Consul.newClient();
+        Service service = ImmutableService.builder().id("").port(0).address("").service("huangleibo").addTags("")
+                        .createIndex(1).modifyIndex(1).build();
+        ServiceHealth serviceHealth = ImmutableServiceHealth.builder().service(service)
+                        .node(ImmutableNode.builder().node("").address("").build()).build();
+        list.add(serviceHealth);
 
-		WatchServiceHealthTask task0 = new WatchServiceHealthTask(
-				consul.healthClient(), "huangleibo_task0", true,
-				CatalogOptions.BLANK, 10, QueryOptions.BLANK);
+        long lastContact = 1;
+        boolean knownLeader = true;
+        BigInteger index = BigInteger.valueOf(1);
+        final ConsulResponse<List<ServiceHealth>> response =
+                        new ConsulResponse<List<ServiceHealth>>(list, lastContact, knownLeader, index);
 
-		LOGGER.info("service name:" + task0.getServiceName());
+        //
+        Http http = PowerMockito.mock(Http.class);
 
-		WatchServiceHealthTask task1 = new WatchServiceHealthTask(
-				consul.healthClient(), "huangleibo_task1", true, 10);
+        PowerMockito.doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                ((ConsulResponseCallback) args[2]).onComplete(response);
+                return null;
+            }
+        }).when(http).asyncGet(Mockito.anyString(), Mockito.any(TypeReference.class),
+                        Mockito.any(ConsulResponseCallback.class));
 
-		LOGGER.debug("service name:" + task1.getServiceName());
+        //
+        PowerMockito.spy(Http.class);
+        PowerMockito.when(Http.getInstance()).thenReturn(http);
 
-		WatchServiceHealthTask task2 = new WatchServiceHealthTask(
-				consul.healthClient(), "huangleibo_task2", 10);
+    }
 
-		LOGGER.debug("service name:" + task2.getServiceName());
+    @Test
+    public void testgetServiceName() {
+        consul = Consul.newClient();
 
-	}
-	
-	public class StopHandler implements WatchTask.Handler<List<ServiceHealth>>
-	{
-		
-		private WatchServiceHealthTask task;
-		
-		StopHandler(WatchServiceHealthTask task)
-		{
-			this.task = task;
-		}
+        WatchServiceHealthTask task0 = new WatchServiceHealthTask(consul.healthClient(), "huangleibo_task0", true,
+                        CatalogOptions.BLANK, 10, QueryOptions.BLANK);
 
-		@Override
-		public void handle(ConsulResponse<List<ServiceHealth>> object) {
-			// TODO Auto-generated method stub
-			List<ServiceHealth> list = (List<ServiceHealth>)object.getResponse();
-			LOGGER.debug("handler:"+list.get(0).getService().getService());
-			task.stopWatch();
-		}
-	}
+        LOGGER.info("service name:" + task0.getServiceName());
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Test
-	public void teststartWatch() {
-		Consul consul = Consul.newClient();
-		String serviceName = "huangleibo";
+        WatchServiceHealthTask task1 = new WatchServiceHealthTask(consul.healthClient(), "huangleibo_task1", true, 10);
 
-		WatchServiceHealthTask task0 = new WatchServiceHealthTask(
-				consul.healthClient(), serviceName, true, CatalogOptions.BLANK,
-				10, QueryOptions.BLANK);
-		
-		task0.addFilter(new Filter() {
+        LOGGER.debug("service name:" + task1.getServiceName());
 
-			@Override
-			public boolean filter(ConsulResponse object) {
-				// TODO Auto-generated method stub
-				List<ServiceHealth> list = (List<ServiceHealth>)object.getResponse();
-				LOGGER.debug("filter:"+list.get(0).getService().getService());
-				return true;
-			}
-			
-		});
-		
-		task0.addHandler(new StopHandler(task0));
-		
-		task0.startWatch();
-	}
+        WatchServiceHealthTask task2 = new WatchServiceHealthTask(consul.healthClient(), "huangleibo_task2", 10);
+
+        LOGGER.debug("service name:" + task2.getServiceName());
+
+    }
+
+    public class StopHandler implements WatchTask.Handler<List<ServiceHealth>> {
+
+        private WatchServiceHealthTask task;
+
+        StopHandler(WatchServiceHealthTask task) {
+            this.task = task;
+        }
+
+        @Override
+        public void handle(ConsulResponse<List<ServiceHealth>> object) {
+            // TODO Auto-generated method stub
+            List<ServiceHealth> list = (List<ServiceHealth>) object.getResponse();
+            LOGGER.debug("handler:" + list.get(0).getService().getService());
+            task.stopWatch();
+        }
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    @Test
+    public void teststartWatch() {
+        Consul consul = Consul.newClient();
+        String serviceName = "huangleibo";
+
+        WatchServiceHealthTask task0 = new WatchServiceHealthTask(consul.healthClient(), serviceName, true,
+                        CatalogOptions.BLANK, 10, QueryOptions.BLANK);
+
+        task0.addFilter(new Filter() {
+
+            @Override
+            public boolean filter(ConsulResponse object) {
+                // TODO Auto-generated method stub
+                List<ServiceHealth> list = (List<ServiceHealth>) object.getResponse();
+                LOGGER.debug("filter:" + list.get(0).getService().getService());
+                return true;
+            }
+
+        });
+
+        task0.addHandler(new StopHandler(task0));
+
+        task0.startWatch();
+    }
 }

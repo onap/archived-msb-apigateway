@@ -1,21 +1,21 @@
+/*******************************************************************************
+ * Copyright 2016-2017 ZTE, Inc. and others.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package org.onap.msb.apiroute.wrapper.service;
 
-import com.fiftyonred.mock_jedis.MockJedisPool;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.onap.msb.apiroute.api.CustomRouteInfo;
-import org.onap.msb.apiroute.api.RouteServer;
-import org.onap.msb.apiroute.wrapper.dao.RedisAccessWrapper;
-import org.onap.msb.apiroute.wrapper.service.CustomRouteService;
-import org.onap.msb.apiroute.wrapper.util.JedisUtil;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -24,16 +24,33 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.onap.msb.apiroute.api.CustomRouteInfo;
+import org.onap.msb.apiroute.api.RouteServer;
+import org.onap.msb.apiroute.wrapper.dao.RedisAccessWrapper;
+import org.onap.msb.apiroute.wrapper.util.JedisUtil;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import com.fiftyonred.mock_jedis.MockJedisPool;
+
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({JedisUtil.class,RedisAccessWrapper.class})
-@PowerMockIgnore( {"javax.management.*"})
+@PrepareForTest({JedisUtil.class, RedisAccessWrapper.class})
+@PowerMockIgnore({"javax.management.*"})
 public class CustomRouteServiceTest {
     private static CustomRouteService customRouteService = null;
     private static Comparator<CustomRouteInfo> customRouteComparator = null;
+
     @BeforeClass
-    public static void setUp() throws Exception{
+    public static void setUp() throws Exception {
         customRouteService = CustomRouteService.getInstance();
         customRouteComparator = new Comparator<CustomRouteInfo>() {
             @Override
@@ -44,11 +61,12 @@ public class CustomRouteServiceTest {
             }
         };
     }
+
     @Before
     public void setUpBeforeTest() throws Exception {
         final JedisPool mockJedisPool = new MockJedisPool(new JedisPoolConfig(), "localhost");
         PowerMockito.mockStatic(JedisUtil.class);
-        JedisUtil jedisUtil=PowerMockito.mock(JedisUtil.class);
+        JedisUtil jedisUtil = PowerMockito.mock(JedisUtil.class);
         PowerMockito.when(jedisUtil.borrowJedisInstance()).thenReturn(mockJedisPool.getResource());
 
         PowerMockito.replace(PowerMockito.method(RedisAccessWrapper.class, "filterKeys")).with(new InvocationHandler() {
@@ -58,17 +76,18 @@ public class CustomRouteServiceTest {
             }
         });
     }
+
     @Test
-    public void testGetCustomRouteInstance_key_not_exist(){
+    public void testGetCustomRouteInstance_key_not_exist() {
         try {
             assertNull(customRouteService.getCustomRouteInstance("msb:routing:custom:notexistservice:v1"));
         } catch (Exception e) {
-            assert false:"throw exception means error occured!"+e.getMessage();
+            assert false : "throw exception means error occured!" + e.getMessage();
         }
     }
 
     @Test
-    public void testGetCustomRouteInstance_key_exist(){
+    public void testGetCustomRouteInstance_key_exist() {
         CustomRouteInfo customrouteInfo = new CustomRouteInfo();
         customrouteInfo.setServiceName("testcustom");
         customrouteInfo.setStatus("1");
@@ -76,18 +95,18 @@ public class CustomRouteServiceTest {
         customrouteInfo.setUseOwnUpstream("0");
         customrouteInfo.setVisualRange("0");
         customrouteInfo.setEnable_ssl(false);
-        RouteServer[] servers = new RouteServer[]{new RouteServer("10.74.148.88","8080")};
+        RouteServer[] servers = new RouteServer[] {new RouteServer("10.74.148.88", "8080")};
         customrouteInfo.setServers(servers);
         try {
             customRouteService.saveCustomRouteService2Redis(customrouteInfo, "msb:routing:custom:testcustom");
             assertEquals(customrouteInfo, customRouteService.getCustomRouteInstance("msb:routing:custom:testcustom"));
         } catch (Exception e) {
-            assert false:"throw exception means error occured!"+e.getMessage();
+            assert false : "throw exception means error occured!" + e.getMessage();
         }
     }
 
     @Test
-    public void testSaveCustomRouteService2Redis(){
+    public void testSaveCustomRouteService2Redis() {
         CustomRouteInfo customrouteInfo = new CustomRouteInfo();
         customrouteInfo.setServiceName("testcustom");
         customrouteInfo.setStatus("1");
@@ -95,18 +114,18 @@ public class CustomRouteServiceTest {
         customrouteInfo.setUseOwnUpstream("0");
         customrouteInfo.setVisualRange("0");
         customrouteInfo.setEnable_ssl(true);
-        RouteServer[] servers = new RouteServer[]{new RouteServer("10.74.148.88","8080")};
+        RouteServer[] servers = new RouteServer[] {new RouteServer("10.74.148.88", "8080")};
         customrouteInfo.setServers(servers);
         try {
             customRouteService.saveCustomRouteService2Redis(customrouteInfo, "msb:routing:custom:testcustom");
             assertEquals(customrouteInfo, customRouteService.getCustomRouteInstance("msb:routing:custom:testcustom"));
         } catch (Exception e) {
-            assert false:"throw exception means error occured!"+e.getMessage();
+            assert false : "throw exception means error occured!" + e.getMessage();
         }
     }
 
     @Test
-    public void testSaveCustomRouteService2Redis_urlIsSlash(){
+    public void testSaveCustomRouteService2Redis_urlIsSlash() {
         CustomRouteInfo customrouteInfo = new CustomRouteInfo();
         customrouteInfo.setServiceName("testcustom");
         customrouteInfo.setStatus("1");
@@ -114,19 +133,19 @@ public class CustomRouteServiceTest {
         customrouteInfo.setUseOwnUpstream("0");
         customrouteInfo.setVisualRange("0");
         customrouteInfo.setEnable_ssl(true);
-        RouteServer[] servers = new RouteServer[]{new RouteServer("10.74.148.88","8080")};
+        RouteServer[] servers = new RouteServer[] {new RouteServer("10.74.148.88", "8080")};
         customrouteInfo.setServers(servers);
         try {
             customRouteService.saveCustomRouteService2Redis(customrouteInfo, "msb:routing:custom:testcustom");
             customrouteInfo.setUrl("");
             assertEquals(customrouteInfo, customRouteService.getCustomRouteInstance("msb:routing:custom:testcustom"));
         } catch (Exception e) {
-            assert false:"throw exception means error occured!"+e.getMessage();
+            assert false : "throw exception means error occured!" + e.getMessage();
         }
     }
 
     @Test
-    public void testDeleteCustomRouteService2Redis(){
+    public void testDeleteCustomRouteService2Redis() {
         CustomRouteInfo customrouteInfo = new CustomRouteInfo();
         customrouteInfo.setServiceName("testcustom");
         customrouteInfo.setStatus("1");
@@ -134,7 +153,7 @@ public class CustomRouteServiceTest {
         customrouteInfo.setUseOwnUpstream("0");
         customrouteInfo.setVisualRange("0");
         customrouteInfo.setEnable_ssl(false);
-        RouteServer[] servers = new RouteServer[]{new RouteServer("10.74.148.88","8080")};
+        RouteServer[] servers = new RouteServer[] {new RouteServer("10.74.148.88", "8080")};
         customrouteInfo.setServers(servers);
         try {
             customRouteService.saveCustomRouteService2Redis(customrouteInfo, "msb:routing:custom:testcustom");
@@ -142,12 +161,12 @@ public class CustomRouteServiceTest {
             customRouteService.deleteCustomRouteService2Redis("msb:routing:custom:testcustom");
             assertNull(customRouteService.getCustomRouteInstance("msb:routing:custom:testcustom"));
         } catch (Exception e) {
-            assert false:"throw exception means error occured!"+e.getMessage();
+            assert false : "throw exception means error occured!" + e.getMessage();
         }
     }
 
     @Test
-    public void testUpdateCustomRouteStatus2Redis(){
+    public void testUpdateCustomRouteStatus2Redis() {
         CustomRouteInfo customrouteInfo = new CustomRouteInfo();
         customrouteInfo.setServiceName("testcustom");
         customrouteInfo.setStatus("1");
@@ -155,7 +174,7 @@ public class CustomRouteServiceTest {
         customrouteInfo.setUseOwnUpstream("0");
         customrouteInfo.setVisualRange("0");
         customrouteInfo.setEnable_ssl(true);
-        RouteServer[] servers = new RouteServer[]{new RouteServer("10.74.148.88","8080")};
+        RouteServer[] servers = new RouteServer[] {new RouteServer("10.74.148.88", "8080")};
         customrouteInfo.setServers(servers);
         try {
             customRouteService.saveCustomRouteService2Redis(customrouteInfo, "msb:routing:custom:testcustom");
@@ -163,7 +182,7 @@ public class CustomRouteServiceTest {
             customRouteService.updateCustomRouteStatus2Redis("msb:routing:custom:testcustom", "0");
             assertEquals("0", customRouteService.getCustomRouteInstance("msb:routing:custom:testcustom").getStatus());
         } catch (Exception e) {
-            assert false:"throw exception means error occured!"+e.getMessage();
+            assert false : "throw exception means error occured!" + e.getMessage();
         }
     }
 
@@ -176,7 +195,7 @@ public class CustomRouteServiceTest {
         customrouteInfo.setUseOwnUpstream("0");
         customrouteInfo.setVisualRange("0");
         customrouteInfo.setEnable_ssl(false);
-        customrouteInfo.setServers(new RouteServer[]{new RouteServer("10.74.148.88","8080")});
+        customrouteInfo.setServers(new RouteServer[] {new RouteServer("10.74.148.88", "8080")});
 
         CustomRouteInfo customrouteInfo2 = new CustomRouteInfo();
         customrouteInfo2.setServiceName("testcustom2");
@@ -185,7 +204,7 @@ public class CustomRouteServiceTest {
         customrouteInfo2.setUseOwnUpstream("0");
         customrouteInfo2.setVisualRange("0");;
         customrouteInfo.setEnable_ssl(true);
-        customrouteInfo2.setServers(new RouteServer[]{new RouteServer("10.74.148.88","8088")});
+        customrouteInfo2.setServers(new RouteServer[] {new RouteServer("10.74.148.88", "8088")});
 
         customRouteService.saveCustomRouteService2Redis(customrouteInfo, "msb:routing:custom:testcustom");
         customRouteService.saveCustomRouteService2Redis(customrouteInfo2, "msb:routing:custom:testcustom2");
@@ -210,7 +229,7 @@ public class CustomRouteServiceTest {
         customrouteInfo.setUseOwnUpstream("0");
         customrouteInfo.setVisualRange("0");
         customrouteInfo.setEnable_ssl(false);
-        customrouteInfo.setServers(new RouteServer[]{new RouteServer("10.74.148.88","8080")});
+        customrouteInfo.setServers(new RouteServer[] {new RouteServer("10.74.148.88", "8080")});
 
         CustomRouteInfo customrouteInfo2 = new CustomRouteInfo();
         customrouteInfo2.setServiceName("testcustom2");
@@ -219,12 +238,12 @@ public class CustomRouteServiceTest {
         customrouteInfo2.setUseOwnUpstream("0");
         customrouteInfo2.setVisualRange("0");;
         customrouteInfo.setEnable_ssl(true);
-        customrouteInfo2.setServers(new RouteServer[]{new RouteServer("10.74.148.88","8088")});
+        customrouteInfo2.setServers(new RouteServer[] {new RouteServer("10.74.148.88", "8088")});
         customRouteService.saveCustomRouteService2Redis(customrouteInfo, "msb:routing:custom:testcustom");
         customRouteService.saveCustomRouteService2Redis(customrouteInfo2, "msb:routing:custom:testcustom2");
 
-        assertEquals(2,customRouteService.getMultiCustomRouteInstances("msb:routing:custom:*").size());
-        assertEquals(2,customRouteService.deleteMultiCustomRouteService2Redis("msb:routing:custom:*"));
+        assertEquals(2, customRouteService.getMultiCustomRouteInstances("msb:routing:custom:*").size());
+        assertEquals(2, customRouteService.deleteMultiCustomRouteService2Redis("msb:routing:custom:*"));
         assertEquals(0, customRouteService.getMultiCustomRouteInstances("msb:routing:custom:*").size());
     }
 
