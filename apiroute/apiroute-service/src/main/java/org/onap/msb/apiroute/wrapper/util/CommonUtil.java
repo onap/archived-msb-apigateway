@@ -1,17 +1,15 @@
 /*******************************************************************************
  * Copyright 2016-2017 ZTE, Inc. and others.
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  ******************************************************************************/
 package org.onap.msb.apiroute.wrapper.util;
 
@@ -22,70 +20,70 @@ import org.apache.commons.lang3.StringUtils;
 
 public class CommonUtil {
 
-  public static final int SC_OK = 200;
-  
-  public static Object[] concat(Object[] a, Object[] b) {
-    Object[] c = new Object[a.length + b.length];
-    System.arraycopy(a, 0, c, 0, a.length);
-    System.arraycopy(b, 0, c, a.length, b.length);
-    return c;
-  }
+    public static final int SC_OK = 200;
 
-  public static boolean contain(String strArray, String str) {
-    String[] array = StringUtils.split(strArray, ",");
-    return contain(array, str);
-  }
-
-  public static boolean contain(String[] array, String str) {
-    for (int i = 0; i < array.length; i++) {
-      if (array[i].trim().equals(str)) {
-        return true;
-      }
+    public static Object[] concat(Object[] a, Object[] b) {
+        Object[] c = new Object[a.length + b.length];
+        System.arraycopy(a, 0, c, 0, a.length);
+        System.arraycopy(b, 0, c, a.length, b.length);
+        return c;
     }
-    return false;
 
-  }
+    public static boolean contain(String strArray, String str) {
+        String[] array = StringUtils.split(strArray, ",");
+        return contain(array, str);
+    }
 
-  public static boolean contain(String[] array, String value[]) {
-    for (int i = 0; i < array.length; i++) {
-      for (int n = 0; n < value.length; n++) {
-        if (array[i].equals(value[n])) {
-          return true;
+    public static boolean contain(String[] array, String str) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].trim().equals(str)) {
+                return true;
+            }
         }
-      }
-    }
-    return false;
+        return false;
 
-  }
-
-  /**
-   * @param <T>
-   * @Title getDiffrent
-   * @Description TODO(Extract the list1 and list2 different data sets)
-   * @param list1
-   * @param list2
-   * @return TODO（a new List in list2 but not in list1）
-   * @return List<String>
-   */
-  public static <T> Set<T> getDiffrent(Set<T> list1, Set<T> list2) {
-
-    HashSet<T> set_all = new HashSet<T>();
-
-    for (T t1 : list1) {
-      set_all.add(t1);
     }
 
+    public static boolean contain(String[] array, String value[]) {
+        for (int i = 0; i < array.length; i++) {
+            for (int n = 0; n < value.length; n++) {
+                if (array[i].equals(value[n])) {
+                    return true;
+                }
+            }
+        }
+        return false;
 
-    Set<T> diff = new HashSet<T>();
-
-    for (T t2 : list2) {
-      if (set_all.add(t2)) { // in list2 but not in list1
-        diff.add(t2);
-      }
     }
 
+    /**
+     * @param <T>
+     * @Title getDiffrent
+     * @Description TODO(Extract the list1 and list2 different data sets)
+     * @param list1
+     * @param list2
+     * @return TODO（a new List in list2 but not in list1）
+     * @return List<String>
+     */
+    public static <T> Set<T> getDiffrent(Set<T> list1, Set<T> list2) {
 
-    return diff;
-  }
+        HashSet<T> set_all = new HashSet<T>();
+
+        for (T t1 : list1) {
+            set_all.add(t1);
+        }
+
+
+        Set<T> diff = new HashSet<T>();
+
+        for (T t2 : list2) {
+            if (set_all.add(t2)) { // in list2 but not in list1
+                diff.add(t2);
+            }
+        }
+
+
+        return diff;
+    }
 
 }

@@ -1,17 +1,15 @@
 /*******************************************************************************
  * Copyright 2016-2017 ZTE, Inc. and others.
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  ******************************************************************************/
 package org.onap.msb.apiroute.wrapper.service;
 
@@ -34,8 +32,6 @@ import org.onap.msb.apiroute.wrapper.util.MicroServiceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.ImmutableSet;
-
 public class MicroServiceFullService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MicroServiceFullService.class);
 
@@ -43,8 +39,7 @@ public class MicroServiceFullService {
 
     private IServiceDAO serviceDAO = DAOFactory.getServiceDAO();
 
-    private MicroServiceFullService() {
-    }
+    private MicroServiceFullService() {}
 
     public static MicroServiceFullService getInstance() {
         return instance;
@@ -57,8 +52,7 @@ public class MicroServiceFullService {
         List<ServiceInfo> serviceInfoList = serviceDAO.queryMultiService(serviceKeyPattern);
         for (ServiceInfo serviceInfo : serviceInfoList) {
             if (serviceInfo != null) {
-                MicroServiceFullInfo microServiceFullInfo = MicroServiceFullAdapter.fromServiceInfo(serviceInfo);
-                ;
+                MicroServiceFullInfo microServiceFullInfo = MicroServiceFullAdapter.fromServiceInfo(serviceInfo);;
                 microServiceFullInfoList.add(microServiceFullInfo);
             }
         }
@@ -82,29 +76,28 @@ public class MicroServiceFullService {
     }
 
     public void saveMicroServiceInfo2Redis(MicroServiceFullInfo microServiceFullInfo) throws Exception {
-        if(microServiceFullInfo ==null){
+        if (microServiceFullInfo == null) {
             throw new Exception("input microServiceInfo to be saved is null!");
         }
         ServiceInfo serviceInfo = MicroServiceFullAdapter.toServiceInfo(microServiceFullInfo);
-        String serviceKey = MicroServiceUtil.getServiceKey(microServiceFullInfo.getServiceName(),microServiceFullInfo.getVersion());
-        serviceDAO.saveService(serviceKey,serviceInfo);
+        String serviceKey = MicroServiceUtil.getServiceKey(microServiceFullInfo.getServiceName(),
+                        microServiceFullInfo.getVersion());
+        serviceDAO.saveService(serviceKey, serviceInfo);
     }
 
-    public void updateMicroServiceStatus(String serviceName, String version, String status)
-            throws Exception {
+    public void updateMicroServiceStatus(String serviceName, String version, String status) throws Exception {
         if (null == version || "null".equals(version)) {
             version = "";
         }
         String serviceKey = MicroServiceUtil.getServiceKey(serviceName, version);
         ServiceInfo serviceInfo = serviceDAO.queryService(serviceKey);
-        if(serviceInfo != null){
+        if (serviceInfo != null) {
             serviceInfo.setStatus(status);
-            serviceDAO.saveService(serviceKey,serviceInfo);
+            serviceDAO.saveService(serviceKey, serviceInfo);
         }
     }
 
-    public boolean existsMicroServiceInstance(String serviceName, String version)
-            throws Exception {
+    public boolean existsMicroServiceInstance(String serviceName, String version) throws Exception {
         if (null == version || "null".equals(version)) {
             version = "";
         }
@@ -112,8 +105,7 @@ public class MicroServiceFullService {
         return RedisAccessWrapper.isExist(serviceKey);
     }
 
-    public MicroServiceFullInfo getMicroServiceInstance(String serviceName, String version)
-            throws Exception {
+    public MicroServiceFullInfo getMicroServiceInstance(String serviceName, String version) throws Exception {
         if (null == version || "null".equals(version)) {
             version = "";
         }
@@ -123,7 +115,7 @@ public class MicroServiceFullService {
 
         ServiceInfo serviceInfo = null;
         serviceInfo = serviceDAO.queryService(serviceKey);
-        if(serviceInfo!=null) {
+        if (serviceInfo != null) {
             microServiceInfo = MicroServiceFullAdapter.fromServiceInfo(serviceInfo);
         }
         return microServiceInfo;
@@ -131,6 +123,7 @@ public class MicroServiceFullService {
 
     /**
      * query all the versions of the given ServiceName
+     * 
      * @param serviceName
      * @return
      * @throws Exception
@@ -162,6 +155,7 @@ public class MicroServiceFullService {
     }
 }
 
+
 class MicroServiceFullAdapter {
     public static ServiceInfo toServiceInfo(MicroServiceFullInfo microServiceFullInfo) {
         ServiceInfo serviceInfo = new ServiceInfo();
@@ -180,13 +174,14 @@ class MicroServiceFullAdapter {
         Set<org.onap.msb.apiroute.api.Node> nodeSet = microServiceFullInfo.getNodes();
         List<org.onap.msb.apiroute.wrapper.dao.service.bean.Node> serviceNodeList = new ArrayList<>();
         for (org.onap.msb.apiroute.api.Node node : nodeSet) {
-            org.onap.msb.apiroute.wrapper.dao.service.bean.Node serviceNode = new org.onap.msb.apiroute.wrapper.dao.service.bean.Node();
+            org.onap.msb.apiroute.wrapper.dao.service.bean.Node serviceNode =
+                            new org.onap.msb.apiroute.wrapper.dao.service.bean.Node();
             serviceNode.setIp(node.getIp());
             serviceNode.setPort(node.getPort());
             serviceNode.setTtl(node.getTtl());
             serviceNodeList.add(serviceNode);
         }
-        spec.setNodes(serviceNodeList.toArray(new org.onap.msb.apiroute.wrapper.dao.service.bean.Node[]{}));
+        spec.setNodes(serviceNodeList.toArray(new org.onap.msb.apiroute.wrapper.dao.service.bean.Node[] {}));
         serviceInfo.setSpec(spec);
 
         Metadata metadata = new Metadata();

@@ -1,19 +1,21 @@
 /*******************************************************************************
  * Copyright 2016-2017 ZTE, Inc. and others.
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  ******************************************************************************/
 package org.onap.msb.apiroute.wrapper.service;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import org.onap.msb.apiroute.api.ApiRouteInfo;
 import org.onap.msb.apiroute.api.RouteServer;
@@ -26,25 +28,20 @@ import org.onap.msb.apiroute.wrapper.dao.route.bean.Spec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 
 public class ApiRouteService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApiRouteService.class);
     private static final ApiRouteService instance = new ApiRouteService();
     private IRouteDAO routeDAO = DAOFactory.getRouteDAO();
 
-    private ApiRouteService() {
-    }
+    private ApiRouteService() {}
 
     public static ApiRouteService getInstance() {
         return instance;
     }
 
     public void saveApiRouteService2Redis(ApiRouteInfo apiRouteInfo, String routeKey) throws Exception {
-        if(apiRouteInfo ==null){
+        if (apiRouteInfo == null) {
             throw new Exception("input apiRouteInfo to be saved is null!");
         }
         RouteInfo routeInfo = APIRouteAdapter.toRouteInfo(apiRouteInfo);
@@ -63,7 +60,7 @@ public class ApiRouteService {
         ApiRouteInfo apiRouteInfo = null;
         RouteInfo routeInfo = null;
         routeInfo = routeDAO.queryRoute(routeKey);
-        if(routeInfo!=null) {
+        if (routeInfo != null) {
             apiRouteInfo = APIRouteAdapter.fromRouteInfo(routeInfo);
         }
         return apiRouteInfo;
@@ -74,23 +71,24 @@ public class ApiRouteService {
         List<RouteInfo> routeInfoList = routeDAO.queryMultiRoute(apiRedisKeyPattern);
         for (RouteInfo routeInfo : routeInfoList) {
             if (routeInfo != null) {
-                 ApiRouteInfo apiRouteInfo = APIRouteAdapter.fromRouteInfo(routeInfo);;
+                ApiRouteInfo apiRouteInfo = APIRouteAdapter.fromRouteInfo(routeInfo);;
                 apiRouteList.add(apiRouteInfo);
             }
         }
         return apiRouteList;
     }
 
-    public void updateApiRouteStatus2Redis(String routeKey,String status) throws Exception {
+    public void updateApiRouteStatus2Redis(String routeKey, String status) throws Exception {
         RouteInfo routeInfo = routeDAO.queryRoute(routeKey);
-        if(routeInfo != null){
+        if (routeInfo != null) {
             routeInfo.setStatus(status);
-            routeDAO.saveRoute(routeKey,routeInfo);
-        }else{
+            routeDAO.saveRoute(routeKey, routeInfo);
+        } else {
             throw new Exception("service to be updated is not exist! Update failed");
         }
     }
 }
+
 
 class APIRouteAdapter {
     public static RouteInfo toRouteInfo(ApiRouteInfo apiRouteInfo) {
@@ -114,14 +112,14 @@ class APIRouteAdapter {
         spec.setControl(apiRouteInfo.getControl());
         RouteServer[] routeServers = apiRouteInfo.getServers();
         List<Node> nodeList = new ArrayList<>();
-        for (RouteServer server: routeServers){
+        for (RouteServer server : routeServers) {
             Node node = new Node();
             node.setIp(server.getIp());
             node.setPort(Integer.parseInt(server.getPort()));
             node.setWeight(server.getWeight());
             nodeList.add(node);
         }
-        spec.setNodes(nodeList.toArray(new Node[]{}));
+        spec.setNodes(nodeList.toArray(new Node[] {}));
         routeInfo.setSpec(spec);
 
         Metadata metadata = new Metadata();
@@ -156,14 +154,14 @@ class APIRouteAdapter {
         apiRouteInfo.setControl(spec.getControl());
         Node[] nodes = spec.getNodes();
         List<RouteServer> routeServerList = new ArrayList<>();
-        for (Node node: nodes){
+        for (Node node : nodes) {
             RouteServer routeServer = new RouteServer();
             routeServer.setIp(node.getIp());
             routeServer.setPort(String.valueOf(node.getPort()));
             routeServer.setWeight(node.getWeight());
             routeServerList.add(routeServer);
         }
-        apiRouteInfo.setServers(routeServerList.toArray(new RouteServer[]{}));
+        apiRouteInfo.setServers(routeServerList.toArray(new RouteServer[] {}));
 
         Metadata metadata = routeInfo.getMetadata();
         apiRouteInfo.setServiceName(metadata.getName());
