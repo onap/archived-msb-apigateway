@@ -71,7 +71,7 @@ public class MicroServiceResource {
         return MicroServiceWrapper.getInstance().getAllMicroServiceInstances();
     }
 
-    @POST
+    /*@POST
     @Path("/")
     @ApiOperation(value = "add one microservice ", code = HttpStatus.SC_CREATED, response = MicroServiceFullInfo.class)
     @ApiResponses(value = {
@@ -251,7 +251,7 @@ public class MicroServiceResource {
         }
 
         return Response.ok("apigateway healthy check:ok").build();
-    }
+    }*/
 
 
 }
