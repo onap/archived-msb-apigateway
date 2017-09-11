@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.onap.msb.apiroute.resources;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,12 +31,23 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.onap.msb.apiroute.api.DiscoverInfo;
 import org.onap.msb.apiroute.api.MicroServiceFullInfo;
 import org.onap.msb.apiroute.api.exception.ExtendedInternalServerErrorException;
 import org.onap.msb.apiroute.health.ConsulLinkHealthCheck;
 import org.onap.msb.apiroute.health.RedisHealthCheck;
 import org.onap.msb.apiroute.wrapper.MicroServiceWrapper;
+import org.onap.msb.apiroute.wrapper.util.ConfigUtil;
+import org.onap.msb.apiroute.wrapper.util.HttpClientUtil;
+import org.onap.msb.apiroute.wrapper.util.JacksonJsonUtil;
 import org.onap.msb.apiroute.wrapper.util.MicroServiceUtil;
+import org.onap.msb.apiroute.wrapper.util.RouteUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +63,6 @@ import io.swagger.annotations.ApiResponses;
 // @Api(tags = {"MSB-Service Resource"})
 @Produces(MediaType.APPLICATION_JSON)
 public class MicroServiceResource {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(MicroServiceResource.class);
 
     @Context
@@ -71,7 +80,7 @@ public class MicroServiceResource {
         return MicroServiceWrapper.getInstance().getAllMicroServiceInstances();
     }
 
-    /*@POST
+    @POST
     @Path("/")
     @ApiOperation(value = "add one microservice ", code = HttpStatus.SC_CREATED, response = MicroServiceFullInfo.class)
     @ApiResponses(value = {
@@ -91,14 +100,60 @@ public class MicroServiceResource {
                                     required = false) @QueryParam("createOrUpdate") @DefaultValue("true") boolean createOrUpdate,
                     @ApiParam(value = "port", required = false) @QueryParam("port") @DefaultValue("") String port) {
 
-        String ip = MicroServiceUtil.getRealIp(request);
+        MicroServiceFullInfo microServiceFullInfo =
+                        createRegistrationMicroserviceInfo(microServiceInfo, request, createOrUpdate, port);
+        String registrationUrl = getUrlForRegistration();
+        Response response = routeRegistration2DiscoveryService(microServiceFullInfo, registrationUrl);
+        return response;
+    }
 
+    /**
+     * @param microServiceFullInfo
+     * @param registrationUrl
+     * @return
+     */
+    private Response routeRegistration2DiscoveryService(MicroServiceFullInfo microServiceFullInfo,
+                    String registrationUrl) {
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse httpResponse = null;
+        try {
+            HttpPost httpPost = HttpClientUtil.createHttpPost(registrationUrl,
+                            JacksonJsonUtil.beanToJson(microServiceFullInfo));
+            httpClient = HttpClients.createDefault();
+            httpResponse = httpClient.execute(httpPost);
+            String jsonString = EntityUtils.toString(httpResponse.getEntity());
+            return Response.status(httpResponse.getStatusLine().getStatusCode()).entity(jsonString).build();
+        } catch (Exception e) {
+            throw new ExtendedInternalServerErrorException(e.getMessage());
+        } finally {
+            HttpClientUtil.closeHttpClient(httpClient);
+            HttpClientUtil.closeHttpResponse(httpResponse);
+        }
+    }
+
+    /**
+     * @return
+     */
+    private String getUrlForRegistration() {
+        DiscoverInfo discoverInfo = ConfigUtil.getInstance().getDiscoverInfo();
+        String registrationUrl = new StringBuilder().append("http://").append(discoverInfo)
+                        .append(RouteUtil.MSB_ROUTE_URL).toString();
+        return registrationUrl;
+    }
+
+    /**
+     * @param microServiceInfo
+     * @param request
+     * @param createOrUpdate
+     * @param port
+     * @return
+     */
+    private MicroServiceFullInfo createRegistrationMicroserviceInfo(MicroServiceFullInfo microServiceInfo,
+                    HttpServletRequest request, boolean createOrUpdate, String port) {
+        String ip = MicroServiceUtil.getRealIp(request);
         MicroServiceFullInfo microServiceFullInfo = MicroServiceWrapper.getInstance()
                         .saveMicroServiceInstance(microServiceInfo, createOrUpdate, ip, port);
-        URI returnURI = uriInfo.getAbsolutePathBuilder()
-                        .path("/" + microServiceInfo.getServiceName() + "/version/" + microServiceInfo.getVersion())
-                        .build();
-        return Response.created(returnURI).entity(microServiceFullInfo).build();
+        return microServiceFullInfo;
     }
 
 
@@ -115,14 +170,44 @@ public class MicroServiceResource {
                                     response = String.class)})
     @Produces(MediaType.APPLICATION_JSON)
     @Timed
-    public MicroServiceFullInfo getMicroService(
+    public Response getMicroService(
                     @ApiParam(value = "microservice serviceName") @PathParam("serviceName") String serviceName,
                     @ApiParam(value = "microservice version,if the version is empty, please enter \"null\"") @PathParam("version") @DefaultValue("") String version) {
+        String discoveryUrl = getUrlForDiscovery(serviceName, version);
+        return routeDiscovery2DiscoveryService(discoveryUrl);
+    }
 
+    /**
+     * @param discoveryUrl
+     * @return
+     */
+    private Response routeDiscovery2DiscoveryService(String discoveryUrl) {
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse httpResponse = null;
+        try {
+            HttpGet httpGet = HttpClientUtil.createHttpGet(discoveryUrl);
+            httpClient = HttpClients.createDefault();
+            httpResponse = httpClient.execute(httpGet);
+            String jsonString = EntityUtils.toString(httpResponse.getEntity());
+            return Response.status(httpResponse.getStatusLine().getStatusCode()).entity(jsonString).build();
+        } catch (Exception e) {
+            throw new ExtendedInternalServerErrorException(e.getMessage());
+        } finally {
+            HttpClientUtil.closeHttpClient(httpClient);
+            HttpClientUtil.closeHttpResponse(httpResponse);
+        }
+    }
 
-        return MicroServiceWrapper.getInstance().getMicroServiceInstance(serviceName, version);
-
-
+    /**
+     * @param serviceName
+     * @param version
+     * @return
+     */
+    private String getUrlForDiscovery(String serviceName, String version) {
+        DiscoverInfo discoverInfo = ConfigUtil.getInstance().getDiscoverInfo();
+        String discoveryUrl = new StringBuilder().append("http://").append(discoverInfo).append(RouteUtil.MSB_ROUTE_URL)
+                        .append("/").append(serviceName).append("/version/").append(version).toString();
+        return discoveryUrl;
     }
 
     @PUT
@@ -251,7 +336,5 @@ public class MicroServiceResource {
         }
 
         return Response.ok("apigateway healthy check:ok").build();
-    }*/
-
-
+    }
 }

@@ -14,13 +14,22 @@
 package org.onap.msb.apiroute.wrapper.util;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +39,91 @@ public class HttpClientUtil {
     private static final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
 
     private static int connectionTimeOut = 2 * 1000;
+
+    public static HttpPost createHttpPost(String url, String params){
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.addHeader("Content-type", "application/json; charset=utf-8");
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setEntity(new StringEntity(params, Charset.forName("UTF-8")));
+        return httpPost;
+     }
+    
+    public static HttpGet createHttpGet(String url){
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.addHeader("Content-type", "application/json; charset=utf-8");
+        httpGet.setHeader("Accept", "application/json");
+        return httpGet;
+     }
+    
+    public static void closeHttpClient(CloseableHttpClient httpClient) {
+        if (httpClient != null) {
+            try {
+                httpClient.close();
+            } catch (IOException e) {
+                logger.error(httpClient + ":close  httpClient faild");
+            }
+        }
+    }
+    
+    public static void closeHttpResponse(CloseableHttpResponse response) {
+        if (response != null) {
+            try {
+                response.close();
+            } catch (IOException e) {
+                logger.error(response + ":close  response faild");
+            }
+        }
+    }
+    
+    public static CloseableHttpResponse httpGetWithResponse(String url) throws Exception {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.addHeader("Content-type", "application/json; charset=utf-8");
+        httpGet.setHeader("Accept", "application/json");
+        try {
+            return httpClient.execute(httpGet);         
+        } finally {
+            try {
+                httpClient.close();
+            } catch (IOException e) {
+                logger.error(url + ":close  httpClient faild");
+            }
+        }
+    }
+
+    public static void delete(String url, String parameter) throws Exception {
+        String result = null;
+        String baseUrl;
+        if (parameter != null) {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("serviceName", parameter));
+            baseUrl = url + "?" + URLEncodedUtils.format(params, "UTF-8");
+        } else {
+            baseUrl = url;
+        }
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();;
+        try {
+
+            HttpDelete httpDelete = new HttpDelete(baseUrl);
+            CloseableHttpResponse res = httpClient.execute(httpDelete);
+
+            if (res.getStatusLine().getStatusCode() != 200) {
+                throw new Exception("delete fail");
+            }
+
+            res.close();
+        } catch (IOException e) {
+            String errorMsg = baseUrl + ":delete connect faild";
+        } finally {
+            try {
+                httpClient.close();
+            } catch (IOException e) {
+                String errorMsg = baseUrl + ":close  httpClient faild";
+            }
+        }
+
+    }
 
 
     public static String httpGet(String url) {
