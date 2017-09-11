@@ -18,13 +18,16 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpMessage;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -40,22 +43,48 @@ public class HttpClientUtil {
 
     private static int connectionTimeOut = 2 * 1000;
 
-    public static HttpPost createHttpPost(String url, String params){
+    public static HttpPost createHttpPost(String url, Object bean) throws Exception {
         HttpPost httpPost = new HttpPost(url);
-        httpPost.addHeader("Content-type", "application/json; charset=utf-8");
-        httpPost.setHeader("Accept", "application/json");
-        httpPost.setEntity(new StringEntity(params, Charset.forName("UTF-8")));
+        setCommonHeader(httpPost);
+        setStringEntity(httpPost, bean);
         return httpPost;
-     }
-    
-    public static HttpGet createHttpGet(String url){
+    }
+
+    public static HttpGet createHttpGet(String url) {
         HttpGet httpGet = new HttpGet(url);
-        httpGet.addHeader("Content-type", "application/json; charset=utf-8");
-        httpGet.setHeader("Accept", "application/json");
+        setCommonHeader(httpGet);
         return httpGet;
-     }
-    
-    public static void closeHttpClient(CloseableHttpClient httpClient) {
+    }
+
+    public static HttpPut createHttpPut(String url, Object bean) throws Exception {
+        HttpPut httpPut = new HttpPut(url);
+        setCommonHeader(httpPut);
+        setStringEntity(httpPut, bean);
+        return httpPut;
+    }
+
+    public static HttpPut createHttpPut(String url) throws Exception {
+        HttpPut httpPut = new HttpPut(url);
+        setCommonHeader(httpPut);
+        return httpPut;
+    }
+
+    private static void setCommonHeader(HttpMessage httpMessage) {
+        httpMessage.addHeader("Content-type", "application/json; charset=utf-8");
+        httpMessage.setHeader("Accept", "application/json");
+    }
+
+    private static void setStringEntity(HttpEntityEnclosingRequestBase httpMessage, Object bean) throws Exception {
+        String entity = JacksonJsonUtil.beanToJson(bean);
+        httpMessage.setEntity(new StringEntity(entity, Charset.forName("UTF-8")));
+    }
+
+    public static void closeHttpClient(CloseableHttpClient httpClient, CloseableHttpResponse response) {
+        closeHttpClient(httpClient);
+        closeHttpResponse(response);
+    }
+
+    private static void closeHttpClient(CloseableHttpClient httpClient) {
         if (httpClient != null) {
             try {
                 httpClient.close();
@@ -64,8 +93,8 @@ public class HttpClientUtil {
             }
         }
     }
-    
-    public static void closeHttpResponse(CloseableHttpResponse response) {
+
+    private static void closeHttpResponse(CloseableHttpResponse response) {
         if (response != null) {
             try {
                 response.close();
@@ -74,14 +103,14 @@ public class HttpClientUtil {
             }
         }
     }
-    
+
     public static CloseableHttpResponse httpGetWithResponse(String url) throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader("Content-type", "application/json; charset=utf-8");
         httpGet.setHeader("Accept", "application/json");
         try {
-            return httpClient.execute(httpGet);         
+            return httpClient.execute(httpGet);
         } finally {
             try {
                 httpClient.close();

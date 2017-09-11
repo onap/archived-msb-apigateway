@@ -27,7 +27,7 @@ public class MicroServiceFullInfo implements Serializable {
 
 
     @ApiModelProperty(required = true)
-    private String serviceName;
+    private String serviceName = "";
 
     @ApiModelProperty(example = "v1")
     private String version = "";
