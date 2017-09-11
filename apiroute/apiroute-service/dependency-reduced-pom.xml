@@ -85,7 +85,7 @@
     <dependency>
       <groupId>org.powermock</groupId>
       <artifactId>powermock-module-junit4</artifactId>
-      <version>1.5.5</version>
+      <version>1.6.6</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -97,16 +97,20 @@
     <dependency>
       <groupId>org.powermock</groupId>
       <artifactId>powermock-api-mockito</artifactId>
-      <version>1.5.5</version>
+      <version>1.6.6</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
-          <artifactId>mockito-all</artifactId>
+          <artifactId>mockito-core</artifactId>
           <groupId>org.mockito</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>powermock-api-support</artifactId>
+          <artifactId>powermock-api-mockito-common</artifactId>
           <groupId>org.powermock</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>hamcrest-core</artifactId>
+          <groupId>org.hamcrest</groupId>
         </exclusion>
       </exclusions>
     </dependency>
