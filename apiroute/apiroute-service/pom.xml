@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE) 
-	Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-	use this file except in compliance with the License. You may obtain a copy 
-	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-	by applicable law or agreed to in writing, software distributed under the 
-	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-	OF ANY KIND, either express or implied. See the License for the specific 
+<!-- Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not
+	use this file except in compliance with the License. You may obtain a copy
+	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
+	by applicable law or agreed to in writing, software distributed under the
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+	OF ANY KIND, either express or implied. See the License for the specific
 	language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -65,7 +65,7 @@
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito</artifactId>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>com.orbitz.consul</groupId>
 			<artifactId>consul-client</artifactId>
@@ -106,6 +106,12 @@
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
       </dependency>
+
+	  <dependency>
+          <groupId>org.onap.msb.swagger-sdk</groupId>
+          <artifactId>swagger-sdk</artifactId>
+          <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
 	</dependencies>
 	<build>
@@ -158,6 +164,79 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<!-- JSON -->
+			 <plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>properties-maven-plugin</artifactId>
+					<version>1.0.0</version>
+					  <executions>
+						  <execution>
+							<phase>initialize</phase>
+							<goals>
+							  <goal>read-project-properties</goal>
+							</goals>
+							<configuration>
+							  <files>
+								<file>${basedir}/src/main/resources/swagger.properties</file>
+							  </files>
+							</configuration>
+						  </execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>com.github.kongchen</groupId>
+					<artifactId>swagger-maven-plugin</artifactId>
+					<version>3.1.4</version>
+					<configuration>
+						<apiSources>
+						  <apiSource>
+								<locations>${api-rest-package}</locations>
+								<schemes>http,https</schemes>
+								<host>${api-host-ip}:${api-host-port}</host>
+								<basePath>${api-base-path}</basePath>
+								<info>
+									<title>${api-title}</title>
+									<version>${api-version}</version>
+									<description>${api-description}</description>
+									<license>
+										<name>${api-license}</name>
+									</license>
+								</info>
+								<swaggerDirectory>${basedir}/src/main/resources</swaggerDirectory>
+							</apiSource>
+						</apiSources>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>compile</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.3.1</version>
+					<executions>
+						<execution>
+							<id>install-file-id</id>
+							<phase>install</phase>
+							<goals>
+								<goal>install-file</goal>
+							</goals>
+							<configuration>
+								<file>${basedir}/src/main/resources/swagger.json</file>
+								<groupId>${project.groupId}</groupId>
+								<artifactId>${project.artifactId}-swagger-schema</artifactId>
+								<version>${project.version}</version>
+								<packaging>json</packaging>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
 		</plugins>
 		<resources>
 			<resource>
