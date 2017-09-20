@@ -237,6 +237,126 @@
 						</execution>
 					</executions>
 				</plugin>
+
+				<!-- SDK -->
+				<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+				  <execution>
+					<phase>initialize</phase>
+					<id>ant-create-script</id>
+					<configuration>
+					  <exportAntProperties>true</exportAntProperties>
+					  <tasks>
+						<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath"/>
+						<condition property="is_windows" value="true">
+						  <os family="windows"/>
+						</condition>
+						<condition property="isLinux" value="true">
+						  <os family="unix"/>
+						</condition>
+						<if>
+						  <equals arg1="${is_windows}" arg2="true"/>
+						  <then>
+							<property name="swagger.sdk.script.file" value="generated-source-script.bat"/>
+							<echo file="${project.build.directory}${file.separator}generated-source-script.bat" append="true" message="cd ${project.build.directory}${file.separator}generated-sources${line.separator}"/>
+							<echo file="${project.build.directory}${file.separator}generated-source-script.bat" append="true" message="mvn clean install -Dmaven.test.skip=true${line.separator}"/>
+						  </then>
+						  <else>
+							<property name="swagger.sdk.script.file" value="generated-source-script.sh"/>
+							<echo file="${project.build.directory}${file.separator}generated-source-script.sh" append="true" message="cd ${project.build.directory}${file.separator}generated-sources${line.separator}"/>
+							<echo file="${project.build.directory}${file.separator}generated-source-script.sh" append="true" message="mvn clean install -Dmaven.test.skip=true${line.separator}"/>
+							<chmod file="${project.build.directory}${file.separator}generated-source-script.sh" perm="755"/>
+						  </else>
+						</if>
+					  </tasks>
+					</configuration>
+					<goals>
+					  <goal>run</goal>
+					</goals>
+				  </execution>
+				</executions>
+				<dependencies>
+				  <dependency>
+					<groupId>ant-contrib</groupId>
+					<artifactId>ant-contrib</artifactId>
+					<version>1.0b3</version>
+					<exclusions>
+					  <exclusion>
+						<artifactId>ant</artifactId>
+						<groupId>ant</groupId>
+					  </exclusion>
+					</exclusions>
+				  </dependency>
+				</dependencies>
+			  </plugin>
+			  <plugin>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+				  <execution>
+					<goals>
+					  <goal>generate</goal>
+					</goals>
+					<configuration>
+					  <inputSpec>${basedir}/src/main/resources/swagger.json</inputSpec>
+					  <output>${project.build.directory}/generated-sources</output>
+					  <language>java</language>
+					  <configOptions>
+						<dateLibrary>joda</dateLibrary>
+					  </configOptions>
+					  <library>jersey2</library>
+					  <groupId>${project.groupId}</groupId>
+					  <artifactId>${project.artifactId}-java-sdk</artifactId>
+					  <artifactVersion>${project.version}</artifactVersion>
+					  <modelPackage>${project.groupId}.${project.artifactId}.client.model</modelPackage>
+					  <apiPackage>${project.groupId}.${project.artifactId}.client.api</apiPackage>
+					  <invokerPackage>${project.groupId}.${project.artifactId}.client.invoker</invokerPackage>
+					</configuration>
+				  </execution>
+				</executions>
+			  </plugin>
+			  <plugin>
+				<artifactId>exec-maven-plugin</artifactId>
+				<groupId>org.codehaus.mojo</groupId>
+				<version>1.5.0</version>
+				<executions>
+				  <execution>
+					<id>swagger-generate-sources</id>
+					<phase>generate-sources</phase>
+					<goals>
+					  <goal>exec</goal>
+					</goals>
+					<configuration>
+					  <executable>${project.build.directory}${file.separator}${swagger.sdk.script.file}</executable>
+					</configuration>
+				  </execution>
+				</executions>
+			  </plugin>
+			  <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+				  <execution>
+					<id>clean-generated-files</id>
+					<phase>generate-sources</phase>
+					<goals>
+					  <goal>clean</goal>
+					</goals>
+					<configuration>
+					  <filesets>
+						<fileset>
+						  <directory>${project.build.directory}/generated-sources</directory>
+						</fileset>
+					  </filesets>
+					</configuration>
+				  </execution>
+				</executions>
+			  </plugin>
 		</plugins>
 		<resources>
 			<resource>
