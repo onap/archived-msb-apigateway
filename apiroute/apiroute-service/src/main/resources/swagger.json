@@ -1,0 +1,1173 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "MicroService Bus rest API",
+    "version" : "1.0.0",
+    "title" : "MicroService Bus rest API",
+    "license" : {
+      "name" : "https://wiki.onap.org/display/DW/Apache+2.0+License"
+    }
+  },
+  "host" : "127.0.0.1:80",
+  "basePath" : "/api/microservices/v1",
+  "tags" : [ {
+    "name" : "ApiRoute"
+  }, {
+    "name" : "CustomRoute"
+  }, {
+    "name" : "iuiRoute"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "paths" : {
+    "/apiRoute" : {
+      "get" : {
+        "tags" : [ "ApiRoute" ],
+        "summary" : "get all ApiRoute ",
+        "description" : "",
+        "operationId" : "getApiRoutes",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ApiRouteInfo"
+              }
+            }
+          },
+          "500" : {
+            "description" : "get ApiRouteInfo List  fail"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "ApiRoute" ],
+        "summary" : "add one ApiRoute ",
+        "description" : "",
+        "operationId" : "addApiRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "ApiRoute Instance Info",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ApiRouteInfo"
+          }
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiRouteInfo"
+            }
+          },
+          "400" : {
+            "description" : "Unprocessable ApiRouteInfo JSON REQUEST"
+          },
+          "422" : {
+            "description" : "Unprocessable ApiRouteInfo Entity "
+          },
+          "500" : {
+            "description" : "add ApiRouteInfo fail"
+          }
+        }
+      }
+    },
+    "/apiRoute/apiDocs" : {
+      "get" : {
+        "tags" : [ "ApiRoute" ],
+        "summary" : "get all Local apiDoc ",
+        "description" : "",
+        "operationId" : "getApiDocs",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "500" : {
+            "description" : "get apiDoc List  fail"
+          }
+        }
+      }
+    },
+    "/apiRoute/discoverInfo" : {
+      "get" : {
+        "tags" : [ "ApiRoute" ],
+        "summary" : "get discover Info ",
+        "description" : "",
+        "operationId" : "getServiceDiscoverInfo",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DiscoverInfo"
+            }
+          },
+          "500" : {
+            "description" : "get discover Info fail"
+          }
+        }
+      }
+    },
+    "/apiRoute/export" : {
+      "get" : {
+        "tags" : [ "ApiRoute" ],
+        "summary" : "export all route service Info by json-file",
+        "description" : "",
+        "operationId" : "exportService",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "406" : {
+            "description" : " not Acceptable client-side"
+          },
+          "500" : {
+            "description" : "export fail"
+          }
+        }
+      }
+    },
+    "/apiRoute/{serviceName}/version/{version}" : {
+      "get" : {
+        "tags" : [ "ApiRoute" ],
+        "summary" : "get one ApiRoute ",
+        "description" : "",
+        "operationId" : "getApiRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "path",
+          "description" : "ApiRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "version",
+          "in" : "path",
+          "description" : "ApiRoute version,if the version is empty, please enter \"null\"",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "description" : "ApiRoute host",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "publish_port",
+          "in" : "query",
+          "description" : "ApiRoute Publish port",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiRouteInfo"
+            }
+          },
+          "404" : {
+            "description" : "ApiRouteInfo not found"
+          },
+          "422" : {
+            "description" : "Unprocessable ApiRouteInfo Entity "
+          },
+          "500" : {
+            "description" : "get ApiRouteInfo fail"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "ApiRoute" ],
+        "summary" : "update one ApiRoute by serviceName and version",
+        "description" : "",
+        "operationId" : "updateApiRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "path",
+          "description" : "ApiRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "version",
+          "in" : "path",
+          "description" : "ApiRoute version,if the version is empty, please enter \"null\"",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "ApiRoute Instance Info",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ApiRouteInfo"
+          }
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiRouteInfo"
+            }
+          },
+          "400" : {
+            "description" : "Unprocessable ApiRouteInfo JSON REQUEST"
+          },
+          "422" : {
+            "description" : "Unprocessable ApiRouteInfo Entity "
+          },
+          "500" : {
+            "description" : "update ApiRouteInfo fail"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "ApiRoute" ],
+        "summary" : "delete one ApiRoute by serviceName and version",
+        "description" : "",
+        "operationId" : "deleteApiRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "path",
+          "description" : "ApiRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "version",
+          "in" : "path",
+          "description" : "ApiRoute version,if the version is empty, please enter \"null\"",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "description" : "ApiRoute host",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "publish_port",
+          "in" : "query",
+          "description" : "ApiRoute Publish port",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "delete ApiRouteInfo succeed "
+          },
+          "404" : {
+            "description" : "ApiRouteInfo not found"
+          },
+          "500" : {
+            "description" : "delete ApiRouteInfo fail"
+          }
+        }
+      }
+    },
+    "/apiRoute/{serviceName}/version/{version}/status/{status}" : {
+      "put" : {
+        "tags" : [ "ApiRoute" ],
+        "summary" : "update one ApiRoute  status by serviceName and version",
+        "description" : "",
+        "operationId" : "updateApiRouteStatus",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "path",
+          "description" : "ApiRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "version",
+          "in" : "path",
+          "description" : "ApiRoute version,if the version is empty, please enter \"null\"",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "status",
+          "in" : "path",
+          "description" : "ApiRoute status,1?abled  0?disabled",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "description" : "ApiRoute host",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "publish_port",
+          "in" : "query",
+          "description" : "ApiRoute Publish port",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiRouteInfo"
+            }
+          },
+          "404" : {
+            "description" : "ApiRouteInfo not found"
+          },
+          "422" : {
+            "description" : "Unprocessable ApiRouteInfo Entity "
+          },
+          "500" : {
+            "description" : "update status fail"
+          }
+        }
+      }
+    },
+    "/customRoute/all" : {
+      "get" : {
+        "tags" : [ "CustomRoute" ],
+        "summary" : "get all CustomRoute ",
+        "description" : "",
+        "operationId" : "getCustomRoutes",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CustomRouteInfo"
+              }
+            }
+          },
+          "500" : {
+            "description" : "get CustomRouteInfo List  fail"
+          }
+        }
+      }
+    },
+    "/customRoute/instance" : {
+      "get" : {
+        "tags" : [ "CustomRoute" ],
+        "summary" : "get one CustomRoute ",
+        "description" : "",
+        "operationId" : "getCustomRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "query",
+          "description" : "CustomRoute serviceName",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "description" : "CustomRoute host",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "publish_port",
+          "in" : "query",
+          "description" : "CustomRoute Publish port",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CustomRouteInfo"
+            }
+          },
+          "404" : {
+            "description" : "CustomRoute not found"
+          },
+          "422" : {
+            "description" : "Unprocessable CustomRoute Entity "
+          },
+          "500" : {
+            "description" : "get CustomRoute fail"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "CustomRoute" ],
+        "summary" : "add one CustomRoute ",
+        "description" : "",
+        "operationId" : "addCustomRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "CustomRoute Instance Info",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/CustomRouteInfo"
+          }
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CustomRouteInfo"
+            }
+          },
+          "400" : {
+            "description" : "Unprocessable CustomRouteInfo JSON REQUEST"
+          },
+          "422" : {
+            "description" : "Unprocessable CustomRouteInfo Entity "
+          },
+          "500" : {
+            "description" : "add CustomRouteInfo fail"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "CustomRoute" ],
+        "summary" : "update one CustomRoute by serviceName",
+        "description" : "",
+        "operationId" : "updateCustomRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "query",
+          "description" : "CustomRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "CustomRoute Instance Info",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/CustomRouteInfo"
+          }
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CustomRouteInfo"
+            }
+          },
+          "400" : {
+            "description" : "Unprocessable CustomRoute JSON REQUEST"
+          },
+          "422" : {
+            "description" : "Unprocessable CustomRoute Entity "
+          },
+          "500" : {
+            "description" : "update CustomRoute fail"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "CustomRoute" ],
+        "summary" : "delete one CustomRoute by serviceName",
+        "description" : "",
+        "operationId" : "deleteCustomRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "query",
+          "description" : "CustomRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "description" : "CustomRoute host",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "publish_port",
+          "in" : "query",
+          "description" : "CustomRoute Publish port",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "delete customRoute succeed "
+          },
+          "404" : {
+            "description" : "customRoute not found"
+          },
+          "500" : {
+            "description" : "delete customRoute fail"
+          }
+        }
+      }
+    },
+    "/customRoute/status" : {
+      "put" : {
+        "tags" : [ "CustomRoute" ],
+        "summary" : "update one CustomRoute  status by serviceName ",
+        "description" : "",
+        "operationId" : "updateCustomRouteStatus",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "query",
+          "description" : "CustomRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "description" : "CustomRoute host",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "description" : "CustomRoute status,1?abled  0?disabled",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "publish_port",
+          "in" : "query",
+          "description" : "CustomRoute Publish port",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CustomRouteInfo"
+            }
+          },
+          "404" : {
+            "description" : "customRoute not found"
+          },
+          "422" : {
+            "description" : "Unprocessable customRoute Entity "
+          },
+          "500" : {
+            "description" : "update status fail"
+          }
+        }
+      }
+    },
+    "/iuiRoute" : {
+      "get" : {
+        "tags" : [ "iuiRoute" ],
+        "summary" : "get all iuiRoute ",
+        "description" : "",
+        "operationId" : "getIuiRoutes",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/IuiRouteInfo"
+              }
+            }
+          },
+          "500" : {
+            "description" : "get iuiRouteInfo List  fail"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "iuiRoute" ],
+        "summary" : "add one iuiRoute ",
+        "description" : "",
+        "operationId" : "addIuiRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "iuiRoute Instance Info",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/IuiRouteInfo"
+          }
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/IuiRouteInfo"
+            }
+          },
+          "400" : {
+            "description" : "Unprocessable iuiRouteInfo JSON REQUEST"
+          },
+          "422" : {
+            "description" : "Unprocessable iuiRouteInfo Entity "
+          },
+          "500" : {
+            "description" : "add iuiRouteInfo fail"
+          }
+        }
+      }
+    },
+    "/iuiRoute/{serviceName}" : {
+      "get" : {
+        "tags" : [ "iuiRoute" ],
+        "summary" : "get one iuiRoute ",
+        "description" : "",
+        "operationId" : "getIuiRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "path",
+          "description" : "iuiRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "description" : "iuiRoute host",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "publish_port",
+          "in" : "query",
+          "description" : "iuiRoute Publish port",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/IuiRouteInfo"
+            }
+          },
+          "404" : {
+            "description" : "IuiRouteInfo not found"
+          },
+          "422" : {
+            "description" : "Unprocessable IuiRouteInfo Entity "
+          },
+          "500" : {
+            "description" : "get IuiRouteInfo fail"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "iuiRoute" ],
+        "summary" : "update one iuiRoute by serviceName",
+        "description" : "",
+        "operationId" : "updateIuiRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "path",
+          "description" : "iuiRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "iuiRoute Instance Info",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/IuiRouteInfo"
+          }
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/IuiRouteInfo"
+            }
+          },
+          "400" : {
+            "description" : "Unprocessable IuiRouteInfo JSON REQUEST"
+          },
+          "422" : {
+            "description" : "Unprocessable IuiRouteInfo Entity "
+          },
+          "500" : {
+            "description" : "update IuiRouteInfo fail"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "iuiRoute" ],
+        "summary" : "delete one iuiRoute by serviceName",
+        "description" : "",
+        "operationId" : "deleteIuiRoute",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "path",
+          "description" : "iuiRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "description" : "iuiRoute host",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "publish_port",
+          "in" : "query",
+          "description" : "iuiRoute Publish port",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "delete IuiRouteInfo succeed "
+          },
+          "404" : {
+            "description" : "IuiRouteInfo not found"
+          },
+          "500" : {
+            "description" : "delete IuiRouteInfo fail"
+          }
+        }
+      }
+    },
+    "/iuiRoute/{serviceName}/status/{status}" : {
+      "put" : {
+        "tags" : [ "iuiRoute" ],
+        "summary" : "update one iuiRoute  status by serviceName ",
+        "description" : "",
+        "operationId" : "updateIuiRouteStatus",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "serviceName",
+          "in" : "path",
+          "description" : "iuiRoute serviceName",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "host",
+          "in" : "query",
+          "description" : "iuiRoute host",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "status",
+          "in" : "path",
+          "description" : "iuiRoute status,1?abled  0?disabled",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "publish_port",
+          "in" : "query",
+          "description" : "iuiRoute Publish port",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "routeWay",
+          "in" : "query",
+          "description" : "Route Way",
+          "required" : false,
+          "type" : "string",
+          "default" : "ip"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/IuiRouteInfo"
+            }
+          },
+          "404" : {
+            "description" : "IuiRouteInfo not found"
+          },
+          "422" : {
+            "description" : "Unprocessable IuiRouteInfo Entity "
+          },
+          "500" : {
+            "description" : "update IuiRouteInfo status fail"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "ApiRouteInfo" : {
+      "type" : "object",
+      "required" : [ "servers", "serviceName", "url", "version" ],
+      "properties" : {
+        "serviceName" : {
+          "type" : "string"
+        },
+        "url" : {
+          "type" : "string",
+          "example" : "/test",
+          "description" : "Target Service URL,start with /"
+        },
+        "control" : {
+          "type" : "string",
+          "example" : "0",
+          "description" : "[control Range] 0?default   1?readonly  2?hidden ",
+          "enum" : [ "0", "1", "2" ]
+        },
+        "status" : {
+          "type" : "string",
+          "example" : "1",
+          "description" : "[status] 1?abled    0?disabled ",
+          "enum" : [ "0", "1" ]
+        },
+        "visualRange" : {
+          "type" : "string",
+          "example" : "1",
+          "description" : "[visual Range]interSystem:0,inSystem:1",
+          "enum" : [ "0", "1" ]
+        },
+        "useOwnUpstream" : {
+          "type" : "string",
+          "example" : "0",
+          "description" : "[LB Policy]non_ip_hash:0,ip_hash:1",
+          "enum" : [ "0", "1" ]
+        },
+        "servers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/RouteServer"
+          }
+        },
+        "host" : {
+          "type" : "string"
+        },
+        "namespace" : {
+          "type" : "string"
+        },
+        "publish_port" : {
+          "type" : "string"
+        },
+        "enable_ssl" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "consulServiceName" : {
+          "type" : "string"
+        },
+        "publishProtocol" : {
+          "type" : "string"
+        },
+        "version" : {
+          "type" : "string",
+          "example" : "v1"
+        },
+        "apiJson" : {
+          "type" : "string"
+        },
+        "apiJsonType" : {
+          "type" : "string",
+          "example" : "1",
+          "description" : "[apiJson Type] 0?local file  1? remote file",
+          "enum" : [ "0", "1" ]
+        },
+        "metricsUrl" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CustomRouteInfo" : {
+      "type" : "object",
+      "required" : [ "servers", "serviceName", "url" ],
+      "properties" : {
+        "serviceName" : {
+          "type" : "string"
+        },
+        "url" : {
+          "type" : "string",
+          "example" : "/test",
+          "description" : "Target Service URL,start with /"
+        },
+        "control" : {
+          "type" : "string",
+          "example" : "0",
+          "description" : "[control Range] 0?default   1?readonly  2?hidden ",
+          "enum" : [ "0", "1", "2" ]
+        },
+        "status" : {
+          "type" : "string",
+          "example" : "1",
+          "description" : "[status] 1?abled    0?disabled ",
+          "enum" : [ "0", "1" ]
+        },
+        "visualRange" : {
+          "type" : "string",
+          "example" : "1",
+          "description" : "[visual Range]interSystem:0,inSystem:1",
+          "enum" : [ "0", "1" ]
+        },
+        "useOwnUpstream" : {
+          "type" : "string",
+          "example" : "0",
+          "description" : "[LB Policy]non_ip_hash:0,ip_hash:1",
+          "enum" : [ "0", "1" ]
+        },
+        "servers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/RouteServer"
+          }
+        },
+        "host" : {
+          "type" : "string"
+        },
+        "namespace" : {
+          "type" : "string"
+        },
+        "publish_port" : {
+          "type" : "string"
+        },
+        "enable_ssl" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "consulServiceName" : {
+          "type" : "string"
+        },
+        "publishProtocol" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DiscoverInfo" : {
+      "type" : "object",
+      "properties" : {
+        "ip" : {
+          "type" : "string"
+        },
+        "port" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "enabled" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      }
+    },
+    "IuiRouteInfo" : {
+      "type" : "object",
+      "required" : [ "servers", "serviceName", "url" ],
+      "properties" : {
+        "serviceName" : {
+          "type" : "string"
+        },
+        "url" : {
+          "type" : "string",
+          "example" : "/test",
+          "description" : "Target Service URL,start with /"
+        },
+        "control" : {
+          "type" : "string",
+          "example" : "0",
+          "description" : "[control Range] 0?default   1?readonly  2?hidden ",
+          "enum" : [ "0", "1", "2" ]
+        },
+        "status" : {
+          "type" : "string",
+          "example" : "1",
+          "description" : "[status] 1?abled    0?disabled ",
+          "enum" : [ "0", "1" ]
+        },
+        "visualRange" : {
+          "type" : "string",
+          "example" : "1",
+          "description" : "[visual Range]interSystem:0,inSystem:1",
+          "enum" : [ "0", "1" ]
+        },
+        "useOwnUpstream" : {
+          "type" : "string",
+          "example" : "0",
+          "description" : "[LB Policy]non_ip_hash:0,ip_hash:1",
+          "enum" : [ "0", "1" ]
+        },
+        "servers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/RouteServer"
+          }
+        },
+        "host" : {
+          "type" : "string"
+        },
+        "namespace" : {
+          "type" : "string"
+        },
+        "publish_port" : {
+          "type" : "string"
+        },
+        "enable_ssl" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "consulServiceName" : {
+          "type" : "string"
+        },
+        "publishProtocol" : {
+          "type" : "string"
+        }
+      }
+    },
+    "RouteServer" : {
+      "type" : "object",
+      "required" : [ "ip", "port" ],
+      "properties" : {
+        "ip" : {
+          "type" : "string"
+        },
+        "port" : {
+          "type" : "string"
+        },
+        "weight" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    }
+  }
+}

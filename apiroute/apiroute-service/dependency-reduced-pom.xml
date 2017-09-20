@@ -137,6 +137,122 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>ant-create-script</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <exportAntProperties>true</exportAntProperties>
+              <tasks>
+                <taskdef />
+                <condition>
+                  <os />
+                </condition>
+                <condition>
+                  <os />
+                </condition>
+                <if>
+                  <equals />
+                  <then>
+                    <property />
+                    <echo />
+                    <echo />
+                  </then>
+                  <else>
+                    <property />
+                    <echo />
+                    <echo />
+                    <chmod />
+                  </else>
+                </if>
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>ant-contrib</groupId>
+            <artifactId>ant-contrib</artifactId>
+            <version>1.0b3</version>
+            <exclusions>
+              <exclusion>
+                <artifactId>ant</artifactId>
+                <groupId>ant</groupId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-codegen-maven-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${basedir}/src/main/resources/swagger.json</inputSpec>
+              <output>${project.build.directory}/generated-sources</output>
+              <language>java</language>
+              <configOptions>
+                <dateLibrary>joda</dateLibrary>
+              </configOptions>
+              <library>jersey2</library>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}-java-sdk</artifactId>
+              <artifactVersion>${project.version}</artifactVersion>
+              <modelPackage>${project.groupId}.${project.artifactId}.client.model</modelPackage>
+              <apiPackage>${project.groupId}.${project.artifactId}.client.api</apiPackage>
+              <invokerPackage>${project.groupId}.${project.artifactId}.client.invoker</invokerPackage>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.5.0</version>
+        <executions>
+          <execution>
+            <id>swagger-generate-sources</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${project.build.directory}${file.separator}${swagger.sdk.script.file}</executable>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>clean-generated-files</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>${project.build.directory}/generated-sources</directory>
+                </fileset>
+              </filesets>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
