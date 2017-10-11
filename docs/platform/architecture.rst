@@ -3,30 +3,12 @@
 
 Architecture
 ------------
+MSB(Microservices Bus) provide a comprehensive, end to end solution to support ONAP microservice architecture including service registration/discovery, external gateway, internal gateway, client SDK. It's a pluggable architecture so it can integrate with auth service provider to provide centralized Authentication & Authorization. MSB also provides a service portal to manage the REST APIs.
+MSB itself doesn’t depend on a specific environment. It can work in any bare metal, virtual machine or containerized environment.  	
+MSB mainly comprises three parts: Discovery, API Gateway and MSB Client SDK. MSB also provide a swagger SDK which could generate swagger REST service description files.
 
-Holmes comprises three modules: the rule management module, the engine management module and the data source adapter.
-
-- Holmes
-    - Rule Management Module
-    - Engine Management Module
-    - Data Source Adapter
-	
-ONAP-level Architecture
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Basically, Holmes itself is an independent component in ONAP, which means it could be deployed as an ONAP-level component. In the Amsterdam release, Holmes is more generally a DCAE analytic application. It is deployed by DCAE and run as an analytic application on top of it. Also, it could be considered as a filter of the Policy component because it reduces the number of the input messages of Policy.
-
-.. image:: images/overall-architecture-in-onap.png
-
-Holmes Architecture
-^^^^^^^^^^^^^^^^^^^
-
-Take a deep dive into Holmes, we could see it mainly consists of three modules, which are the rule management module, the engine management module and the data source adapter module respectively. 
-
-The rule management module provides interfaces for the operations (e.g. creating, updating and deleting) on the rules.
-
-The data source adapter consists of subscribers and publishers, which are used to convert the data format into the one that could be digested by Holmes and vice versa. 
-
-The engine management module is the core of Holmes. All the rules are deployed here. When alarms gets into Holmes, they will be pushed into the Drools engine and analyzed by the enabled rules one after another. When processing the alarms, a couple of attributes, such as the alarm name, the occurrence time of the alarm and so on, are utilized. Also, the topological information from A&AI is used in combination of the alarm attributes. After the root cause is identified, it will be converted into a control loop event and published to a specific DMaaP topic which is subscribed to by the Policy component.
-
-.. image:: images/holmes-architecture.png
+.. image:: images/msb-architecture.png
+Registry is the storage of service information, MSB leverage Consul as the service registry.
+MSB Discovery provides REST APIs for service discovery and registration.
+Service Gateway provides service request routing, load balancing and centralized Auth. It can be deployed as external Gateway or Internal Gateway.
+MSB SDK is a client-side Java SDK which can be used for point to point communication of microservices.
