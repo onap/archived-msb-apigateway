@@ -8,6 +8,7 @@ Description of how to interact with and diagnose problems with the components as
 
 Where to Access Information
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+You can use docker command such as docker exec or docker logs to interact with and diagnose problems of MSB.
 
 
 Error / Warning Messages

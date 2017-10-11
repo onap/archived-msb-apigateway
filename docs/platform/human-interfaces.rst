@@ -3,13 +3,17 @@
 
 Human Interfaces
 ----------------
-Provide info on the targeted user, interface types, ports/protocols to access, etc.
+MSB provides a Web GUI Portal for users.
+Users can register services and browse all the registered services. If the registered service support swagger, user can see the REST API documentation and test the registered services via the swagger UI integrated in MSB.
 
 Target Users
 ^^^^^^^^^^^^
+ONAP Administrator.
 
 Interface Type
 ^^^^^^^^^^^^^^
+Web GUI.
 
 Access
 ^^^^^^
+Http://MSB_API_GATEWAY_IP:80/msb

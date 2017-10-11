@@ -8,6 +8,7 @@ MSB itself doesn’t depend on a specific environment. It can work in any bare m
 MSB mainly comprises three parts: Discovery, API Gateway and MSB Client SDK. MSB also provide a swagger SDK which could generate swagger REST service description files.
 
 .. image:: images/msb-architecture.png
+
 Registry is the storage of service information, MSB leverage Consul as the service registry.
 MSB Discovery provides REST APIs for service discovery and registration.
 Service Gateway provides service request routing, load balancing and centralized Auth. It can be deployed as external Gateway or Internal Gateway.
