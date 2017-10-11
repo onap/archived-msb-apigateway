@@ -1,5 +1,6 @@
-MSB APIs
-==================================
+Offered APIs
+------------
+
 The MSB provides the following APIs.
 
 * Service Registration/Unregistration
