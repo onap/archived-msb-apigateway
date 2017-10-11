@@ -84,4 +84,5 @@ Deploy MSB with kubernetes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The chart for MSB running in kubernetes cluster is available here: 
+
 https://gerrit.onap.org/r/gitweb?p=oom.git;a=tree;f=kubernetes/msb;h=17f8fd89791b81f1e981716dcffdb3e2e90299ae;hb=refs/heads/master
