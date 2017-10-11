@@ -6,4 +6,12 @@ Delivery
 
 Describe how functions are packaged into run-time components. For some components a block diagram may be useful.
 
-**TO BE DONE**
+:Docker:
+ - MSB Discovery
+ - MSB API Gateway
+Docker containers can be downloaded from ONAP docker repository https://nexus3.onap.org/.
+ 
+:jar:
+ - MSB Client SDK
+ - Swagger SDK
+Jars can be downloaded from ONAP docker repository https://nexus.onap.org/.
