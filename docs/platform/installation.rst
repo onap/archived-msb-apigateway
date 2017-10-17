@@ -13,7 +13,7 @@ This deployment approach is only for testing. MSB is consist of multiple microse
 
 ::
 
-  sudo docker run -d --net=host --name msb_consul consul 
+  sudo docker run -d --net=host --name msb_consul consul:0.9.3
 
 - Run the MSB dockers
 
@@ -60,7 +60,7 @@ In case that you don't want to use host network to set up the MSB dockers, you n
 
 ::
 
-    sudo docker run -d -p 8500:8500  --name msb_consul consul 
+    sudo docker run -d -p 8500:8500  --name msb_consul consul:0.9.3
     CONSUL_IP=`sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' msb_consul`
 
 
