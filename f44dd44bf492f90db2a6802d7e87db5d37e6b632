@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Gregory Glover <gg2147@att.com>
+Code-Review+2: HuabingZhao <zhao.huabing@zte.com.cn>
+Submitted-by: HuabingZhao <zhao.huabing@zte.com.cn>
+Submitted-at: Thu, 19 Oct 2017 05:57:03 +0000
+Reviewed-on: http://gerrit.onap.org/r/19559
+Project: msb/apigateway
+Branch: refs/heads/master
