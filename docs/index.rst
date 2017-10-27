@@ -12,5 +12,5 @@ This document is aimed to give the users some brief introductions on MSB from di
    :maxdepth: 1
    
    platform/index.rst
-   release-notes/index.rst
+   release-notes.rst
 
