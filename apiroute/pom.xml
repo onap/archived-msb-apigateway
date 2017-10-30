@@ -65,7 +65,7 @@
     <dropwizard.version>0.8.0</dropwizard.version>
     <swagger.version>1.5.3</swagger.version>
     <jedis.version>2.7.3</jedis.version>
-    <lombok.version>1.16.4</lombok.version>
+    <lombok.version>1.16.16</lombok.version>
     <junit.version>4.11</junit.version>
     <jetty.version>9.2.9.v20150224</jetty.version>
     <jackson-version>2.7.9</jackson-version>
