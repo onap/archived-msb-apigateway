@@ -19,7 +19,14 @@ DIRNAME=`dirname $0`
 RUNHOME=`cd $DIRNAME/; pwd`
 echo @RUNHOME@ $RUNHOME
 
-
+if echo $SDCLIENT_IP | grep -q '^[0-9.]\+$';
+  then
+    echo "SDCLIENT_IP is a IP"
+  else
+    echo "Convert SDCLIENT_IP to IP"
+    export SDCLIENT_IP=`getent hosts $SDCLIENT_IP | awk '{ print $1 }'`
+    echo $SDCLIENT_IP
+fi
 
 echo "### Starting redis";
 cd ./redis
