@@ -2,7 +2,7 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 
-MSB API Gateway Release Notes
+MSB Release Notes
 =============================
 
 .. note::
@@ -130,6 +130,7 @@ This is an initial release
 
 **Other**
 N/A
+
 ===========
 
 End of Release Notes
