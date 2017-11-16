@@ -110,7 +110,7 @@
 	  <dependency>
           <groupId>org.onap.msb.swagger-sdk</groupId>
           <artifactId>swagger-sdk</artifactId>
-          <version>1.0.0-SNAPSHOT</version>
+          <version>1.0.0</version>
           <exclusions>
               <exclusion>
                   <groupId>org.slf4j</groupId>
