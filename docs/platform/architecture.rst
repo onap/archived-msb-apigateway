@@ -3,15 +3,15 @@
 
 Architecture
 ------------
-MSB(Microservices Bus) provide a comprehensive, end to end solution to support ONAP microservice architecture including service registration/discovery, external gateway, internal gateway, client SDK. It's a pluggable architecture so it can integrate with auth service provider to provide centralized Authentication & Authorization. MSB also provides a service portal to manage the REST APIs.
+MSB (Microservices Bus) provides a comprehensive, end to end solution to support ONAP microservice architecture including service registration/discovery, external gateway, internal gateway, client SDK. It's a pluggable architecture so it can integrate with Auth service provider to provide centralized Authentication & Authorization. MSB also provides a service portal to manage the REST APIs.
 
-MSB itself doesn’t depend on a specific environment. It can work in any bare metal, virtual machine or containerized environment.  	
+MSB itself doesn’t depend on a specific environment. It can work in any bare metal, virtual machine or containerized environment.
 
-MSB mainly comprises three parts: Discovery, API Gateway and MSB Client SDK. MSB also provide a swagger SDK which could generate swagger REST service description files.
+MSB mainly comprises of three parts: Discovery, API Gateway and MSB Client SDK. MSB also provides a swagger SDK which could generate swagger REST service description files.
 
 .. image:: images/msb-architecture.png
 
-Registry is the storage of service information, MSB leverage Consul as the service registry.
+Registry is the storage of service information, MSB leverages on the Consul as the service registry.
 
 MSB Discovery provides REST APIs for service discovery and registration.
 
