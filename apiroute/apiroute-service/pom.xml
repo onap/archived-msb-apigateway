@@ -12,14 +12,14 @@
 	<parent>
 		<groupId>org.onap.msb.apigateway.apiroute</groupId>
 		<artifactId>apiroute-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.onap.msb.apigateway.apiroute</groupId>
 	<artifactId>apiroute-service</artifactId>
 	<name>onap/msb/apigateway/apiroute/apiroute-service</name>
 	<packaging>jar</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 
 
 	<dependencies>
@@ -110,7 +110,7 @@
 	  <dependency>
           <groupId>org.onap.msb.swagger-sdk</groupId>
           <artifactId>swagger-sdk</artifactId>
-          <version>1.0.0-SNAPSHOT</version>
+          <version>1.0.1-SNAPSHOT</version>
           <exclusions>
               <exclusion>
                   <groupId>org.slf4j</groupId>

@@ -21,14 +21,14 @@
     <parent>
         <groupId>org.onap.msb.apigateway</groupId>
         <artifactId>msb-apigateway-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.onap.msb.apigateway</groupId>
     <artifactId>redis-ext</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>onap/msb/apigateway/redis-ext</name>
     <packaging>pom</packaging>
 
