@@ -1,6 +1,13 @@
 # Dockerfile - msb-base
 FROM openresty/openresty:alpine
 
+# Setup proxy variables
+ARG http_proxy
+ARG https_proxy
+
+ENV http_proxy  ${http_proxy}
+ENV https_proxy ${https_proxy}
+
 #install java-1.8-openjdk
 
 ENV LANG C.UTF-8
