@@ -3,13 +3,13 @@
   <parent>
     <artifactId>apiroute-parent</artifactId>
     <groupId>org.onap.msb.apigateway.apiroute</groupId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.onap.msb.apigateway.apiroute</groupId>
   <artifactId>apiroute-service</artifactId>
   <name>onap/msb/apigateway/apiroute/apiroute-service</name>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <build>
     <resources>
       <resource>
@@ -101,7 +101,10 @@
           <apiSources>
             <apiSource>
               <locations>${api-rest-package}</locations>
-              <schemes>http,https</schemes>
+              <schemes>
+                <scheme>http</scheme>
+                <scheme>https</scheme>
+              </schemes>
               <host>${api-host-ip}:${api-host-port}</host>
               <basePath>${api-base-path}</basePath>
               <info>
@@ -207,7 +210,7 @@
               </configOptions>
               <library>jersey2</library>
               <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}-java-sdk</artifactId>
+              <artifactId>${project.artifactId}</artifactId>
               <artifactVersion>${project.version}</artifactVersion>
               <modelPackage>${project.groupId}.${project.artifactId}.client.model</modelPackage>
               <apiPackage>${project.groupId}.${project.artifactId}.client.api</apiPackage>
