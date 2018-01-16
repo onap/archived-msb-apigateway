@@ -47,6 +47,7 @@
     <blueprintFileDir>src/main/blueprint</blueprintFileDir>
     <version.output>target/version</version.output>
     <onap.nexus.javadocs-url>dav:https://nexus.onap.org/content/sites/site/org/onap/msb/apigateway/${project.version}</onap.nexus.javadocs-url>
+    <additionalparam>-Xdoclint:none</additionalparam>
   </properties>
   <distributionManagement>
     <site>
