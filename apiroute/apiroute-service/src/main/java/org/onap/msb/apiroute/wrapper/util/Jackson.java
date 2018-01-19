@@ -9,13 +9,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
  ******************************************************************************/
 package org.onap.msb.apiroute.wrapper.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
-import com.fasterxml.jackson.datatype.jdk7.Jdk7Module;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 public class Jackson {
@@ -34,7 +32,6 @@ public class Jackson {
     private static ObjectMapper configure(ObjectMapper mapper) {
         mapper.registerModule(new GuavaModule());
         mapper.registerModule(new JodaModule());
-        mapper.registerModule(new Jdk7Module());
 
         return mapper;
     }
