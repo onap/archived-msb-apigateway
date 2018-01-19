@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
-	Licensed under the Apache License, Version 2.0 (the "License"); you may not
-	use this file except in compliance with the License. You may obtain a copy
-	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
-	by applicable law or agreed to in writing, software distributed under the
-	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-	OF ANY KIND, either express or implied. See the License for the specific
+<!-- Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE) 
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+	use this file except in compliance with the License. You may obtain a copy 
+	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -34,11 +34,6 @@
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.swagger</groupId>
-			<artifactId>swagger-jersey2-jaxrs</artifactId>
-			<scope>compile</scope>
 		</dependency>
 		<!-- add by wangyg:增加redis的java客户端jedis依赖 -->
 		<dependency>
@@ -103,21 +98,21 @@
 		</dependency>
 
 		<dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-      </dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
 
-	  <dependency>
-          <groupId>org.onap.msb.swagger-sdk</groupId>
-          <artifactId>swagger-sdk</artifactId>
-          <version>1.0.1-SNAPSHOT</version>
-          <exclusions>
-              <exclusion>
-                  <groupId>org.slf4j</groupId>
-                  <artifactId>slf4j-log4j12</artifactId>
-              </exclusion>
-          </exclusions>
-      </dependency>
+		<dependency>
+			<groupId>org.onap.msb.swagger-sdk</groupId>
+			<artifactId>swagger-sdk</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 	</dependencies>
 	<build>
@@ -172,200 +167,215 @@
 			</plugin>
 
 			<!-- JSON -->
-			 <plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>properties-maven-plugin</artifactId>
-					<version>1.0.0</version>
-					  <executions>
-						  <execution>
-							<phase>initialize</phase>
-							<goals>
-							  <goal>read-project-properties</goal>
-							</goals>
-							<configuration>
-							  <files>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
 								<file>${basedir}/src/main/resources/swagger.properties</file>
-							  </files>
-							</configuration>
-						  </execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>com.github.kongchen</groupId>
-					<artifactId>swagger-maven-plugin</artifactId>
-					<version>3.1.4</version>
-					<configuration>
-						<apiSources>
-						  <apiSource>
-								<locations>${api-rest-package}</locations>
-								<schemes>
-								    <scheme>http</scheme>
-								    <scheme>https</scheme>
-								</schemes>
-								<host>${api-host-ip}:${api-host-port}</host>
-								<basePath>${api-base-path}</basePath>
-								<info>
-									<title>${api-title}</title>
-									<version>${api-version}</version>
-									<description>${api-description}</description>
-									<license>
-										<name>${api-license}</name>
-									</license>
-								</info>
-								<swaggerDirectory>${basedir}/src/main/resources</swaggerDirectory>
-							</apiSource>
-						</apiSources>
-					</configuration>
-					<executions>
-						<execution>
-							<phase>compile</phase>
-							<goals>
-								<goal>generate</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>2.3.1</version>
-					<executions>
-						<execution>
-							<id>install-file-id</id>
-							<phase>install</phase>
-							<goals>
-								<goal>install-file</goal>
-							</goals>
-							<configuration>
-								<file>${basedir}/src/main/resources/swagger.json</file>
-								<groupId>${project.groupId}</groupId>
-								<artifactId>${project.artifactId}-swagger-schema</artifactId>
-								<version>${project.version}</version>
-								<packaging>json</packaging>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.kongchen</groupId>
+				<artifactId>swagger-maven-plugin</artifactId>
+				<version>3.1.4</version>
+				<configuration>
+					<apiSources>
+						<apiSource>
+							<locations>${api-rest-package}</locations>
+							<schemes>
+								<scheme>http</scheme>
+								<scheme>https</scheme>
+							</schemes>
+							<host>${api-host-ip}:${api-host-port}</host>
+							<basePath>${api-base-path}</basePath>
+							<info>
+								<title>${api-title}</title>
+								<version>${api-version}</version>
+								<description>${api-description}</description>
+								<license>
+									<name>${api-license}</name>
+								</license>
+							</info>
+							<swaggerDirectory>${basedir}/src/main/resources</swaggerDirectory>
+						</apiSource>
+					</apiSources>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.3.1</version>
+				<executions>
+					<execution>
+						<id>install-file-id</id>
+						<phase>install</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>${basedir}/src/main/resources/swagger.json</file>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}-swagger-schema</artifactId>
+							<version>${project.version}</version>
+							<packaging>json</packaging>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
-				<!-- SDK -->
-				<plugin>
+			<!-- SDK -->
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.8</version>
 				<executions>
-				  <execution>
-					<phase>initialize</phase>
-					<id>ant-create-script</id>
-					<configuration>
-					  <exportAntProperties>true</exportAntProperties>
-					  <tasks>
-						<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath"/>
-						<condition property="is_windows" value="true">
-						  <os family="windows"/>
-						</condition>
-						<condition property="isLinux" value="true">
-						  <os family="unix"/>
-						</condition>
-						<if>
-						  <equals arg1="${is_windows}" arg2="true"/>
-						  <then>
-							<property name="swagger.sdk.script.file" value="generated-source-script.bat"/>
-							<echo file="${project.build.directory}${file.separator}generated-source-script.bat" append="true" message="cd ${project.build.directory}${file.separator}generated-sources${line.separator}"/>
-							<echo file="${project.build.directory}${file.separator}generated-source-script.bat" append="true" message="mvn clean install -Dmaven.test.skip=true${line.separator}"/>
-						  </then>
-						  <else>
-							<property name="swagger.sdk.script.file" value="generated-source-script.sh"/>
-							<echo file="${project.build.directory}${file.separator}generated-source-script.sh" append="true" message="cd ${project.build.directory}${file.separator}generated-sources${line.separator}"/>
-							<echo file="${project.build.directory}${file.separator}generated-source-script.sh" append="true" message="mvn clean install -Dmaven.test.skip=true${line.separator}"/>
-							<chmod file="${project.build.directory}${file.separator}generated-source-script.sh" perm="755"/>
-						  </else>
-						</if>
-					  </tasks>
-					</configuration>
-					<goals>
-					  <goal>run</goal>
-					</goals>
-				  </execution>
+					<execution>
+						<phase>initialize</phase>
+						<id>ant-create-script</id>
+						<configuration>
+							<exportAntProperties>true</exportAntProperties>
+							<tasks>
+								<taskdef resource="net/sf/antcontrib/antlib.xml"
+									classpathref="maven.plugin.classpath" />
+								<condition property="is_windows" value="true">
+									<os family="windows" />
+								</condition>
+								<condition property="isLinux" value="true">
+									<os family="unix" />
+								</condition>
+								<if>
+									<equals arg1="${is_windows}" arg2="true" />
+									<then>
+										<property name="swagger.sdk.script.file" value="generated-source-script.bat" />
+										<echo
+											file="${project.build.directory}${file.separator}generated-source-script.bat"
+											append="true"
+											message="cd ${project.build.directory}${file.separator}generated-sources${line.separator}" />
+										<echo
+											file="${project.build.directory}${file.separator}generated-source-script.bat"
+											append="true"
+											message="mvn clean install -Dmaven.test.skip=true${line.separator}" />
+									</then>
+									<else>
+										<property name="swagger.sdk.script.file" value="generated-source-script.sh" />
+										<echo
+											file="${project.build.directory}${file.separator}generated-source-script.sh"
+											append="true"
+											message="cd ${project.build.directory}${file.separator}generated-sources${line.separator}" />
+										<echo
+											file="${project.build.directory}${file.separator}generated-source-script.sh"
+											append="true"
+											message="mvn clean install -Dmaven.test.skip=true${line.separator}" />
+										<chmod
+											file="${project.build.directory}${file.separator}generated-source-script.sh"
+											perm="755" />
+									</else>
+								</if>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
 				</executions>
 				<dependencies>
-				  <dependency>
-					<groupId>ant-contrib</groupId>
-					<artifactId>ant-contrib</artifactId>
-					<version>1.0b3</version>
-					<exclusions>
-					  <exclusion>
-						<artifactId>ant</artifactId>
-						<groupId>ant</groupId>
-					  </exclusion>
-					</exclusions>
-				  </dependency>
+					<dependency>
+						<groupId>ant-contrib</groupId>
+						<artifactId>ant-contrib</artifactId>
+						<version>1.0b3</version>
+						<exclusions>
+							<exclusion>
+								<artifactId>ant</artifactId>
+								<groupId>ant</groupId>
+							</exclusion>
+						</exclusions>
+					</dependency>
 				</dependencies>
-			  </plugin>
-			  <plugin>
+			</plugin>
+			<plugin>
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-codegen-maven-plugin</artifactId>
 				<version>2.2.1</version>
 				<executions>
-				  <execution>
-					<goals>
-					  <goal>generate</goal>
-					</goals>
-					<configuration>
-					  <inputSpec>${basedir}/src/main/resources/swagger.json</inputSpec>
-					  <output>${project.build.directory}/generated-sources</output>
-					  <language>java</language>
-					  <configOptions>
-						<dateLibrary>joda</dateLibrary>
-					  </configOptions>
-					  <library>jersey2</library>
-					  <groupId>${project.groupId}</groupId>
-					  <artifactId>${project.artifactId}</artifactId>
-					  <artifactVersion>${project.version}</artifactVersion>
-					  <modelPackage>${project.groupId}.${project.artifactId}.client.model</modelPackage>
-					  <apiPackage>${project.groupId}.${project.artifactId}.client.api</apiPackage>
-					  <invokerPackage>${project.groupId}.${project.artifactId}.client.invoker</invokerPackage>
-					</configuration>
-				  </execution>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${basedir}/src/main/resources/swagger.json</inputSpec>
+							<output>${project.build.directory}/generated-sources</output>
+							<language>java</language>
+							<configOptions>
+								<dateLibrary>joda</dateLibrary>
+							</configOptions>
+							<library>jersey2</library>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<artifactVersion>${project.version}</artifactVersion>
+							<modelPackage>${project.groupId}.${project.artifactId}.client.model</modelPackage>
+							<apiPackage>${project.groupId}.${project.artifactId}.client.api</apiPackage>
+							<invokerPackage>${project.groupId}.${project.artifactId}.client.invoker</invokerPackage>
+						</configuration>
+					</execution>
 				</executions>
-			  </plugin>
-			  <plugin>
+			</plugin>
+			<plugin>
 				<artifactId>exec-maven-plugin</artifactId>
 				<groupId>org.codehaus.mojo</groupId>
 				<version>1.5.0</version>
 				<executions>
-				  <execution>
-					<id>swagger-generate-sources</id>
-					<phase>generate-sources</phase>
-					<goals>
-					  <goal>exec</goal>
-					</goals>
-					<configuration>
-					  <executable>${project.build.directory}${file.separator}${swagger.sdk.script.file}</executable>
-					</configuration>
-				  </execution>
+					<execution>
+						<id>swagger-generate-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>${project.build.directory}${file.separator}${swagger.sdk.script.file}</executable>
+						</configuration>
+					</execution>
 				</executions>
-			  </plugin>
-			  <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.0.0</version>
 				<executions>
-				  <execution>
-					<id>clean-generated-files</id>
-					<phase>generate-sources</phase>
-					<goals>
-					  <goal>clean</goal>
-					</goals>
-					<configuration>
-					  <filesets>
-						<fileset>
-						  <directory>${project.build.directory}/generated-sources</directory>
-						</fileset>
-					  </filesets>
-					</configuration>
-				  </execution>
+					<execution>
+						<id>clean-generated-files</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>${project.build.directory}/generated-sources</directory>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
 				</executions>
-			  </plugin>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>

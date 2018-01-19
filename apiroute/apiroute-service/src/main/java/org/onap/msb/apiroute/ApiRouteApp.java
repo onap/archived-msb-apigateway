@@ -32,6 +32,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
+import java.util.Optional;
 
 public class ApiRouteApp extends Application<ApiRouteAppConfig> {
 
@@ -111,13 +112,15 @@ public class ApiRouteApp extends Application<ApiRouteAppConfig> {
         config.setResourcePackage("org.onap.msb.apiroute.resources");
         SimpleServerFactory simpleServerFactory = (SimpleServerFactory) configuration.getServerFactory();
         String basePath = simpleServerFactory.getApplicationContextPath();
-        String rootPath = simpleServerFactory.getJerseyRootPath();
+        Optional<String> optRootPath = simpleServerFactory.getJerseyRootPath();
+
+        String rootPath = optRootPath.get();        
 
         rootPath = rootPath.substring(0, rootPath.indexOf("/*"));
 
         basePath = basePath.equals("/") ? rootPath : (new StringBuilder()).append(basePath).append(rootPath).toString();
 
-        LOGGER.warn("getApplicationContextPath： " + basePath);
+        LOGGER.info("getApplicationContextPath： " + basePath);
         config.setBasePath(basePath);
         config.setScan(true);
     }
