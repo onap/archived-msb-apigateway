@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+# Copyright (C) 2017-2018 ZTE, Inc. and others. All rights reserved. (ZTE)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@ HOME=`cd $DIRNAME/nginx; pwd`
 _NGINXCMD="$HOME/sbin/nginx"
 
 cd $HOME; pwd
-echo =========== begin to reload ===============
+SYSTEM_TIME=`date '+%Y-%m-%d %T'`
+echo ${SYSTEM_TIME}  ========= begin to reload ===============
 echo @WORK_DIR@ $HOME
 echo @C_CMD@ $_NGINXCMD -p $HOME/ -s reload
 $_NGINXCMD -p $HOME/ -s reload

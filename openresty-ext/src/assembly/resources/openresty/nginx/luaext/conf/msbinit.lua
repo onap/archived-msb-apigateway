@@ -1,6 +1,6 @@
 --[[
 
-    Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+    Copyright (C) 2018 ZTE, Inc. and others. All rights reserved. (ZTE)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -54,5 +54,11 @@ _M.routerConf = {
 _M.server = {
 	["fail_timeout"]  = 10,
 	["max_fails"]     = 1
+}
+_M.dns = {
+	["servers"]  = mark_empty_as_nil(os.getenv("UPSTREAM_DNS_SERVERS")),
+	["cache_positive_ttl"] = 180, --shcache use,in seconds
+	["cache_negative_ttl"] = 2,  --shcache use,in seconds
+	["cache_actualize_ttl"] = 120, --shcache use,in seconds
 }
 return _M

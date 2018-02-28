@@ -1,6 +1,6 @@
 --[[
 
-    Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+    Copyright (C) 2018 ZTE, Inc. and others. All rights reserved. (ZTE)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ local cacheConf = msbConf.cacheConf
 local positive_ttl = cacheConf.positive_ttl or 60
 local negative_ttl = cacheConf.negative_ttl or 2
 local actualize_ttl = cacheConf.actualize_ttl or 120
+local stats_prefix = "monitor:stats:"
 
 local svc_shcache = ngx.shared.svc_cache
 
@@ -119,5 +120,49 @@ local function load_customsvcnames(keypattern)
 	return service_names
 end
 _M.load_customsvcnames = load_customsvcnames
+
+
+function _M.save_reqnum_stats(date,info)
+	local _db = DB:new(options)
+	local c, err = _db:connectdb()
+	if not c then
+		return nil, err
+	end
+
+	local red   = _db.redis
+	local resp,err =  red:rpush(stats_prefix..date,info)
+	_db:keepalivedb()
+	if not resp then
+		return nil, "save_reqnum_stats failed! key:"..date.." value:"..info
+	else
+		return resp,nil
+	end
+end
+
+function _M.delete_reqnum_stats(date)
+	local _db = DB:new(options)
+	local c, err = _db:connectdb()
+	if not c then
+		return nil, err
+	end
+	local red   = _db.redis
+	red:del(stats_prefix..date)
+	_db:keepalivedb()
+end
+
+function _M.get_reqnum_stats(date,latest_num)
+	if(type(latest_num)~="number") then
+		return nil,"the input num is illegal!"
+	end
+	local _db = DB:new(options)
+	local c, err = _db:connectdb()
+	if not c then
+		return nil, err
+	end
+	local red   = _db.redis
+	local resp,err =  red:lrange(stats_prefix..date,0-latest_num,-1)
+	_db:keepalivedb()
+	return resp,nil
+end
 
 return _M

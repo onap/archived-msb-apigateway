@@ -1,6 +1,6 @@
 --[[
 
-    Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+    Copyright (C) 2017-2018 ZTE, Inc. and others. All rights reserved. (ZTE)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -19,10 +19,14 @@
 local _M = {
 	_VERSION = '1.0.0'
 }
-local policymodule = require "loadbalance.policy.roundrobin"
+
+local roundrobin = require "loadbalance.policy.roundrobin"
+local consistent_hash = require "loadbalance.policy.consistent_hash"
 local tbl_util  = require('lib.utils.table_util')
-local peerwatcher = require "loadbalance.peerwatcher"
+local svc_util  =  require('lib.utils.svc_util')
+local peerwatcher = require "core.peerwatcher"
 local tbl_isempty = tbl_util.isempty
+local svc_use_own_upstream = svc_util.use_own_upstream
 
 function _M.get_backserver(svc_key,servers)
 	if tbl_isempty(servers) then return nil,"server list is empty" end
@@ -42,14 +46,43 @@ function _M.get_backserver(svc_key,servers)
 			return nil,"only one server but is not available"
 		end
 	end
-	for i=ngx.ctx.tried_num+1,servers_num do
-		ngx.ctx.tried_num = ngx.ctx.tried_num+1
-		server = policymodule.select_backserver(servers,svc_key)
-		if peerwatcher.is_server_ok(svc_key,server) then
-			return server,""
-		end
+
+	-- A temporary solution, plase modify it when add lb_policy to svc_info
+    local svc_info = ngx.ctx.svc_info
+    if svc_use_own_upstream(svc_info) then
+		svc_info.lb_policy = "ip_hash"
+	else
+		svc_info.lb_policy = "roundrobin"
 	end
-	return nil,"serveral server but no one is available"
+
+
+	local mode = svc_info.lb_policy
+	if mode ~= nil then
+	    if mode == "ip_hash" then
+		    -- iphash
+		    for i=ngx.ctx.tried_num+1,servers_num do
+		        ngx.ctx.tried_num = ngx.ctx.tried_num+1
+		        server = consistent_hash.select_backserver(servers,svc_key)
+		        if peerwatcher.is_server_ok(svc_key,server) then
+		            return server,""
+		        end
+            end
+            return nil,"serveral server but no one is available"
+
+        elseif mode == "roundrobin" then
+             -- roundrobin
+		    for i=ngx.ctx.tried_num+1,servers_num do
+			    ngx.ctx.tried_num = ngx.ctx.tried_num+1
+			    server = roundrobin.select_backserver(servers,svc_key)
+			    if peerwatcher.is_server_ok(svc_key,server) then
+			        return server,""
+			    end
+            end
+            return nil,"serveral server but no one is available"
+        end
+
+    end
+
 end
 
 function _M.can_retry(svc_key,servers)

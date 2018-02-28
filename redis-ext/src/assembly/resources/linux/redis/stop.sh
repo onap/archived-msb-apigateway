@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 ZTE, Inc. and others. All rights reserved. (ZTE)
+# Copyright (C) 2017-2018 ZTE, Inc. and others. All rights reserved. (ZTE)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,12 +22,9 @@ _REDISCLIENT="$HOME/redis-cli"
 
 echo ===================== Redis info  =============================================
 echo Redis_HOME=$HOME
-echo TIP:This shell script close the Redis instance!
+echo TIP:This shell script close the Redis instance listening on 6379!
 echo ===============================================================================
 cd $HOME; pwd
-_REDIS_PORT="6379"
-if [ -n "${APIGATEWAY_MODE}" -a -n "${APIGATEWAY_REDIS_PORT}" ]; then
-         _REDIS_PORT=${APIGATEWAY_REDIS_PORT}
-fi
-echo @C_CMD@ $_REDISCLIENT  -p $_REDIS_PORT shutdown
-$_REDISCLIENT  -p $_REDIS_PORT shutdown
+
+echo @C_CMD@ $_REDISCLIENT  -p 6379 shutdown
+$_REDISCLIENT  -p 6379 shutdown

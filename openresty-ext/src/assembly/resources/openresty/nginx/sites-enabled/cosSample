@@ -1,0 +1,88 @@
+#
+# Copyright (C) 2018 ZTE, Inc. and others. All rights reserved. (ZTE)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+server {
+	listen 8000;
+	default_type text/html;
+	
+	set $http_protocol "http";
+	
+	location / {
+		set $svc_type "";
+		set $svc_name "";
+		set $svc_version1 "";
+		set $svc_version2 "";
+		set $req_res "";
+		set $svc_url "";
+		set $backend "defaultbackend";
+		access_by_lua_block {
+			ngx.log(ngx.INFO, ngx.var.request_id..":receive the request")
+			stats.accept_new_request()
+			msb.filter_websocket_req()
+			-- 80 is the publish port in the msb, COS is the system_tag. These two parameters are required
+			msb.external_route("80","COS")
+			msb.access()
+			if ngx.ctx.use_ownupstream then
+				stats.forward_backend()
+			end
+		}
+		header_filter_by_lua_block {
+			stats.receive_response()
+			msb.header_filter()
+			stats.return_response()
+		}
+		#log by the lua file
+		log_by_lua_file luaext/log/logger.lua;
+		
+		proxy_pass $http_protocol://$backend;
+		
+	}
+	
+	location @websocket {
+		#set header for websocket
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "Upgrade";
+		
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $host:$server_port;
+		access_by_lua_block {
+			ngx.log(ngx.INFO, ngx.var.request_id..":receive the request")
+			msb.external_route("80","COS")
+			msb.access()
+			if ngx.ctx.use_ownupstream then
+				stats.forward_backend()
+			end
+		}
+		header_filter_by_lua_block {
+			stats.receive_response()
+			msb.header_filter()
+			stats.return_response()
+		}
+		#log by the lua file
+		log_by_lua_file luaext/log/logger.lua;
+		
+		proxy_pass $http_protocol://$backend;
+	}
+	
+	location @commonnotfound {
+		return 502;
+	}
+	
+	location = /favicon.ico {
+		log_not_found off;
+	}
+}
