@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_377611d8",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 189
+      },
+      "writtenOn": "2018-03-01T08:32:52Z",
+      "side": 1,
+      "message": "Hi Jess,\nIs the \"company\" here related to the organization at onap.biterg.io?\n\nThere are two organizations for ZTE (ZTE and ZTE Corporation) at onap.biterg.io, and I raised a ticket to track it. https://rt.linuxfoundation.org/SelfService/Display.html?id\u003d52988",
+      "revId": "2ab4c494348f78b40c708cdedd68909c2e5aa3bc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
