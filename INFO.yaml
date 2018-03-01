@@ -1,0 +1,47 @@
+---
+project: 'msb-apigateway'
+project_creation_date: '2016-08-08'
+lifecycle_state: 'Incubation'
+project_lead: &onap_releng_ptl
+    name: 'Huabing Zhao'
+    email: 'zhao.huabing@zte.com.cn'
+    id: 'HuabingZhao'
+    company: 'ZTE'
+    timezone: 'China/Chengdu'
+primary_contact: *onap_releng_ptl
+issue_tracking:
+    type: 'jira'
+    url: 'https://jira.onap.org/projects/MSB'
+    key: 'MSB'
+meetings:
+    - type: 'zoom'
+        agenda: 'https://wiki.onap.org/pages/viewpage.action?pageId=8228899'
+        url: 'https://wiki.onap.org/pages/viewpage.action?pageId=8229530'
+        server: 'n/a'
+        channel: 'n/a'
+        repeats: 'weekly'
+        time: '13:00 UTC'
+committers:
+    - <<: *onap_releng_ptl
+    - name: 'Ming Jian'
+        email: 'jian.ming@zte.com.cn'
+        company: 'ZTE'
+        id: 'imacming'
+        timezone: 'China/Beijing'
+    - name: 'Kanagaraj Manickam'
+        email: 'kanagaraj.manickam@huawei.com'
+        company: 'Huawei'
+        id: 'mkr1481'
+        timezone: 'America/Dallas'
+    - name: 'Chengli Wang'
+        email: 'wangchengli@chinamobile.com'
+        company: 'China Mobile'
+        id: 'wangchengli'
+        timezone: 'China/Beijing'
+    - name: 'Zhaoxing Meng'
+        email: 'meng.zhaoxing1@zte.com.cn'
+        company: 'ZTE'
+        id: 'Zhaoxing'
+        timezone: 'India/Bangalore'
+tsc:
+    approval: 'https://lists.onap.org/pipermail/onap-tsc'
