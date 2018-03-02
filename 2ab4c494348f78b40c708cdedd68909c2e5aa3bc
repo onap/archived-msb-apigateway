@@ -16,6 +16,23 @@
       "revId": "2ab4c494348f78b40c708cdedd68909c2e5aa3bc",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_486bf784",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 189
+      },
+      "writtenOn": "2018-03-02T01:09:26Z",
+      "side": 1,
+      "message": "Kanagaraj is a committer of msb/swagger-sdk repo, but not comitter of other msb repos.",
+      "revId": "2ab4c494348f78b40c708cdedd68909c2e5aa3bc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
