@@ -1,6 +1,6 @@
 --[[
 
-    Copyright (C) 2018 ZTE, Inc. and others. All rights reserved. (ZTE)
+    Copyright (C) 2017-2018 ZTE, Inc. and others. All rights reserved. (ZTE)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
