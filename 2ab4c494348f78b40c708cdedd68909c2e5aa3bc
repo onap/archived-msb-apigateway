@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_c775adcb",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 481
+      },
+      "writtenOn": "2018-03-06T02:56:13Z",
+      "side": 1,
+      "message": "This would be the company he works for. Would this be just ZTE?",
+      "parentUuid": "5a93c517_377611d8",
+      "revId": "2ab4c494348f78b40c708cdedd68909c2e5aa3bc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_486bf784",
         "filename": "INFO.yaml",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-03-02T01:09:26Z",
       "side": 1,
       "message": "Kanagaraj is a committer of msb/swagger-sdk repo, but not comitter of other msb repos.",
+      "revId": "2ab4c494348f78b40c708cdedd68909c2e5aa3bc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_077075da",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 481
+      },
+      "writtenOn": "2018-03-06T02:56:13Z",
+      "side": 1,
+      "message": "We do not have the perissions per subproject yet. This is one step closer to do so. But for now we need to merge this information and from there starting to add granularity into the subprojects. all msb repos currently are controlled by onap-gerrit-msb-committers",
+      "parentUuid": "5a93c517_486bf784",
       "revId": "2ab4c494348f78b40c708cdedd68909c2e5aa3bc",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
