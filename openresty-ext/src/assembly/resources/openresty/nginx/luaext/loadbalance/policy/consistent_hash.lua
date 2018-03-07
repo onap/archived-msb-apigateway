@@ -31,7 +31,7 @@ local LUCKY_NUM = 13
 
 local tbl_util  = require('lib.utils.table_util')
 local tbl_isempty = tbl_util.isempty
-local tbl_isequal = require('pl.tablex')
+local tablex = require('pl.tablex')
 local peerwatcher = require "core.peerwatcher"
 local ngx_var = ngx.var
 local hash_data = {}
@@ -73,10 +73,10 @@ end
 local function update_consistent_hash_state(hash_data,servers,svckey)
     -- compare servers in ctx with servers in cache
     -- update the hash data if changes occur
-    local serverscache = hash_data[svckey].servers
+    local serverscache = tablex.deepcopy(hash_data[svckey].servers)
     tab_sort(serverscache, function(a, b) return a.ip < b.ip end)
     tab_sort(servers, function(a, b) return a.ip < b.ip end)
-    if  not tbl_isequal.deepcompare(serverscache, servers, false) then
+    if  not tablex.deepcompare(serverscache, servers, false) then
         local tmp_chash = init_consistent_hash_state(servers)
         hash_data[svckey].servers =servers
         hash_data[svckey].chash = tmp_chash
