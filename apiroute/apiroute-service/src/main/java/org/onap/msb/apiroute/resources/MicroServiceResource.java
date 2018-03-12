@@ -326,8 +326,13 @@ public class MicroServiceResource {
      * @throws IOException
      */
     private Response cloneHttpResponse(CloseableHttpResponse httpResponse) throws IOException {
-        String jsonString = EntityUtils.toString(httpResponse.getEntity());
-        Response response = Response.status(httpResponse.getStatusLine().getStatusCode()).entity(jsonString).build();
+        Response response;
+        if (httpResponse.getEntity() != null) {
+            String jsonString = EntityUtils.toString(httpResponse.getEntity());
+            response = Response.status(httpResponse.getStatusLine().getStatusCode()).entity(jsonString).build();
+        } else {
+            response = Response.status(httpResponse.getStatusLine().getStatusCode()).build();
+        }
         return response;
     }
 
