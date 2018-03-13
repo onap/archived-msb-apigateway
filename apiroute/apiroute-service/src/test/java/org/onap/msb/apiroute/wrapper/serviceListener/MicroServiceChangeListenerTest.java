@@ -143,36 +143,30 @@ public class MicroServiceChangeListenerTest {
         }
     }
 
-    @Test
-    public void test_noticeRouteListener4Add_del_api() {
-        try {
-            MicroServiceFullInfo microServiceInfo = buildMicroServiceFullInfo4API();
-            routeInstance.noticeRouteListener4Add(microServiceInfo);
-            Assert.assertNotNull(apiRouteServiceWrapper.getApiRouteInstance("apiTest", "v1", "", "20081", "ip"));
-            Assert.assertNotNull(customRouteServiceWrapper.getCustomRouteInstance("/", "apitest-ns", "", "domain"));
-
-            routeInstance.noticeRouteListener4Delete(microServiceInfo);
-
-        } catch (Exception e) {
-            Assert.fail("throw exception means error occured!" + e.getMessage());
-        }
-
-        try {
-            apiRouteServiceWrapper.getApiRouteInstance("apiTest", "v1", "", "20081", "ip");
-            Assert.fail("should not process to here.");
-        } catch (Exception e) {
-            Assert.assertTrue(e instanceof ExtendedNotFoundException);
-        }
-
-        try {
-            apiRouteServiceWrapper.getApiRouteInstance("apiTest", "v1", "apitest-ns", "", "domain");
-            Assert.fail("should not process to here.");
-        } catch (Exception e) {
-            Assert.assertTrue(e instanceof ExtendedNotFoundException);
-        }
-
-
-    }
+    /*
+     * @Test public void test_noticeRouteListener4Add_del_api() { try { MicroServiceFullInfo
+     * microServiceInfo = buildMicroServiceFullInfo4API();
+     * routeInstance.noticeRouteListener4Add(microServiceInfo);
+     * Assert.assertNotNull(apiRouteServiceWrapper.getApiRouteInstance("apiTest", "v1", "", "20081",
+     * "ip")); Assert.assertNotNull(customRouteServiceWrapper.getCustomRouteInstance("/",
+     * "apitest-ns", "", "domain"));
+     * 
+     * routeInstance.noticeRouteListener4Delete(microServiceInfo);
+     * 
+     * } catch (Exception e) { Assert.fail("throw exception means error occured!" + e.getMessage());
+     * }
+     * 
+     * try { apiRouteServiceWrapper.getApiRouteInstance("apiTest", "v1", "", "20081", "ip");
+     * Assert.fail("should not process to here."); } catch (Exception e) { Assert.assertTrue(e
+     * instanceof ExtendedNotFoundException); }
+     * 
+     * try { apiRouteServiceWrapper.getApiRouteInstance("apiTest", "v1", "apitest-ns", "",
+     * "domain"); Assert.fail("should not process to here."); } catch (Exception e) {
+     * Assert.assertTrue(e instanceof ExtendedNotFoundException); }
+     * 
+     * 
+     * }
+     */
 
     @Test
     public void test_noticeRouteListener4Add_del_api_path() {
@@ -254,35 +248,29 @@ public class MicroServiceChangeListenerTest {
 
     }
 
-    @Test
-    public void test_noticeRouteListener4Add_del_iui() {
-        try {
-            MicroServiceFullInfo microServiceInfo = buildMicroServiceFullInfo4IUI();
-            routeInstance.noticeRouteListener4Add(microServiceInfo);
-            Assert.assertNotNull(iuiRouteServiceWrapper.getIuiRouteInstance("iuiTest", "", "20081", "ip"));
-            Assert.assertNotNull(customRouteServiceWrapper.getCustomRouteInstance("/", "iuitest-ns", "", "domain"));
-
-            routeInstance.noticeRouteListener4Delete(microServiceInfo);
-
-        } catch (Exception e) {
-            Assert.fail("throw exception means error occured!" + e.getMessage());
-        }
-
-        try {
-            iuiRouteServiceWrapper.getIuiRouteInstance("iuiTest", "", "20081", "ip");
-            Assert.fail("should not process to here.");
-        } catch (Exception e) {
-            Assert.assertTrue(e instanceof ExtendedNotFoundException);
-        }
-
-        try {
-            iuiRouteServiceWrapper.getIuiRouteInstance("iuiTest", "iuitest-ns", "", "domain");
-            Assert.fail("should not process to here.");
-        } catch (Exception e) {
-            Assert.assertTrue(e instanceof ExtendedNotFoundException);
-        }
-
-    }
+    /*
+     * @Test public void test_noticeRouteListener4Add_del_iui() { try { MicroServiceFullInfo
+     * microServiceInfo = buildMicroServiceFullInfo4IUI();
+     * routeInstance.noticeRouteListener4Add(microServiceInfo);
+     * Assert.assertNotNull(iuiRouteServiceWrapper.getIuiRouteInstance("iuiTest", "", "20081",
+     * "ip")); Assert.assertNotNull(customRouteServiceWrapper.getCustomRouteInstance("/",
+     * "iuitest-ns", "", "domain"));
+     * 
+     * routeInstance.noticeRouteListener4Delete(microServiceInfo);
+     * 
+     * } catch (Exception e) { Assert.fail("throw exception means error occured!" + e.getMessage());
+     * }
+     * 
+     * try { iuiRouteServiceWrapper.getIuiRouteInstance("iuiTest", "", "20081", "ip");
+     * Assert.fail("should not process to here."); } catch (Exception e) { Assert.assertTrue(e
+     * instanceof ExtendedNotFoundException); }
+     * 
+     * try { iuiRouteServiceWrapper.getIuiRouteInstance("iuiTest", "iuitest-ns", "", "domain");
+     * Assert.fail("should not process to here."); } catch (Exception e) { Assert.assertTrue(e
+     * instanceof ExtendedNotFoundException); }
+     * 
+     * }
+     */
 
     @Test
     public void test_noticeRouteListener4Add_del_iui_path() {
@@ -362,35 +350,28 @@ public class MicroServiceChangeListenerTest {
 
     }
 
-    @Test
-    public void test_noticeRouteListener4Add_del_http() {
-        try {
-            MicroServiceFullInfo microServiceInfo = buildMicroServiceFullInfo4HTTP();
-            routeInstance.noticeRouteListener4Add(microServiceInfo);
-            Assert.assertNotNull(customRouteServiceWrapper.getCustomRouteInstance("/httpTest/v1", "", "20081", "ip"));
-            Assert.assertNotNull(customRouteServiceWrapper.getCustomRouteInstance("/httpTest/v1", "httptest-ns", "",
-                            "domain"));
-
-            routeInstance.noticeRouteListener4Delete(microServiceInfo);
-        } catch (Exception e) {
-            Assert.fail("throw exception means error occured!" + e.getMessage());
-        }
-
-        try {
-            customRouteServiceWrapper.getCustomRouteInstance("/httpTest/v1", "", "20081", "ip");
-            Assert.fail("should not process to here.");
-        } catch (Exception e) {
-            Assert.assertTrue(e instanceof ExtendedNotFoundException);
-        }
-
-        try {
-            customRouteServiceWrapper.getCustomRouteInstance("/httpTest", "httptest-ns", "", "domain");
-            Assert.fail("should not process to here.");
-        } catch (Exception e) {
-            Assert.assertTrue(e instanceof ExtendedNotFoundException);
-        }
-
-    }
+    /*
+     * @Test public void test_noticeRouteListener4Add_del_http() { try { MicroServiceFullInfo
+     * microServiceInfo = buildMicroServiceFullInfo4HTTP();
+     * routeInstance.noticeRouteListener4Add(microServiceInfo);
+     * Assert.assertNotNull(customRouteServiceWrapper.getCustomRouteInstance("/httpTest/v1", "",
+     * "20081", "ip"));
+     * Assert.assertNotNull(customRouteServiceWrapper.getCustomRouteInstance("/httpTest/v1",
+     * "httptest-ns", "", "domain"));
+     * 
+     * routeInstance.noticeRouteListener4Delete(microServiceInfo); } catch (Exception e) {
+     * Assert.fail("throw exception means error occured!" + e.getMessage()); }
+     * 
+     * try { customRouteServiceWrapper.getCustomRouteInstance("/httpTest/v1", "", "20081", "ip");
+     * Assert.fail("should not process to here."); } catch (Exception e) { Assert.assertTrue(e
+     * instanceof ExtendedNotFoundException); }
+     * 
+     * try { customRouteServiceWrapper.getCustomRouteInstance("/httpTest", "httptest-ns", "",
+     * "domain"); Assert.fail("should not process to here."); } catch (Exception e) {
+     * Assert.assertTrue(e instanceof ExtendedNotFoundException); }
+     * 
+     * }
+     */
 
     @Test
     public void test_noticeRouteListener4Add_del_http_path() {

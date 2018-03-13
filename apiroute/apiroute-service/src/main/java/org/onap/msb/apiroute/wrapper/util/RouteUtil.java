@@ -294,14 +294,24 @@ public class RouteUtil {
      * @return
      * @return String
      */
-    public static String getRouteNameByns(String consul_serviceName, String namespace) {
+    public static String getRouteNameByns(String consul_serviceName, String version, String namespace) {
         String serviceName = consul_serviceName;
-        if (StringUtils.isNotBlank(namespace)) {
+        // Remove version and namespace from consul service name
+        // Consul_serviceName Format: serviceName-version-namespace
+        if (StringUtils.isNotBlank(version) && StringUtils.isNotBlank(namespace)) {
+            if (consul_serviceName.endsWith("-" + version + "-" + namespace)) {
+                serviceName = consul_serviceName.substring(0,
+                                consul_serviceName.length() - version.length() - namespace.length() - 2);
+            }
+        } else if (StringUtils.isNotBlank(version)) {
+            if (consul_serviceName.endsWith("-" + version)) {
+                serviceName = consul_serviceName.substring(0, consul_serviceName.length() - version.length() - 1);
+            }
+        } else if (StringUtils.isNotBlank(namespace)) {
             if (consul_serviceName.endsWith("-" + namespace)) {
                 serviceName = consul_serviceName.substring(0, consul_serviceName.length() - namespace.length() - 1);
             }
         }
-
         return serviceName;
     }
 

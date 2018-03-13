@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2016-2017 ZTE, Inc. and others.
+ * Copyright 2016-2018 ZTE, Inc. and others.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -105,8 +105,8 @@ public class MicroServiceChangeListener implements IMicroServiceChangeListener {
             return true;
 
         String protocol = microServiceInfo.getProtocol();
-        String routeName =
-                        RouteUtil.getRouteNameByns(microServiceInfo.getServiceName(), microServiceInfo.getNamespace());
+        String routeName = RouteUtil.getRouteNameByns(microServiceInfo.getServiceName(), microServiceInfo.getVersion(),
+                        microServiceInfo.getNamespace());
         String publishUrl = "";
         String version = "";
         if (StringUtils.isNotBlank(microServiceInfo.getVersion())) {
@@ -156,8 +156,8 @@ public class MicroServiceChangeListener implements IMicroServiceChangeListener {
      */
     private void saveServiceByProtocol(MicroServiceFullInfo microServiceInfo, String routeWay) throws Exception {
         String protocol = microServiceInfo.getProtocol();
-        String routeName =
-                        RouteUtil.getRouteNameByns(microServiceInfo.getServiceName(), microServiceInfo.getNamespace());
+        String routeName = RouteUtil.getRouteNameByns(microServiceInfo.getServiceName(), microServiceInfo.getVersion(),
+                        microServiceInfo.getNamespace());
 
         switch (protocol) {
             case RouteUtil.PROTOCOL_UI:
@@ -195,8 +195,8 @@ public class MicroServiceChangeListener implements IMicroServiceChangeListener {
     private void deleteServiceByProtocol(MicroServiceFullInfo microServiceInfo, String routeWay) {
         String protocol = microServiceInfo.getProtocol();
         String host = getHost(microServiceInfo);
-        String routeName =
-                        RouteUtil.getRouteNameByns(microServiceInfo.getServiceName(), microServiceInfo.getNamespace());
+        String routeName = RouteUtil.getRouteNameByns(microServiceInfo.getServiceName(), microServiceInfo.getVersion(),
+                        microServiceInfo.getNamespace());
 
         if (RouteUtil.PROTOCOL_UI.equals(protocol)) {
 
@@ -502,7 +502,7 @@ public class MicroServiceChangeListener implements IMicroServiceChangeListener {
             if (RouteUtil.ROUTEWAY_DOMAIN.equals(routeWay)) {
 
                 String discoverServiceName = RouteUtil.getRouteNameByns(microServiceInfo.getServiceName(),
-                                microServiceInfo.getNamespace());
+                                microServiceInfo.getVersion(), microServiceInfo.getNamespace());
                 List<Node> publishNodes = getPublishNodes(discoverServiceName, microServiceInfo.getVersion(),
                                 microServiceInfo.getNamespace());
                 if (publishNodes != null && publishNodes.size() > 0) {

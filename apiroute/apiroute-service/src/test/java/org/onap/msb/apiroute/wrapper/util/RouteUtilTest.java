@@ -228,10 +228,11 @@ public class RouteUtilTest {
 
     @Test
     public void test_getRouteNameByns() {
-        Assert.assertEquals("serviceName", RouteUtil.getRouteNameByns("serviceName", ""));
-        Assert.assertEquals("serviceName", RouteUtil.getRouteNameByns("serviceName-ns", "ns"));
-        Assert.assertEquals("serviceName-ns", RouteUtil.getRouteNameByns("serviceName-ns-ns", "ns"));
-        Assert.assertEquals("serviceName", RouteUtil.getRouteNameByns("serviceName", "default"));
+        Assert.assertEquals("serviceName", RouteUtil.getRouteNameByns("serviceName", "", ""));
+        Assert.assertEquals("serviceName", RouteUtil.getRouteNameByns("serviceName-ns", "", "ns"));
+        Assert.assertEquals("serviceName-ns", RouteUtil.getRouteNameByns("serviceName-ns-ns", "", "ns"));
+        Assert.assertEquals("serviceName", RouteUtil.getRouteNameByns("serviceName", "", "default"));
+        Assert.assertEquals("serviceName", RouteUtil.getRouteNameByns("serviceName-v1-ns", "v1", "ns"));
     }
 
     @Test
