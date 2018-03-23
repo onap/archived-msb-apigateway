@@ -32,7 +32,7 @@ public class Node implements Serializable {
     private int ttl = -1;
 
     // 健康检查参数
-    // health check type, allowableValues = "HTTP,TCP, TTL", example = "HTTP")
+    // health check type, allowableValues = "HTTP,TCP", example = "HTTP")
     private String checkType = "HTTP";
     // health check url, example for http "http://192.168.0.2:80/heallth", example for tcp
     // "192.168.1.100:80"
