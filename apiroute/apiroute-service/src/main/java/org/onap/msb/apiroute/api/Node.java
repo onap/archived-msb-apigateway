@@ -31,6 +31,75 @@ public class Node implements Serializable {
 
     private int ttl = -1;
 
+    // 健康检查参数
+    // health check type, allowableValues = "HTTP,TCP", example = "HTTP")
+    private String checkType = "HTTP";
+    // health check url, example for http "http://192.168.0.2:80/heallth", example for tcp
+    // "192.168.1.100:80"
+    private String checkUrl = "";
+
+    // TCP or HTTP health check Interval,Unit: second", example = "10s"
+    private String checkInterval = "10s";
+
+    // TCP or HTTP health check TimeOut,Unit: second", example = "10s"
+    private String checkTimeOut = "10s";
+
+    /**
+     * @return the checkType
+     */
+    public String getCheckType() {
+        return checkType;
+    }
+
+    /**
+     * @param checkType the checkType to set
+     */
+    public void setCheckType(String checkType) {
+        this.checkType = checkType;
+    }
+
+    /**
+     * @return the checkUrl
+     */
+    public String getCheckUrl() {
+        return checkUrl;
+    }
+
+    /**
+     * @param checkUrl the checkUrl to set
+     */
+    public void setCheckUrl(String checkUrl) {
+        this.checkUrl = checkUrl;
+    }
+
+    /**
+     * @return the checkInterval
+     */
+    public String getCheckInterval() {
+        return checkInterval;
+    }
+
+    /**
+     * @param checkInterval the checkInterval to set
+     */
+    public void setCheckInterval(String checkInterval) {
+        this.checkInterval = checkInterval;
+    }
+
+    /**
+     * @return the checkTimeOut
+     */
+    public String getCheckTimeOut() {
+        return checkTimeOut;
+    }
+
+    /**
+     * @param checkTimeOut the checkTimeOut to set
+     */
+    public void setCheckTimeOut(String checkTimeOut) {
+        this.checkTimeOut = checkTimeOut;
+    }
+
     public String getStatus() {
         return status;
     }
