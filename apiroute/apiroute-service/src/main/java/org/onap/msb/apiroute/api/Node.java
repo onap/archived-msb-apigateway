@@ -27,13 +27,12 @@ public class Node implements Serializable {
     @ApiModelProperty(required = true)
     private String port;
 
-    private String status = "passing"; // 实例健康检查状态
+    private String status = "passing"; 
 
     private int ttl = -1;
 
-    // 健康检查参数
     // health check type, allowableValues = "HTTP,TCP", example = "HTTP")
-    private String checkType = "HTTP";
+    private String checkType = "";
     // health check url, example for http "http://192.168.0.2:80/heallth", example for tcp
     // "192.168.1.100:80"
     private String checkUrl = "";
