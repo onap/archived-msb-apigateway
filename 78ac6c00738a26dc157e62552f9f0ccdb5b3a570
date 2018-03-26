@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_3e8f5c77",
+        "filename": "apiroute/apiroute-service/src/main/java/org/onap/msb/apiroute/api/Node.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 313
+      },
+      "writtenOn": "2018-03-26T09:12:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_fe81f44d",
+      "range": {
+        "startLine": 30,
+        "startChar": 39,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "78ac6c00738a26dc157e62552f9f0ccdb5b3a570",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_1e870063",
         "filename": "apiroute/apiroute-service/src/main/java/org/onap/msb/apiroute/api/Node.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-26T09:09:08Z",
       "side": 1,
       "message": "As above comment",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 13
+      },
+      "revId": "78ac6c00738a26dc157e62552f9f0ccdb5b3a570",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_5e8ca87f",
+        "filename": "apiroute/apiroute-service/src/main/java/org/onap/msb/apiroute/api/Node.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 313
+      },
+      "writtenOn": "2018-03-26T09:12:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a93c517_1e870063",
       "range": {
         "startLine": 34,
         "startChar": 4,
