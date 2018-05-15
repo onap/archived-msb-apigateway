@@ -73,13 +73,18 @@ $.i18n.properties = function(settings) {
 		//}
 		// 3. with language code and country code (eg, Messages_pt_PT.properties)
 		// 将寻找资源文件的顺序倒置
+		    var xhrResult;
         if(settings.language.length >= 5) {
-            loadAndParseFile(settings.path + files[i] + '-' + settings.language.substring(0, 5) +'.properties', settings);
+            xhrResult = loadAndParseFile(settings.path + files[i] + '-' + settings.language.substring(0, 5) +'.properties', settings);
         } else if(settings.language.length >= 2) {
-            loadAndParseFile(settings.path + files[i] + '-' + settings.language.substring(0, 2) +'.properties', settings);
+            xhrResult = loadAndParseFile(settings.path + files[i] + '-' + settings.language.substring(0, 2) +'.properties', settings);
 		} else {
-			loadAndParseFile(settings.path + files[i] + '.properties', settings);
+			xhrResult = loadAndParseFile(settings.path + files[i] + '.properties', settings);
 		}
+		if (xhrResult.status === 404) {
+      //fallback to en_US
+      loadAndParseFile(settings.path + files[i] + '-en-US.properties', settings);
+    }
 	}
 	
 	// call callback
@@ -245,7 +250,7 @@ $.i18n.browserLang = function() {
 
 /** Load and parse .properties files */
 function loadAndParseFile(filename, settings) {
-	$.ajax({
+	return $.ajax({
         url:        filename,
         async:      false,
         cache:		settings.cache,
