@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_26554af9",
+        "filename": "apiroute/apiroute-service/src/main/resources/iui-route/js/jquery.i18n/jquery.i18n.properties-1.0.9.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 219
+      },
+      "writtenOn": "2018-05-15T18:42:15Z",
+      "side": 1,
+      "message": "Comments in code must be in English",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "79e2725739265504f8bebc08feabf1d7e2fc5934",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
