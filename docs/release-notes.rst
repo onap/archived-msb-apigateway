@@ -7,6 +7,46 @@ MSB Release Notes
 
 Microservices Bus provide key infrastructure functionalities to support ONAP microservice architecture including service registration/discovery, service gateway, service load balancer and service governance. It's a pluggable architecture so it can be extended with plugins to provide value added services such as centralized authentication for APIs. Microservices Platform also provides a GUI portal for service management.
 
+Version: 1.1.0
+--------------
+
+:Release Date: 2018-06-07
+
+
+**New Features**
+
+
+**Bug Fixes**
+
+N/A
+
+**Known Issues**
+
+N/A
+
+**Security Notes**
+
+MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The MSB open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=25439016>`_.
+
+Quick Links:
+ 	- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+ 	
+ 	- `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
+ 	
+ 	- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=25439016>`_
+
+**Upgrade Notes**
+
+N/A
+
+**Deprecation Notes**
+
+N/A
+
+**Other**
+
+N/A
+
 
 Version: 1.0.0
 --------------
