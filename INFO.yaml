@@ -4,8 +4,8 @@ project_creation_date: '2016-08-08'
 lifecycle_state: 'Incubation'
 project_lead: &onap_releng_ptl
     name: 'Huabing Zhao'
-    email: 'zhao.huabing@zte.com.cn'
-    id: 'HuabingZhao'
+    email: 'zhaohuabing@gmail.com'
+    id: 'Huabing_Zhao'
     company: 'ZTE'
     timezone: 'China/Chengdu'
 primary_contact: *onap_releng_ptl
