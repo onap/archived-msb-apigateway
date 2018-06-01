@@ -5,7 +5,9 @@
 MSB Release Notes
 =================
 
-Microservices Bus provide key infrastructure functionalities to support ONAP microservice architecture including service registration/discovery, service gateway, service load balancer and service governance. It's a pluggable architecture so it can be extended with plugins to provide value added services such as centralized authentication for APIs. Microservices Platform also provides a GUI portal for service management.
+Microservices Bus(MSB) provides a reliable, resilient and scalable communication and governance infrastructure to support ONAP Microservice Architecture including service registration/discovery, external API gateway, internal API gateway, client SDK, Swagger SDK, etc. It's a pluggable architecture, plugins can be added to MSB to provide whatever functionalities you need, such as an auth plugin can be used to provide centralized authentication & authorization. MSB also provides a service portal to manage the REST APIs.
+
+MSB is platform independent, while it is integrated with Kubernetes(OOM) to provide transparent service registration for ONAP microservices, MSB also supports OpenStack(Heat) and bare metal deployment.
 
 Version: 1.1.0
 --------------
@@ -14,11 +16,23 @@ Version: 1.1.0
 
 
 **New Features**
+In Beijing release, MSB project mainly focused on the Platform Maturity requirements of ONAP, including the scalability and security. Some new features which were requested when integrated with other projects, such as websocket support, service registration at K8S Pod level, multiple versions of services, etc. have also been added to this release.
 
+- `MSB-117 <https://jira.onap.org/browse/MSB-146>`_ Support horizontal scaling
+- `MSB-140 <https://jira.onap.org/browse/MSB-140>`_ Providing HTTPS endpoint at API gateway
+- `MSB-146 <https://jira.onap.org/browse/MSB-146>`_ Support service registration at K8s Pod level
+- `MSB-152 <https://jira.onap.org/browse/MSB-152>`_ MSB JAVA SDK supports HTTPS service registration
+- `MSB-156 <https://jira.onap.org/browse/MSB-156>`_ Support websocket request forwarding
+- `MSB-178 <https://jira.onap.org/browse/MSB-178>`_ Support registering multiple versions under a service name
+- `MSB-179 <https://jira.onap.org/browse/MSB-179>`_ Integration MSB GUI to Portal project
 
 **Bug Fixes**
-
-N/A
+- `MSB-92 <https://jira.onap.org/browse/MSB-92>`_ Microservice delete is reporting 500, though it deleted the service
+- `MSB-102 <https://jira.onap.org/browse/MSB-102>`_ The msb client has heavy dependencies
+- `MSB-150 <https://jira.onap.org/browse/MSB-150>`_ Kube2msb doesn't unregister service
+- `MSB-153 <https://jira.onap.org/browse/MSB-153>`_ MSB kube2msb registrator does not register LoadBalancer type service
+- `MSB-187 <https://jira.onap.org/browse/MSB-187>`_ MSB discovery API in swagger is not published
+- `MSB-195 <https://jira.onap.org/browse/MSB-195>`_ HTTP protocol used over HTTPS port
 
 **Known Issues**
 
