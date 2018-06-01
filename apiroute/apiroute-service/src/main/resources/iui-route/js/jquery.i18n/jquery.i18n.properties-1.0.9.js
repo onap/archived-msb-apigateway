@@ -65,21 +65,24 @@ $.i18n.properties = function(settings) {
 	// load and parse bundle files
 	var files = getFiles(settings.name);
 	for(i=0; i<files.length; i++) {
-		// 1. load base (eg, Messages.properties)
-		//loadAndParseFile(settings.path + files[i] + '.properties', settings);
-        // 2. with language code (eg, Messages_pt.properties)
-		//if(settings.language.length >= 2) {
-        //    loadAndParseFile(settings.path + files[i] + '-' + settings.language.substring(0, 2) +'.properties', settings);
-		//}
-		// 3. with language code and country code (eg, Messages_pt_PT.properties)
-		// 将寻找资源文件的顺序倒置
-        if(settings.language.length >= 5) {
-            loadAndParseFile(settings.path + files[i] + '-' + settings.language.substring(0, 5) +'.properties', settings);
-        } else if(settings.language.length >= 2) {
-            loadAndParseFile(settings.path + files[i] + '-' + settings.language.substring(0, 2) +'.properties', settings);
-		} else {
-			loadAndParseFile(settings.path + files[i] + '.properties', settings);
-		}
+        // Look for the bundle files in the following order:
+        //   1. with language code and country code (eg, Messages_pt_PT.properties)
+        //   2. with language code (eg, Messages_pt.properties)
+        //   3. load base (eg, Messages.properties)
+        //   4. if none of the above is found, load en_US by default (eg, Messages_en_US.properties)
+        var xhrResult;
+        if (settings.language.length >= 5) {
+            xhrResult = loadAndParseFile(settings.path + files[i] + '-' + settings.language.substring(0, 5) + '.properties', settings);
+        } else if (settings.language.length >= 2) {
+            xhrResult = loadAndParseFile(settings.path + files[i] + '-' + settings.language.substring(0, 2) + '.properties', settings);
+        } else {
+            xhrResult = loadAndParseFile(settings.path + files[i] + '.properties', settings);
+        }
+
+        if (xhrResult.status === 404) {
+            // fallback to en_US by default
+            loadAndParseFile(settings.path + files[i] + '-en-US.properties', settings);
+        }
 	}
 	
 	// call callback
@@ -245,15 +248,15 @@ $.i18n.browserLang = function() {
 
 /** Load and parse .properties files */
 function loadAndParseFile(filename, settings) {
-	$.ajax({
-        url:        filename,
-        async:      false,
-        cache:		settings.cache,
-        contentType:'text/plain;charset='+ settings.encoding,
-        dataType:   'text',
-        success:    function(data, status) {
-        				parseData(data, settings.mode); 
-					}
+	return $.ajax({
+                url:        filename,
+                async:      false,
+                cache:		settings.cache,
+                contentType:'text/plain;charset='+ settings.encoding,
+                dataType:   'text',
+                success:    function(data, status) {
+                                parseData(data, settings.mode); 
+                            }
     });
 }
 
