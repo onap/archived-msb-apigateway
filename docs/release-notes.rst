@@ -27,6 +27,7 @@ In Beijing release, MSB project mainly focused on the Platform Maturity requirem
 - `MSB-179 <https://jira.onap.org/browse/MSB-179>`_ Integration MSB GUI to Portal project
 
 **Bug Fixes**
+
 - `MSB-92 <https://jira.onap.org/browse/MSB-92>`_ Microservice delete is reporting 500, though it deleted the service
 - `MSB-102 <https://jira.onap.org/browse/MSB-102>`_ The msb client has heavy dependencies
 - `MSB-150 <https://jira.onap.org/browse/MSB-150>`_ Kube2msb doesn't unregister service
@@ -43,11 +44,10 @@ N/A
 MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The MSB open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=25439016>`_.
 
 Quick Links:
- 	- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
- 	
- 	- `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
- 	
- 	- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=25439016>`_
+
+- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+- `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
+- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=25439016>`_
 
 **Upgrade Notes**
 
