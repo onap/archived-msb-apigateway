@@ -15,5 +15,4 @@ Microservices Bus provide key infrastructure functionalities to support ONAP mic
    log-and-diagnostic-info.rst
    installation.rst
    configuration.rst
-   administration.rst
    human-interfaces.rst
