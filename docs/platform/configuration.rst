@@ -4,5 +4,5 @@
 Configuration
 -------------
 
-No machanism for customized configurtions is provided in the Amsterdam release. Such functionalities will be provided in the future if necessary.
+No machanism for customized configurtions is provided in this release. Such functionalities will be provided in the future if necessary.
 
