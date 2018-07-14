@@ -1,0 +1,13 @@
+# level: Emergency, Alert, Critical, Error, Warn, Notice, Info and Debug
+console:
+  level: Debug
+
+file:
+  filename: msb2pilot.log
+  level: Info
+  maxlines: 300000
+  #metric:M
+  maxsize: 20
+  daily: false
+  maxdays: 3
+  rotate: true
