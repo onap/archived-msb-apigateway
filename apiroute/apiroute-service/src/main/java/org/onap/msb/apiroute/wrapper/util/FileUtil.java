@@ -25,7 +25,7 @@ public final class FileUtil {
     /**
      * Read all the files under a folder
      */
-    public static File[] readFileFolder(String filepath) throws FileNotFoundException, IOException {
+    public static File[] readFileFolder(String filepath) throws  IOException {
         File file = new File(filepath);
         if (file.isDirectory()) {
             File[] filelist = file.listFiles();
@@ -36,28 +36,15 @@ public final class FileUtil {
     }
 
     public static String readFile(String Path) throws IOException {
-        BufferedReader reader = null;
-        StringBuffer fileContent = new StringBuffer();
-        try {
-            FileInputStream fileInputStream = new FileInputStream(Path);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
-            reader = new BufferedReader(inputStreamReader);
+    	StringBuilder fileContent = new StringBuilder();
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(Path),"UTF-8"));) {
             String tempString = null;
             while ((tempString = reader.readLine()) != null) {
                 fileContent.append(tempString);
             }
-            reader.close();
         } catch (IOException e) {
             throw e;
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    throw e;
-                }
-            }
-        }
+        } 
         return fileContent.toString();
     }
 
