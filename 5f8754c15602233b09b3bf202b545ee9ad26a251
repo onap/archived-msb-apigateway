@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6a9dd7_179f1405",
+        "filename": "apiroute/apiroute-service/src/main/java/org/onap/msb/apiroute/wrapper/util/FileUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4091
+      },
+      "writtenOn": "2018-07-30T09:29:25Z",
+      "side": 1,
+      "message": "We need to close the reader to release resources.",
+      "revId": "5f8754c15602233b09b3bf202b545ee9ad26a251",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
