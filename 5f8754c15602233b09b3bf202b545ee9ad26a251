@@ -34,6 +34,24 @@
       "revId": "5f8754c15602233b09b3bf202b545ee9ad26a251",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_42ececc7",
+        "filename": "apiroute/apiroute-service/src/main/java/org/onap/msb/apiroute/wrapper/util/FileUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4091
+      },
+      "writtenOn": "2018-08-02T01:28:26Z",
+      "side": 1,
+      "message": "Make sense, thanks for the explanation",
+      "parentUuid": "9a6a9dd7_faca856d",
+      "revId": "5f8754c15602233b09b3bf202b545ee9ad26a251",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
