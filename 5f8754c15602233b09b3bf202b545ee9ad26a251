@@ -16,6 +16,24 @@
       "revId": "5f8754c15602233b09b3bf202b545ee9ad26a251",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_faca856d",
+        "filename": "apiroute/apiroute-service/src/main/java/org/onap/msb/apiroute/wrapper/util/FileUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2571
+      },
+      "writtenOn": "2018-08-02T00:54:04Z",
+      "side": 1,
+      "message": "The class BufferedReader, in Java SE 7 and later, implements the interface java.lang.AutoCloseable. Because the BufferedReader instance is declared in a try-with-resource statement, it will be closed regardless of whether the try statement completes normally or abruptly (as a result of the method BufferedReader.readLine throwing an IOException).\n\nhttps://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html",
+      "parentUuid": "9a6a9dd7_179f1405",
+      "revId": "5f8754c15602233b09b3bf202b545ee9ad26a251",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
