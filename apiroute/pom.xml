@@ -53,7 +53,7 @@
 		<jackson.version>2.9.4</jackson.version>
 		<jetty.version>9.4.11.v20180605</jetty.version>
 		<servlet.version>3.0.0.v201112011016</servlet.version>
-		<metrics3.version>3.2.5</metrics3.version>
+		<metrics3.version>4.0.2</metrics3.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<logback.version>1.2.3</logback.version>
 		<h2.version>1.4.196</h2.version>
@@ -90,7 +90,7 @@
 			<dependency>
 				<groupId>net.sourceforge.argparse4j</groupId>
 				<artifactId>argparse4j</artifactId>
-				<version>0.7.0</version>
+				<version>0.8.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.google.code.findbugs</groupId>
