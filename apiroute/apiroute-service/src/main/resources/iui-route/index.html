@@ -86,14 +86,13 @@ if(currentLang.toLowerCase() != "zh-cn") {$("#logo").hide(); }
 
 <div style=" background-color: #f1f3fa !important; ">
 
+<div class="row1 container-fluid" ms-visible="boxVisible">
 
- <div class="row row1 container-fluid" ms-visible="boxVisible">
-
-   <ul class="nav nav-tabs" id="panelTab" style="margin-top: 10px;">
-  <li  class="active" ><a href="#apiPanel" data-toggle="tab" id="apiTab"><i class="fa fa-cloud fa-1x"></i> <span id="org_onap_msb_route_tab_api" name_i18n="org_onap_msb_route_ui_i18n"></span> </a></li>
-  <li ><a href="#iuiPanel" data-toggle="tab" id="iuiTab"><i class="fa fa-tv fa-1x"></i> <span id="org_onap_msb_route_tab_iui" name_i18n="org_onap_msb_route_ui_i18n"></span></a></li>
-  <li ><a href="#customPanel" data-toggle="tab" id="customTab"><i class="fa fa-cogs fa-1x"></i> <span id="org_onap_msb_route_tab_custom" name_i18n="org_onap_msb_route_ui_i18n"></span> </a></li> 
-   <li ms-visible="!discoverInfo.enabled" ><a href="#msbPanel" data-toggle="tab" id="msbTab"><i class="fa fa-cubes fa-1x"></i> <span id="org_onap_msb_route_tab_msb" name_i18n="org_onap_msb_route_ui_i18n"></span> </a></li>  
+<ul class="nav nav-tabs" id="panelTab" style="margin-top: 10px;">
+<li  class="nav-item"><a href="#apiPanel" class="nav-link active" data-toggle="tab" id="apiTab"><i class="fa fa-cloud fa-1x"></i> <span id="org_onap_msb_route_tab_api" name_i18n="org_onap_msb_route_ui_i18n"></span> </a></li>
+<li class="nav-item" ><a href="#iuiPanel" class="nav-link"  data-toggle="tab" id="iuiTab"><i class="fa fa-tv fa-1x"></i> <span id="org_onap_msb_route_tab_iui" name_i18n="org_onap_msb_route_ui_i18n"></span></a></li>
+<li class="nav-item" ><a href="#customPanel" class="nav-link"  data-toggle="tab" id="customTab"><i class="fa fa-cogs fa-1x"></i> <span id="org_onap_msb_route_tab_custom" name_i18n="org_onap_msb_route_ui_i18n"></span> </a></li>
+<li ms-visible="!discoverInfo.enabled" ><a href="#msbPanel" data-toggle="tab" id="msbTab"><i class="fa fa-cubes fa-1x"></i> <span id="org_onap_msb_route_tab_msb" name_i18n="org_onap_msb_route_ui_i18n"></span> </a></li>  
 </ul>
 <div class="tab-content" >
  <div id="apiPanel" class="tab-pane active"> 
