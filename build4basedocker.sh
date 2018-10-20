@@ -32,7 +32,7 @@ DOCKER_IMAGE_NAME=msb_base
 DOCKER_LATEST_VERSION=latest
 DOCKER_RELEASE_VERSION=1.0.0
 DOCKER_REPOSITORY=nexus3.onap.org:10003
-TIMESTAMP=$(date +"%Y%m%dT%H%M%S")
+TIMESTAMP=$(date +"%Y%m%dT%H%M%SZ")
 
 cp -r $RUNHOME/distributions/msb-apigateway/src/main/basedocker/* ${RELEASE_DIR}
 cp  $RUNHOME/ci/build_docker_image.sh ${RELEASE_DIR}
