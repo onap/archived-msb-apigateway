@@ -136,6 +136,63 @@ N/A
 
 N/A
 
+Version: 1.2.3
+--------------
+
+:Release Date: 2018-11-20
+
+
+**New Features**
+
+In Casablanca, MSB mainly focuses on the integration of Istio service mesh with ONAP to enhance OMSA, while keeping the Istio integration compatible with the existing MSB API Gateway approaches. 
+
+How to manage ONAP microservices with Istio service mesh:
+
+- https://wiki.onap.org/display/DW/Manage+ONAP+Microservices+with+Istio+Service+Mesh
+- https://wiki.onap.org/display/DW/Manage+ONAP+Microservices+with+Istio+Service+Mesh-Mutual+TLS+Authentication+Enabled
+
+**Bug Fixes**
+
+- `MSB-196 <https://jira.onap.org/browse/MSB-196>`_ IUI displays raw placeholder texts when failed to load translation
+- `MSB-291 <https://jira.onap.org/browse/MSB-291>`_ Incomplete Apache-2.0 header 
+- `MSB-293 <https://jira.onap.org/browse/MSB-293>`_ Portal to MSB pairwise test failing in WindRiver with OOM deployment
+- `MSB-294 <https://jira.onap.org/browse/MSB-294>`_ Nexus IQ Issue: okhttp3
+- `MSB-296 <https://jira.onap.org/browse/MSB-296>`_ Nexus IQ Issue: guava
+- `MSB-297 <https://jira.onap.org/browse/MSB-297>`_ MSB CSIT failed
+- `MSB-298 <https://jira.onap.org/browse/MSB-298>`_ Release MSB artifact version 1.2.0
+- `MSB-300 <https://jira.onap.org/browse/MSB-300>`_ Incomplete Apache-2.0 header
+- `MSB-301 <https://jira.onap.org/browse/MSB-301>`_ Can't access aai resource http url via msb api gateway
+
+**Known Issues**
+
+- `MSB-295 <https://jira.onap.org/browse/MSB-295>`_ Nexus IQ Issue: bootstrap
+- `MSB-198 <https://jira.onap.org/browse/MSB-198>`_ MSB GUI can not register a service mapped to an HTTPS endpoint
+
+**Security Issues**
+
+Location: msb-apigateway
+
+Artifact: bootstrap CVE-2018-14041
+
+Problem Code: CVE-2018-14041
+
+Plan: the bug has been fixed in upstream project, but not included in its latest release yet, it will be updated once the upstream project release the new version.
+
+**Upgrade Notes**
+
+N/A
+
+**Deprecation Notes**
+
+N/A
+
+**Other**
+
+N/A
+
+===========
+
+End of Release Notes
 ===========
 
 End of Release Notes
