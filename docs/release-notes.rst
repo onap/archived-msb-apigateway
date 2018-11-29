@@ -2,8 +2,8 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 
-MSB Release Notes
-=================
+MSB
+===
 
 Microservices Bus(MSB) provides a reliable, resilient and scalable communication and governance infrastructure to support ONAP Microservice Architecture including service registration/discovery, external API gateway, internal API gateway, client SDK, Swagger SDK, etc. It's a pluggable architecture, plugins can be added to MSB to provide whatever functionalities you need, such as an auth plugin can be used to provide centralized authentication & authorization. MSB also provides a service portal to manage the REST APIs.
 
@@ -41,13 +41,13 @@ N/A
 
 **Security Notes**
 
-MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The MSB open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=25439016>`_.
+MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and determined to be false positive. The MSB open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=45305668>`_.
 
 Quick Links:
 
 - `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
 - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
-- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=25439016>`_
+- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=45305668>`_
 
 **Upgrade Notes**
 
@@ -189,10 +189,5 @@ N/A
 **Other**
 
 N/A
-
-===========
-
-End of Release Notes
-===========
 
 End of Release Notes
