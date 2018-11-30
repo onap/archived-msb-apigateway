@@ -2,12 +2,69 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 
-MSB Release Notes
-=================
+MSB
+===
 
 Microservices Bus(MSB) provides a reliable, resilient and scalable communication and governance infrastructure to support ONAP Microservice Architecture including service registration/discovery, external API gateway, internal API gateway, client SDK, Swagger SDK, etc. It's a pluggable architecture, plugins can be added to MSB to provide whatever functionalities you need, such as an auth plugin can be used to provide centralized authentication & authorization. MSB also provides a service portal to manage the REST APIs.
 
 MSB is platform independent, while it is integrated with Kubernetes(OOM) to provide transparent service registration for ONAP microservices, MSB also supports OpenStack(Heat) and bare metal deployment.
+
+Version: 1.2.3
+--------------
+
+:Release Date: 2018-11-30
+
+
+**New Features**
+
+In Casablanca Release, MSB mainly focuses on the integration of Istio service mesh with ONAP to enhance OMSA, while keeping the Istio integration compatible with the existing MSB API Gateway approaches. 
+
+How to manage ONAP microservices with Istio service mesh:
+
+- https://wiki.onap.org/display/DW/Manage+ONAP+Microservices+with+Istio+Service+Mesh
+- https://wiki.onap.org/display/DW/Manage+ONAP+Microservices+with+Istio+Service+Mesh-Mutual+TLS+Authentication+Enabled
+
+**Bug Fixes**
+
+- `MSB-196 <https://jira.onap.org/browse/MSB-196>`_ IUI displays raw placeholder texts when failed to load translation
+- `MSB-291 <https://jira.onap.org/browse/MSB-291>`_ Incomplete Apache-2.0 header 
+- `MSB-293 <https://jira.onap.org/browse/MSB-293>`_ Portal to MSB pairwise test failing in WindRiver with OOM deployment
+- `MSB-294 <https://jira.onap.org/browse/MSB-294>`_ Nexus IQ Issue: okhttp3
+- `MSB-296 <https://jira.onap.org/browse/MSB-296>`_ Nexus IQ Issue: guava
+- `MSB-297 <https://jira.onap.org/browse/MSB-297>`_ MSB CSIT failed
+- `MSB-298 <https://jira.onap.org/browse/MSB-298>`_ Release MSB artifact version 1.2.0
+- `MSB-300 <https://jira.onap.org/browse/MSB-300>`_ Incomplete Apache-2.0 header
+- `MSB-301 <https://jira.onap.org/browse/MSB-301>`_ Can't access aai resource http url via msb api gateway
+
+**Known Issues**
+
+- `MSB-295 <https://jira.onap.org/browse/MSB-295>`_ Nexus IQ Issue: bootstrap
+- `MSB-198 <https://jira.onap.org/browse/MSB-198>`_ MSB GUI can not register a service mapped to an HTTPS endpoint
+
+**Security Notes**
+
+MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and actions to be taken in future release. 
+The MSB open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=45305668>`_.
+
+Quick Links:
+ 	- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+
+ 	- `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
+
+ 	- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=45305668>`_
+
+**Upgrade Notes**
+
+N/A
+
+**Deprecation Notes**
+
+N/A
+
+**Other**
+
+N/A
+
 
 Version: 1.1.0
 --------------
@@ -135,64 +192,5 @@ N/A
 **Other**
 
 N/A
-
-Version: 1.2.3
---------------
-
-:Release Date: 2018-11-20
-
-
-**New Features**
-
-In Casablanca, MSB mainly focuses on the integration of Istio service mesh with ONAP to enhance OMSA, while keeping the Istio integration compatible with the existing MSB API Gateway approaches. 
-
-How to manage ONAP microservices with Istio service mesh:
-
-- https://wiki.onap.org/display/DW/Manage+ONAP+Microservices+with+Istio+Service+Mesh
-- https://wiki.onap.org/display/DW/Manage+ONAP+Microservices+with+Istio+Service+Mesh-Mutual+TLS+Authentication+Enabled
-
-**Bug Fixes**
-
-- `MSB-196 <https://jira.onap.org/browse/MSB-196>`_ IUI displays raw placeholder texts when failed to load translation
-- `MSB-291 <https://jira.onap.org/browse/MSB-291>`_ Incomplete Apache-2.0 header 
-- `MSB-293 <https://jira.onap.org/browse/MSB-293>`_ Portal to MSB pairwise test failing in WindRiver with OOM deployment
-- `MSB-294 <https://jira.onap.org/browse/MSB-294>`_ Nexus IQ Issue: okhttp3
-- `MSB-296 <https://jira.onap.org/browse/MSB-296>`_ Nexus IQ Issue: guava
-- `MSB-297 <https://jira.onap.org/browse/MSB-297>`_ MSB CSIT failed
-- `MSB-298 <https://jira.onap.org/browse/MSB-298>`_ Release MSB artifact version 1.2.0
-- `MSB-300 <https://jira.onap.org/browse/MSB-300>`_ Incomplete Apache-2.0 header
-- `MSB-301 <https://jira.onap.org/browse/MSB-301>`_ Can't access aai resource http url via msb api gateway
-
-**Known Issues**
-
-- `MSB-295 <https://jira.onap.org/browse/MSB-295>`_ Nexus IQ Issue: bootstrap
-- `MSB-198 <https://jira.onap.org/browse/MSB-198>`_ MSB GUI can not register a service mapped to an HTTPS endpoint
-
-**Security Issues**
-
-Location: msb-apigateway
-
-Artifact: bootstrap CVE-2018-14041
-
-Problem Code: CVE-2018-14041
-
-Plan: the bug has been fixed in upstream project, but not included in its latest release yet, it will be updated once the upstream project release the new version.
-
-**Upgrade Notes**
-
-N/A
-
-**Deprecation Notes**
-
-N/A
-
-**Other**
-
-N/A
-
-===========
-
-End of Release Notes
-===========
 
 End of Release Notes
