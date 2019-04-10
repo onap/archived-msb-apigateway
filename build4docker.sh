@@ -48,9 +48,9 @@ chmod 777 build_docker_image.sh
 
 
 docker rm -f ${DOCKER_RUN_NAME}
-docker rmi ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_LATEST_VERSION}
-docker rmi ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}-STAGING-latest
-docker rmi ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}-SNAPSHOT-latest
+docker rmi --force ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_LATEST_VERSION}
+docker rmi --force ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}-STAGING-latest
+docker rmi --force ${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME}:${DOCKER_RELEASE_VERSION}-SNAPSHOT-latest
 
 ./build_docker_image.sh -n=${DOCKER_REPOSITORY}/onap/msb/${DOCKER_IMAGE_NAME} -v=${DOCKER_LATEST_VERSION} -d=./docker
 
