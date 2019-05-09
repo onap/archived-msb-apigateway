@@ -4,16 +4,16 @@
     <parent>
       <groupId>org.onap.msb.apigateway</groupId>
       <artifactId>msb-apigateway-parent</artifactId>
-      <version>1.2.4-SNAPSHOT</version>
+      <version>1.2.5-SNAPSHOT</version>
     </parent>
 
     <groupId>org.onap.msb.apigateway.distributions</groupId>
     <artifactId>distributions-parent</artifactId>
-    <version>1.2.4-SNAPSHOT</version>
+    <version>1.2.5-SNAPSHOT</version>
     <name>onap/msb/apigateway/distributions</name>
     <packaging>pom</packaging>
     <modules>
-        <module>msb-apigateway</module>    
+        <module>msb-apigateway</module>
     </modules>
 
 
