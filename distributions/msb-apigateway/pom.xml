@@ -3,12 +3,12 @@
   <parent>
     <groupId>org.onap.msb.apigateway.distributions</groupId>
     <artifactId>distributions-parent</artifactId>
-    <version>1.2.4-SNAPSHOT</version>
+    <version>1.2.5-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.onap.msb.apigateway.distributions</groupId>
   <artifactId>msb-apigateway</artifactId>
-  <version>1.2.4-SNAPSHOT</version>
+  <version>1.2.5-SNAPSHOT</version>
   <name>onap/msb/apigateway/distributions/msb-apigateway</name>
   <packaging>pom</packaging>
 
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.onap.msb.apigateway.apiroute</groupId>
             <artifactId>apiroute-standalone</artifactId>
-            <type>zip</type>   
+            <type>zip</type>
             <version>${project.version}</version>
             <optional>true</optional>
         </dependency>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.onap.msb.apigateway</groupId>
             <artifactId>redis-ext</artifactId>
-            <type>tar.gz</type>      
+            <type>tar.gz</type>
             <classifier>${classifier.linux64}</classifier>
             <version>${project.version}</version>
             <optional>true</optional>
@@ -45,7 +45,7 @@
         <dependency>
           <groupId>org.onap.msb.apigateway</groupId>
           <artifactId>openresty-ext</artifactId>
-          <type>tar.gz</type>      
+          <type>tar.gz</type>
           <classifier>${classifier.linux64}</classifier>
           <version>${project.version}</version>
           <optional>true</optional>
@@ -69,20 +69,20 @@
                       <artifactItem>
                         <groupId>org.onap.msb.apigateway.apiroute</groupId>
                         <artifactId>apiroute-standalone</artifactId>
-                        <type>zip</type>   
-                      </artifactItem>               
+                        <type>zip</type>
+                      </artifactItem>
                       <artifactItem>
                         <groupId>org.onap.msb.apigateway</groupId>
                         <artifactId>redis-ext</artifactId>
-                        <type>tar.gz</type>      
-                        <classifier>${classifier.linux64}</classifier>           
-                      </artifactItem>  
+                        <type>tar.gz</type>
+                        <classifier>${classifier.linux64}</classifier>
+                      </artifactItem>
                       <artifactItem>
                         <groupId>org.onap.msb.apigateway</groupId>
                         <artifactId>openresty-ext</artifactId>
-                        <type>tar.gz</type>      
-                        <classifier>${classifier.linux64}</classifier>          
-                      </artifactItem>                      
+                        <type>tar.gz</type>
+                        <classifier>${classifier.linux64}</classifier>
+                      </artifactItem>
                   </artifactItems>
                   <excludes>**/*.bat,**/*.cmd,**/*.exe</excludes>
                   <outputDirectory>${linux64outputdir}</outputDirectory>
@@ -90,7 +90,7 @@
                   <overWriteSnapshots>true</overWriteSnapshots>
                   <outputAbsoluteArtifactFilename>true</outputAbsoluteArtifactFilename>
                 </configuration>
-            </execution>      
+            </execution>
           </executions>
         </plugin>
 
@@ -98,7 +98,7 @@
           <artifactId>maven-resources-plugin</artifactId>
           <executions>
             <execution>
-              <id>copy-msb-resources-linux</id>                 
+              <id>copy-msb-resources-linux</id>
               <phase>prepare-package</phase>
               <goals>
                 <goal>copy-resources</goal>
@@ -106,7 +106,7 @@
               <configuration>
                 <outputDirectory>${linux64outputdir}</outputDirectory>
                 <includeEmptyDirs>true</includeEmptyDirs>
-                <resources>     
+                <resources>
                   <resource>
                     <directory>src/assembly/resources/</directory>
                     <filtering>false</filtering>
@@ -116,34 +116,34 @@
                     <excludes>
                       <exclude>**/*.bat</exclude>
                     </excludes>
-                  </resource>  
+                  </resource>
                 </resources>
                 <overwrite>true</overwrite>
               </configuration>
             </execution>
             <execution>
-              <id>copy-resources-dockerfile</id>                 
+              <id>copy-resources-dockerfile</id>
               <phase>process-resources</phase>
               <goals>
                 <goal>copy-resources</goal>
               </goals>
-              <configuration>            
+              <configuration>
                 <outputDirectory>${version.output}</outputDirectory>
                 <includeEmptyDirs>true</includeEmptyDirs>
-                <resources>     
+                <resources>
                   <resource>
                     <directory>${dockerFileDir}</directory>
                     <filtering>false</filtering>
                     <includes>
                       <include>**/*</include>
                     </includes>
-                  </resource>  
+                  </resource>
                 </resources>
                 <overwrite>true</overwrite>
               </configuration>
-            </execution>     
+            </execution>
           </executions>
-        </plugin>  
+        </plugin>
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -178,14 +178,14 @@
               </configuration>
             </execution>
           </executions>
-        </plugin> 
+        </plugin>
 
 
       </plugins>
       </build>
     </profile>
 
-  </profiles>    
+  </profiles>
 
 </project>
 
