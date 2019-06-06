@@ -9,6 +9,61 @@ Microservices Bus(MSB) provides a reliable, resilient and scalable communication
 
 MSB is platform independent, while it is integrated with Kubernetes(OOM) to provide transparent service registration for ONAP microservices, MSB also supports OpenStack(Heat) and bare metal deployment.
 
+Release Notes
+=============
+
+Version: 1.2.4 Dublin Release
+-----------------------------
+
+:Release Date: 2019-06-10
+
+**New Features**
+
+This release only contains some security improvements and a few fixes.
+
+**Security improvements**
+* MSB-295 Nexus IQ Issue: bootstrap
+* MSB-320 Run API Gateway as a non-root user
+* MSB-321 Run Discovery as a non-root user
+* MSB-322 Run Kube2msb as a non-root user
+* MSB-328 Security issue reported by Nexus-iq : jetty-http
+* MSB-329 Security issue reported by Nexus-iq : spring-core
+* MSB-330 Security issue reported by Nexus-iq : commons-beanutils
+* MSB-331 Jackson datatype security issue
+
+**Bug Fixes**
+
+- `MSB-98  No information is available to select proper node IP from registered services
+- `MSB-281 improve CLM for swagger sdk
+- `MSB-325 consul container is outdated
+- `MSB-326 non STAGING version on master
+
+**Known Issues**
+
+**Security Notes**
+
+MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed.
+The remaining issues are identified as false positive and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=64003723>`_.
+
+Quick Links:
+ 	- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+
+ 	- `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
+
+ 	- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=64003723>`_
+
+**Upgrade Notes**
+
+N/A
+
+**Deprecation Notes**
+
+N/A
+
+**Other**
+
+N/A
+
 Version: 1.2.3
 --------------
 
@@ -17,7 +72,7 @@ Version: 1.2.3
 
 **New Features**
 
-In Casablanca Release, MSB mainly focuses on the integration of Istio service mesh with ONAP to enhance OMSA, while keeping the Istio integration compatible with the existing MSB API Gateway approaches. 
+In Casablanca Release, MSB mainly focuses on the integration of Istio service mesh with ONAP to enhance OMSA, while keeping the Istio integration compatible with the existing MSB API Gateway approaches.
 
 How to manage ONAP microservices with Istio service mesh:
 
@@ -27,7 +82,7 @@ How to manage ONAP microservices with Istio service mesh:
 **Bug Fixes**
 
 - `MSB-196 <https://jira.onap.org/browse/MSB-196>`_ IUI displays raw placeholder texts when failed to load translation
-- `MSB-291 <https://jira.onap.org/browse/MSB-291>`_ Incomplete Apache-2.0 header 
+- `MSB-291 <https://jira.onap.org/browse/MSB-291>`_ Incomplete Apache-2.0 header
 - `MSB-293 <https://jira.onap.org/browse/MSB-293>`_ Portal to MSB pairwise test failing in WindRiver with OOM deployment
 - `MSB-294 <https://jira.onap.org/browse/MSB-294>`_ Nexus IQ Issue: okhttp3
 - `MSB-296 <https://jira.onap.org/browse/MSB-296>`_ Nexus IQ Issue: guava
@@ -43,7 +98,7 @@ How to manage ONAP microservices with Istio service mesh:
 
 **Security Notes**
 
-MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and actions to be taken in future release. 
+MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed, items that remain open have been assessed for risk and actions to be taken in future release.
 The MSB open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=45305668>`_.
 
 Quick Links:
@@ -137,7 +192,7 @@ Provides client request routing, client request load balancing, transformation, 
 **msb/discovery**
 
 Provides service registration and discovery for ONAP microservices, which leverage Consul and build an abstract layer on top of it to make it agnostic to the registration provider and add needed extension.
- 
+
 **msb/java-sdk**
 
 Provides a JAVA SDK for rapid microservices development, including service registration, service discovery, request routing, load balancing, retry, etc.
@@ -161,16 +216,16 @@ In the future release, MSB plans to provide service mesh for ONAP.
 - `MSB-71 <https://jira.onap.org/browse/MSB-71>`_ API Gateway service Registration and discovery api causes confusion
 - `MSB-70 <https://jira.onap.org/browse/MSB-70>`_ Swagger SDK site job build failed
 - `MSB-69 <https://jira.onap.org/browse/MSB-69>`_ Discovery checkstyle issue
-- `MSB-68 <https://jira.onap.org/browse/MSB-68>`_ Discovery daily build jenkins job failed 
+- `MSB-68 <https://jira.onap.org/browse/MSB-68>`_ Discovery daily build jenkins job failed
 - `MSB-67 <https://jira.onap.org/browse/MSB-67>`_ API Gateway check style warnning
 - `MSB-66 <https://jira.onap.org/browse/MSB-66>`_ API Gateway daily build failed
 - `MSB-60 <https://jira.onap.org/browse/MSB-60>`_ API gateway test coverage data not in snoar
 - `MSB-59 <https://jira.onap.org/browse/MSB-59>`_ Swagger SDK build failed
 - `MSB-58 <https://jira.onap.org/browse/MSB-58>`_ MSB Java SDK Jenkins merge job failed
 - `MSB-57 <https://jira.onap.org/browse/MSB-57>`_ Discovery site jenkins job failed
-- `MSB-55 <https://jira.onap.org/browse/MSB-55>`_ Discovery site jenkins job failed 
+- `MSB-55 <https://jira.onap.org/browse/MSB-55>`_ Discovery site jenkins job failed
 - `MSB-54 <https://jira.onap.org/browse/MSB-54>`_ API Gateway site jenkins job failed
-- `MSB-21 <https://jira.onap.org/browse/MSB-21>`_ Merge and daily jenkins job failed 
+- `MSB-21 <https://jira.onap.org/browse/MSB-21>`_ Merge and daily jenkins job failed
 - `MSB-17 <https://jira.onap.org/browse/MSB-17>`_ Release version java daily job failed
 
 **Known Issues**
