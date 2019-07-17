@@ -14,7 +14,10 @@
 
   <properties>
     <packageid>msb-apigateway</packageid>
-    <version.output>target/version</version.output>
+    <version.output>${project.basedir}/target/version</version.output>
+    <docker.image.name>onap/msb/msb_apigateway</docker.image.name>
+    <docker.tag>${project.version}-${timestamp}</docker.tag>
+    <docker.latest.tag>${project.version}-latest</docker.latest.tag>
   </properties>
 
   <profiles>
@@ -179,13 +182,80 @@
             </execution>
           </executions>
         </plugin>
-
-
-      </plugins>
+        </plugins>
       </build>
     </profile>
-
+    <profile>
+      <id>docker</id>
+      <build>
+          <plugins>
+               <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.19.1</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.github.jnr</groupId>
+                                <artifactId>jnr-unixsocket</artifactId>
+                                <version>0.13</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <apiVersion>1.23</apiVersion>
+                            <registry>nexus3.onap.org:10003</registry>
+                            <images>
+                                <image>
+                                    <name>${docker.image.name}</name>
+                                    <alias>docker_msb_apigateway</alias>
+                                    <build>
+                                        <cleanup>true</cleanup>
+                                        <tags>
+                                            <tag>${docker.tag}</tag>
+                                            <tag>${docker.latest.tag}</tag>
+                                        </tags>
+                                        <dockerFileDir>${version.output}</dockerFileDir>
+                                        <!--assembly>
+                                            <descriptorRef>artifact</descriptorRef>
+                                        </assembly-->
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>clean-images</id>
+                                <phase>pre-clean</phase>
+                                <goals>
+                                    <goal>remove</goal>
+                                </goals>
+                                <configuration>
+                                    <removeAll>true</removeAll>
+                                    <image>docker_msb_apigateway</image>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>generate-images</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>push-images</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <image>${docker.image.name}</image>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>  
+          </plugins>
+      </build>
+    </profile>
   </profiles>
 
 </project>
-
