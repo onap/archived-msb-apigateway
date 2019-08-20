@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Daniel Rose <dr695h@att.com>
+Code-Review+2: Huabing Zhao <zhaohuabing@gmail.com>
+Submitted-by: Huabing Zhao <zhaohuabing@gmail.com>
+Submitted-at: Tue, 20 Aug 2019 02:19:45 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/msb/apigateway/+/93873
+Project: msb/apigateway
+Branch: refs/heads/master
