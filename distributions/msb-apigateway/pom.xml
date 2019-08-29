@@ -14,9 +14,10 @@
 
   <properties>
     <packageid>msb-apigateway</packageid>
+    <maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
     <version.output>${project.basedir}/target/version</version.output>
     <docker.image.name>onap/msb/msb_apigateway</docker.image.name>
-    <docker.tag>${project.version}-${timestamp}</docker.tag>
+    <docker.tag>${project.version}-${maven.build.timestamp}</docker.tag>
     <docker.latest.tag>${project.version}-latest</docker.latest.tag>
   </properties>
 
