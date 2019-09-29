@@ -12,6 +12,51 @@ MSB is platform independent, while it is integrated with Kubernetes(OOM) to prov
 Release Notes
 =============
 
+Version: 1.2.5 EI-Alto Release
+-----------------------------
+
+:Release Date: 2019-09-05
+
+**New Features**
+
+This release only contains a few bug fixes and small features.
+
+**New Features**
+ 
+- `MSB-332 Delete custom services via the MSB management UI
+- `MSB-151 Support registering HTTPS service on the MSB management UI
+
+**Bug Fixes**
+
+- `MSB-372 Empty pages that looks like they should be deleted
+- `MSB-374 MSB stripe of the headers with underscore and it blocks SDC API functionality
+
+**Known Issues**
+
+**Security Notes**
+
+MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed.
+The remaining issues are identified as false positive and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=64003723>`_.
+
+Quick Links:
+ 	- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+
+ 	- `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
+
+ 	- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=64003723>`_
+
+**Upgrade Notes**
+
+N/A
+
+**Deprecation Notes**
+
+N/A
+
+**Other**
+
+N/A
+
 Version: 1.2.4 Dublin Release
 -----------------------------
 
