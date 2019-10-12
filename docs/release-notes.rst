@@ -20,13 +20,13 @@ This release only contains a few bug fixes and small features.
 
 **New Features**
 
-- `MSB-332 Delete custom services via the MSB management UI`_
-- `MSB-151 Support registering HTTPS service on the MSB management UI`_
+- MSB-332 Delete custom services via the MSB management UI
+- MSB-151 Support registering HTTPS service on the MSB management UI
 
 **Bug Fixes**
 
-- `MSB-372 Empty pages that looks like they should be deleted`_
-- `MSB-374 MSB stripe of the headers with underscore and it blocks SDC API functionality`_
+- MSB-372 Empty pages that looks like they should be deleted
+- MSB-374 MSB stripe of the headers with underscore and it blocks SDC API functionality
 
 **Known Issues**
 
@@ -65,21 +65,21 @@ This release only contains some security improvements and a few fixes.
 
 **Security improvements**
 
-- `MSB MSB-295 Nexus IQ Issue: bootstrap`_
-- `MSB MSB-320 Run API Gateway as a non-root user`_
-- `MSBMSB-321 Run Discovery as a non-root user`_
-- `MSB MSB-322 Run Kube2msb as a non-root user`_
-- `MSB MSB-328 Security issue reported by Nexus-iq : jetty-http`_
-- `MSB MSB-329 Security issue reported by Nexus-iq : spring-core`_
-- `MSB MSB-330 Security issue reported by Nexus-iq : commons-beanutils`_
-- `MSB MSB-331 Jackson datatype security issue
+- MSB MSB-295 Nexus IQ Issue: bootstrap
+- MSB MSB-320 Run API Gateway as a non-root user
+- MSBMSB-321 Run Discovery as a non-root user
+- MSB MSB-322 Run Kube2msb as a non-root user
+- MSB MSB-328 Security issue reported by Nexus-iq : jetty-http
+- MSB MSB-329 Security issue reported by Nexus-iq : spring-core
+- MSB MSB-330 Security issue reported by Nexus-iq : commons-beanutils
+- MSB MSB-331 Jackson datatype security issue
 
 **Bug Fixes**
 
-- `MSB-98  No information is available to select proper node IP from registered services`_
-- `MSB-281 improve CLM for swagger sdk`_
-- `MSB-325 consul container is outdated`_
-- `MSB-326 non STAGING version on master`_
+- MSB-98  No information is available to select proper node IP from registered services
+- MSB-281 improve CLM for swagger sdk
+- MSB-325 consul container is outdated
+- MSB-326 non STAGING version on master
 
 **Known Issues**
 
