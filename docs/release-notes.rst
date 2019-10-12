@@ -2,9 +2,6 @@
 .. http://creativecommons.org/licenses/by/4.0
 
 
-MSB
-===
-
 Microservices Bus(MSB) provides a reliable, resilient and scalable communication and governance infrastructure to support ONAP Microservice Architecture including service registration/discovery, external API gateway, internal API gateway, client SDK, Swagger SDK, etc. It's a pluggable architecture, plugins can be added to MSB to provide whatever functionalities you need, such as an auth plugin can be used to provide centralized authentication & authorization. MSB also provides a service portal to manage the REST APIs.
 
 MSB is platform independent, while it is integrated with Kubernetes(OOM) to provide transparent service registration for ONAP microservices, MSB also supports OpenStack(Heat) and bare metal deployment.
@@ -22,7 +19,7 @@ Version: 1.2.5 EI-Alto Release
 This release only contains a few bug fixes and small features.
 
 **New Features**
- 
+
 - `MSB-332 Delete custom services via the MSB management UI`_
 - `MSB-151 Support registering HTTPS service on the MSB management UI`_
 
