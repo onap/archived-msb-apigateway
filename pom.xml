@@ -24,7 +24,7 @@
   </parent>
   <groupId>org.onap.msb.apigateway</groupId>
   <artifactId>msb-apigateway-parent</artifactId>
-  <version>1.2.5</version>
+  <version>1.2.6-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>msb-apigateway</name>
   <properties>
