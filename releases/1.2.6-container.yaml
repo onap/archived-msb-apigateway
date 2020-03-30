@@ -1,0 +1,9 @@
+---
+distribution_type: container
+log_dir: msb-apigateway-maven-docker-stage-master/250/
+project: msb-apigateway
+container_release_tag: 1.2.6
+ref: ac1b269baff99334f7fbca3a7d83ee1d9bcb4a60
+containers:
+    - name: 'msb-apigateway'
+      version: '1.2.6-20200329T033100Z'
