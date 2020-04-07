@@ -1,5 +1,6 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
 .. http://creativecommons.org/licenses/by/4.0
+.. _release_notes:
 
 
 Microservices Bus(MSB) provides a reliable, resilient and scalable communication and governance infrastructure to support ONAP Microservice Architecture including service registration/discovery, external API gateway, internal API gateway, client SDK, Swagger SDK, etc. It's a pluggable architecture, plugins can be added to MSB to provide whatever functionalities you need, such as an auth plugin can be used to provide centralized authentication & authorization. MSB also provides a service portal to manage the REST APIs.
@@ -224,9 +225,9 @@ Version: 1.0.0
 
 
 **New Features**
-Initial release of　Microservices Bus (MSB) for Open Network Automation Platform (ONAP). MSB provides core functionalities to support ONAP microservices architecture, including SDK for rapid microservie development, infrastructure for service communication and tools for service governance.
+Initial release of Microservices Bus (MSB) for Open Network Automation Platform (ONAP). MSB provides core functionalities to support ONAP microservices architecture, including SDK for rapid microservie development, infrastructure for service communication and tools for service governance.
 
-The current release of MSB is mainly composed of the following components：
+The current release of MSB is mainly composed of the following components:
 
 **msb/apigateway**
 
