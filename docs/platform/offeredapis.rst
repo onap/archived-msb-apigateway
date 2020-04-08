@@ -1,5 +1,6 @@
 Offered APIs
 ------------
+.. _offeredapis:
 
 The MSB provides the following APIs.
 
