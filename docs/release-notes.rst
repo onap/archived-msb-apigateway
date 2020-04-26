@@ -10,6 +10,60 @@ MSB is platform independent, while it is integrated with Kubernetes(OOM) to prov
 Release Notes
 =============
 
+Version: 1.2.6 Frankfurt Release
+------------------------------
+
+:Release Date: 2020-May-07
+
+**New Features**
+
+**Bug Fixes**
+
+- MSB-470 Pairwise testing fails from Portal to MSB
+- MSB-468 MSB verification job is unstable
+- MSB-467 Certificate in MSB is set to use *.zte.com.cn
+- MSB-451 Code coverage data can't show at sonarcloud
+
+**Fixed Security Issues**
+
+- MSB-465 Update alpine to the latest version
+- MSB-462 Pods still run as root
+- MSB-418 Solve MSB vulnerability onap-msb-discovery-jackson-databind
+- MSB-417 Solve MSB vulnerability onap-msb-apigateway-jackson-databind
+- MSB-410 Solve MSB vulnerability onap-msb-java-sdk-jackson-databind
+- MSB-408 Solve MSB vulnerability onap-msb-java-sdk-commons-codec
+- MSB-407 Solve MSB vulnerability onap-msb-java-sdk-okhttp 
+- MSB-398 Remove plain HTTP Rest APIs
+- MSB-386 General sonar fixes
+
+**Known Issues**
+
+**Security Notes**
+
+MSB code has been formally scanned during build time using NexusIQ and all Critical vulnerabilities have been addressed.
+The remaining issues are identified as false positive and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=64003723>`_.
+
+Quick Links:
+        - `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+
+        - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
+
+        - `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=68541445>`_
+
+**Upgrade Notes**
+
+N/A
+
+**Deprecation Notes**
+
+Plain HTTP APIs have been removed from Frankfurt release, please use HTTPS instead.
+
+N/A
+
+**Other**
+
+N/A
+
 Version: 1.2.5 EI-Alto Release
 ------------------------------
 
