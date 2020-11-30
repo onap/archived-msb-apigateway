@@ -20,7 +20,7 @@ Version: 1.2.7 Guilin Release
 **Bug Fixes**
 
 - MSB-539 Fix nginx say 10000 worker_connections are not enough
-- MSB-540 nginx in discovery deletes useless log printing
+- MSB-540 Nginx in discovery deletes useless log printing
 - MSB-541 Discovery supports blocking monitoring time exceeding 10min
 
 **Fixed Security Issues**
