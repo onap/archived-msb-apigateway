@@ -1,0 +1,8 @@
+Code-Review+1: Andreas Geissler <andreas-geissler@telekom.de>
+Code-Review+2: Huabing Zhao <zhaohuabing@qq.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Huabing Zhao <zhaohuabing@qq.com>
+Submitted-at: Tue, 01 Dec 2020 03:39:22 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/msb/apigateway/+/115515
+Project: msb/apigateway
+Branch: refs/heads/guilin
