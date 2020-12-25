@@ -56,5 +56,10 @@ committers:
       company: 'ZTE'
       id: 'Zhaoxing'
       timezone: 'India/Bangalore'
+    - name: 'Jinquan Ni'
+      email: 'ni.jinquan@zte.com.cn'
+      company: 'ZTE'
+      id: 'jinquanni'
+      timezone: 'China/Beijing'
 tsc:
     approval: 'https://lists.onap.org/pipermail/onap-tsc'
