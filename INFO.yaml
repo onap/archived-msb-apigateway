@@ -28,12 +28,7 @@ meetings:
       repeats: 'weekly'
       time: '13:00 UTC'
 repositories:
-    - 'msb-apigateway'
-    - 'msb-discovery'
-    - 'msb-java-sdk'
-    - 'msb-oom'
-    - 'msb-service-mesh'
-    - 'msb-swagger-sdk'
+    - 'msb/apigateway'
 committers:
     - <<: *onap_releng_ptl
     - name: 'Ming Jian'
@@ -56,5 +51,10 @@ committers:
       company: 'ZTE'
       id: 'Zhaoxing'
       timezone: 'India/Bangalore'
+    - name: 'Jinquan Ni'
+      email: 'ni.jinquan@zte.com.cn'
+      company: 'ZTE'
+      id: 'jinquanni'
+      timezone: 'China/Beijing'
 tsc:
     approval: 'https://lists.onap.org/pipermail/onap-tsc'
