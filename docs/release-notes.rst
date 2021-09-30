@@ -10,7 +10,7 @@ MSB is platform independent, while it is integrated with Kubernetes(OOM) to prov
 Release Notes
 =============
 
-Version: 1.3.0 Istanbul Release
+Version: 1.3.1 Istanbul Release
 ------------------------------
 
 :Release Date: 2021-9-22
@@ -21,14 +21,13 @@ Version: 1.3.0 Istanbul Release
 
 
 **Fixed Security Issues**
-
+- MSB-593 PACKAGES UPGRADES IN DIRECT DEPENDENCIES FOR ISTANBUL
 - MSB-519 MSB has python 2.7 pods
 - MSB-520 MSB has java 8 pods
 - MSB-521 MSB certificates are too long and have bad owner
 
 **Known Issues**
 
-- MSB-529 MSB dockers contain GPLv3
 - MSB-534 kube2msb fails to register SO services including braces in url
 
 **Security Notes**

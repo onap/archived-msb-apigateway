@@ -1,0 +1,9 @@
+---
+distribution_type: container
+log_dir: msb-apigateway-maven-docker-stage-master/811/
+project: msb-apigateway
+container_release_tag: 1.3.1
+ref: 8541221e511b9f4d4b5e07b2d9c5a279bb7cc79f
+containers:
+    - name: 'msb/msb_apigateway'
+      version: '1.3.1-20210930T081355Z'
