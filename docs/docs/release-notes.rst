@@ -11,7 +11,7 @@ Release Notes
 =============
 
 Version: 1.3.1 Istanbul Release
-------------------------------
+-------------------------------
 
 :Release Date: 2021-9-22
 
@@ -19,8 +19,8 @@ Version: 1.3.1 Istanbul Release
 
 **Bug Fixes**
 
-
 **Fixed Security Issues**
+
 - MSB-593 PACKAGES UPGRADES IN DIRECT DEPENDENCIES FOR ISTANBUL
 - MSB-519 MSB has python 2.7 pods
 - MSB-520 MSB has java 8 pods
@@ -35,11 +35,9 @@ Version: 1.3.1 Istanbul Release
 The remaining issues are supposed to be fixed in the next release.
 
 Quick Links:
-        - `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+        - `MSB project page for Istanbul Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
 
         - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
-
-        - `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=68541445>`_
 
 **Upgrade Notes**
 
@@ -71,6 +69,7 @@ Version: 1.2.7 Guilin Release
 **Fixed Security Issues**
 
 **Known Issues**
+
 - MSB-519 MSB has python 2.7 pods
 - MSB-520 MSB has java 8 pods
 - MSB-521 MSB certificates are too long and have bad owner
@@ -81,11 +80,10 @@ Version: 1.2.7 Guilin Release
 The remaining issues are supposed to be fixed in the next release.
 
 Quick Links:
-        - `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+        - `MSB project page for Guilin Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
 
         - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
 
-        - `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=68541445>`_
 
 **Upgrade Notes**
 
@@ -102,7 +100,7 @@ N/A
 N/A
 
 Version: 1.2.6 Frankfurt Release
-------------------------------
+--------------------------------
 
 :Release Date: 2020-May-07
 
@@ -112,7 +110,7 @@ Version: 1.2.6 Frankfurt Release
 
 - MSB-470 Pairwise testing fails from Portal to MSB
 - MSB-468 MSB verification job is unstable
-- MSB-467 Certificate in MSB is set to use *.zte.com.cn
+- MSB-467 Certificate in MSB is set to use zte.com.cn
 - MSB-451 Code coverage data can't show at sonarcloud
 
 **Fixed Security Issues**
@@ -135,11 +133,9 @@ MSB code has been formally scanned during build time using NexusIQ and all Criti
 The remaining issues are identified as false positive and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=64003723>`_.
 
 Quick Links:
-        - `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+        - `MSB project page for Frankfurt Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
 
         - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
-
-        - `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=68541445>`_
 
 **Upgrade Notes**
 
@@ -182,11 +178,11 @@ MSB code has been formally scanned during build time using NexusIQ and all Criti
 The remaining issues are identified as false positive and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=64003723>`_.
 
 Quick Links:
- 	- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+ 	- `MSB project page for EI-Alto Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
 
  	- `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
 
- 	- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=64003723>`_
+ 	- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=68541445>`_
 
 **Upgrade Notes**
 
@@ -235,7 +231,7 @@ MSB code has been formally scanned during build time using NexusIQ and all Criti
 The remaining issues are identified as false positive and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=64003723>`_.
 
 Quick Links:
- 	- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+ 	- `MSB project page for Dublin Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
 
  	- `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
 
@@ -291,7 +287,7 @@ MSB code has been formally scanned during build time using NexusIQ and all Criti
 The MSB open Critical security vulnerabilities and their risk assessment have been documented as part of the `project <https://wiki.onap.org/pages/viewpage.action?pageId=45305668>`_.
 
 Quick Links:
- 	- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+ 	- `MSB project page for Casablanca Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
 
  	- `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
 
@@ -346,9 +342,9 @@ MSB code has been formally scanned during build time using NexusIQ and all Criti
 
 Quick Links:
 
-- `MSB project page <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+- `MSB project page for  Beijing Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
 - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
-- `Project Vulnerability Review Table for MSB <https://wiki.onap.org/pages/viewpage.action?pageId=25439016>`_
+- `Project Vulnerability Review Table for MSB Beijing Release <https://wiki.onap.org/pages/viewpage.action?pageId=40927271>`_
 
 **Upgrade Notes**
 
