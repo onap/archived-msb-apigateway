@@ -11,7 +11,7 @@ Release Notes
 =============
 
 Version: 1.3.1 Istanbul Release
-------------------------------
+--------------------------------
 
 :Release Date: 2021-9-22
 
@@ -19,8 +19,8 @@ Version: 1.3.1 Istanbul Release
 
 **Bug Fixes**
 
-
 **Fixed Security Issues**
+
 - MSB-593 PACKAGES UPGRADES IN DIRECT DEPENDENCIES FOR ISTANBUL
 - MSB-519 MSB has python 2.7 pods
 - MSB-520 MSB has java 8 pods
@@ -71,6 +71,7 @@ Version: 1.2.7 Guilin Release
 **Fixed Security Issues**
 
 **Known Issues**
+
 - MSB-519 MSB has python 2.7 pods
 - MSB-520 MSB has java 8 pods
 - MSB-521 MSB certificates are too long and have bad owner
@@ -102,7 +103,7 @@ N/A
 N/A
 
 Version: 1.2.6 Frankfurt Release
-------------------------------
+---------------------------------
 
 :Release Date: 2020-May-07
 
@@ -156,7 +157,7 @@ N/A
 N/A
 
 Version: 1.2.5 EI-Alto Release
-------------------------------
+-------------------------------
 
 :Release Date: 2019-09-05
 
