@@ -16,4 +16,4 @@ Web GUI.
 
 Access
 ^^^^^^
-Http://MSB_API_GATEWAY_IP:80/msb
+``http://MSB_API_GATEWAY_IP:80/msb``
