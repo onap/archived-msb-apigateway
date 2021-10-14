@@ -10,4 +10,6 @@ The MSB provides the following APIs.
 - `MSB Java SDK <https://wiki.onap.org/display/DW/Microservice+Bus+API+Documentation#MicroserviceBusAPIDocumentation-MSBClientSDKs>`_.
 - `Swagger SDK <https://wiki.onap.org/display/DW/swagger-sdk>`_.
 
-Discover more about `MSB API & User Guide<https://wiki.onap.org/pages/viewpage.action?pageId=20873883>`_.
+Discover more about.
+
+- `MSB API & User Guide<https://wiki.onap.org/pages/viewpage.action?pageId=20873883>`_.
