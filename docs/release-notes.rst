@@ -11,14 +11,13 @@ Release Notes
 =============
 
 Version: 1.3.1 Istanbul Release
-------------------------------
+-------------------------------
 
 :Release Date: 2021-9-22
 
 **New Features**
 
 **Bug Fixes**
-
 
 **Fixed Security Issues**
 - MSB-593 PACKAGES UPGRADES IN DIRECT DEPENDENCIES FOR ISTANBUL
@@ -56,7 +55,7 @@ N/A
 N/A
 
 Version: 1.2.7 Guilin Release
-------------------------------
+-----------------------------
 
 :Release Date: 2020-11-19
 
@@ -102,7 +101,7 @@ N/A
 N/A
 
 Version: 1.2.6 Frankfurt Release
-------------------------------
+---------------------------------
 
 :Release Date: 2020-May-07
 
@@ -156,7 +155,7 @@ N/A
 N/A
 
 Version: 1.2.5 EI-Alto Release
-------------------------------
+-------------------------------
 
 :Release Date: 2019-09-05
 
