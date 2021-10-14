@@ -29,7 +29,7 @@ MSB Portal/GUI is available on the following URL
 
 ..
 
-    http://msb.api.discovery.simpledemo.onap.org:30282/iui/microservices/default.html
+    ``http://msb.api.discovery.simpledemo.onap.org:30282/iui/microservices/default.html``
 
 
 The following screen should appears
@@ -230,7 +230,7 @@ Using a registred API
 Once registered, the API can then be accessible using
 the following URL/Port
 
-http://msb.api.discovery.simpledemo.onap.org:30280/api/{{Service Name}}/{{Version}}/{{resource}}
+``http://msb.api.discovery.simpledemo.onap.org:30280/api/{{Service Name}}/{{Version}}/{{resource}}``
 
 where {{Service Name}} and {{Version}} are mapped to what have been registered
 

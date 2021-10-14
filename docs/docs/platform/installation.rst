@@ -49,7 +49,7 @@ For testing, we can register the services via curl.
 
 - Browse the registered services
 
-  Open MSB Web GUI portal in your browser: http://127.0.0.1/msb, you can see all the registered services. If the registered service support swagger, you can see the REST API documentation and test the registered services via the swagger UI integrated in MSB.
+  Open MSB Web GUI portal in your browser: ``http://127.0.0.1/msb`` , you can see all the registered services. If the registered service support swagger, you can see the REST API documentation and test the registered services via the swagger UI integrated in MSB.
 
 Run MSB using default docker network
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
