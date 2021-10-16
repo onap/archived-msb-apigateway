@@ -1,0 +1,10 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Verified+1: Jinquan Ni <ni.jinquan@zte.com.cn>
+Verified+1: Zhaoxing Meng <meng.zhaoxing1@zte.com.cn>
+Code-Review+2: Jinquan Ni <ni.jinquan@zte.com.cn>
+Code-Review+2: Zhaoxing Meng <meng.zhaoxing1@zte.com.cn>
+Submitted-by: Zhaoxing Meng <meng.zhaoxing1@zte.com.cn>
+Submitted-at: Sat, 16 Oct 2021 08:31:05 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/msb/apigateway/+/125043
+Project: msb/apigateway
+Branch: refs/heads/istanbul
