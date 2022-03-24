@@ -54,7 +54,7 @@ import com.orbitz.consul.model.health.ImmutableNode;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({JedisUtil.class, RouteUtil.class, RedisAccessWrapper.class})
-@PowerMockIgnore({"javax.management.*"})
+@PowerMockIgnore({"javax.management.*", "jdk.internal.reflect.*"})
 public class QueueManagerTest {
     private static QueueManager queueManager;
 

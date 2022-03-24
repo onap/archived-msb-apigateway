@@ -44,7 +44,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({JedisUtil.class, RedisAccessWrapper.class})
-@PowerMockIgnore({"javax.management.*"})
+@PowerMockIgnore({"javax.management.*", "jdk.internal.reflect.*"})
 public class CustomRouteServiceTest {
     private static CustomRouteService customRouteService = null;
     private static Comparator<CustomRouteInfo> customRouteComparator = null;

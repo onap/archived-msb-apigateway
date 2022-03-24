@@ -26,7 +26,7 @@ import org.onap.msb.apiroute.wrapper.consulextend.model.health.ImmutableServiceH
 import org.onap.msb.apiroute.wrapper.consulextend.model.health.Service;
 import org.onap.msb.apiroute.wrapper.consulextend.model.health.ServiceHealth;
 import org.onap.msb.apiroute.wrapper.util.RouteUtil;
-
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import com.orbitz.consul.model.ConsulResponse;
 import com.orbitz.consul.model.health.ImmutableNode;
 

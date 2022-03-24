@@ -28,7 +28,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Http.class})
-@PowerMockIgnore({"javax.net.ssl.*"})
+@PowerMockIgnore({"javax.net.ssl.*", "jdk.internal.reflect.*"})
 public class SyncDataManagerTest {
 
     @SuppressWarnings("unchecked")

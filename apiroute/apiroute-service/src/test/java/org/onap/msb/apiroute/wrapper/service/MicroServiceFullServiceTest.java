@@ -49,7 +49,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({JedisUtil.class, RedisAccessWrapper.class})
-@PowerMockIgnore({"javax.management.*"})
+@PowerMockIgnore({"javax.management.*", "jdk.internal.reflect.*"})
 public class MicroServiceFullServiceTest {
     private static MicroServiceFullService microServiceFullService = null;
     private static Comparator<MicroServiceFullInfo> serviceComparator = null;

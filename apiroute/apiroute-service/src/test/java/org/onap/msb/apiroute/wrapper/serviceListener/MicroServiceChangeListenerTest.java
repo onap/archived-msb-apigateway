@@ -53,7 +53,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({JedisUtil.class, ConfigUtil.class, HttpClientUtil.class, RedisAccessWrapper.class,})
-@PowerMockIgnore({"javax.management.*"})
+@PowerMockIgnore({"javax.management.*", "jdk.internal.reflect.*"})
 public class MicroServiceChangeListenerTest {
     private static RouteNotify routeInstance;
     private static ApiRouteServiceWrapper apiRouteServiceWrapper;

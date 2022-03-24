@@ -50,7 +50,7 @@ import redis.clients.jedis.JedisPoolConfig;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({JedisUtil.class, RedisAccessWrapper.class, ConfigUtil.class, Http.class,
                 InitRouteServiceWrapper.class})
-@PowerMockIgnore({"javax.management.*", "javax.net.ssl.*"})
+@PowerMockIgnore({"javax.management.*", "javax.net.ssl.*", "jdk.internal.reflect.*"})
 public class InitRouteServiceWrapperTest {
     private static InitRouteServiceWrapper initRouteServiceWrapper;
     private static Consul consul;

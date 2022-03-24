@@ -22,11 +22,13 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 
 import com.codahale.metrics.health.HealthCheck.Result;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({HttpClientUtil.class, OpenRestyHealthCheck.class})
+@PowerMockIgnore("jdk.internal.reflect.*")
 public class OpenRestyHealthCheckTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenRestyHealthCheckTest.class);
 
