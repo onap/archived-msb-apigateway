@@ -24,9 +24,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codahale.metrics.health.HealthCheck.Result;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({HttpClientUtil.class})
+@PowerMockIgnore("jdk.internal.reflect.*")
 public class ApiRouteHealthCheckTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApiRouteHealthCheckTest.class);
 

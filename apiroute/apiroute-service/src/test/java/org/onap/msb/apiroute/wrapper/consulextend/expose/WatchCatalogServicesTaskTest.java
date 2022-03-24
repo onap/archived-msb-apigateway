@@ -44,7 +44,7 @@ import com.orbitz.consul.option.QueryOptions;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Http.class})
-@PowerMockIgnore({"javax.net.ssl.*"})
+@PowerMockIgnore({"javax.net.ssl.*", "jdk.internal.reflect.*"})
 public class WatchCatalogServicesTaskTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(WatchCatalogServicesTaskTest.class);
 

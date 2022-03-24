@@ -40,7 +40,7 @@ import com.orbitz.consul.option.QueryOptions;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Http.class})
-@PowerMockIgnore({"javax.net.ssl.*"})
+@PowerMockIgnore({"javax.net.ssl.*", "jdk.internal.reflect.*"})
 public class ConsulTest {
     private static Consul consul10081;
     private static Consul consul8500;

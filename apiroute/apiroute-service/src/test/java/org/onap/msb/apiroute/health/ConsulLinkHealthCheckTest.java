@@ -22,11 +22,14 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.onap.msb.apiroute.health.ConsulLinkHealthCheck;
 
 import com.codahale.metrics.health.HealthCheck.Result;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({HttpClientUtil.class, ConsulLinkHealthCheck.class})
+@PrepareForTest({HttpClientUtil.class})
+@PowerMockIgnore("jdk.internal.reflect.*")
 public class ConsulLinkHealthCheckTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsulLinkHealthCheckTest.class);
 

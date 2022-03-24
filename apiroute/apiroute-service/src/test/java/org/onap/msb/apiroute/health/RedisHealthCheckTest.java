@@ -25,6 +25,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import com.codahale.metrics.health.HealthCheck.Result;
 import com.fiftyonred.mock_jedis.MockJedisPool;
 
@@ -33,7 +34,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({JedisUtil.class, RedisAccessWrapper.class})
-@PowerMockIgnore({"javax.management.*"})
+@PowerMockIgnore({"javax.management.*", "jdk.internal.reflect.*"})
 public class RedisHealthCheckTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisHealthCheckTest.class);
 
