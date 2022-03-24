@@ -10,6 +10,50 @@ MSB is platform independent, while it is integrated with Kubernetes(OOM) to prov
 Release Notes
 =============
 
+Version: 1.4.0 Jakarta Release
+-------------------------------
+
+:Release Date: 2022-3-24
+
+**New Features**
+
+- MSB-661 MSB should support TLSv1.3
+
+**Bug Fixes**
+
+- MSB-663 NGINX request is too small on one keepalive connection
+- MSB-645 remove obsolete docs from msb/java-sdk repo
+- MSB-646 remove obsolete docs from msb/discovery repo
+- MSB-633 remove duplicated docs in msb/apigateway repo and update sphinx config files
+
+**Fixed Security Issues**
+
+- MSB-662 NGINX should user server ciphers for security
+- MSB-644 PACKAGES UPGRADES IN DIRECT DEPENDENCIES FOR JAKARTA
+
+**Known Issues**
+
+**Security Notes**
+
+Quick Links:
+        - `MSB project page for Jakarta Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+
+        - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
+
+**Upgrade Notes**
+
+N/A
+
+**Deprecation Notes**
+
+Plain HTTP APIs have been removed from Frankfurt release, please use HTTPS instead.
+
+N/A
+
+**Other**
+
+N/A
+
 Version: 1.3.1 Istanbul Release
 -------------------------------
 
