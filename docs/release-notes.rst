@@ -21,7 +21,7 @@ Version: 1.4.0 Jakarta Release
 
 **Bug Fixes**
 
-- MSB-663 NGINX request is too small on one keepalive connection
+- MSB-663 NGINX requests is too small on one keepalive connection
 - MSB-645 remove obsolete docs from msb/java-sdk repo
 - MSB-646 remove obsolete docs from msb/discovery repo
 - MSB-633 remove duplicated docs in msb/apigateway repo and update sphinx config files
