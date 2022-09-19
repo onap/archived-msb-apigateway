@@ -10,6 +10,44 @@ MSB is platform independent, while it is integrated with Kubernetes(OOM) to prov
 Release Notes
 =============
 
+Version: 1.5.0 Kohn Release
+-------------------------------
+
+:Release Date: 2022-9-19
+
+**New Features**
+
+- MSB-692 MSB apigateway performance improvement
+
+**Bug Fixes**
+
+**Fixed Security Issues**
+
+- MSB-681 PACKAGES UPGRADES IN DIRECT DEPENDENCIES FOR KOHN
+
+**Known Issues**
+
+**Security Notes**
+
+Quick Links:
+        - `MSB project page for Jakarta Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+
+        - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
+
+**Upgrade Notes**
+
+N/A
+
+**Deprecation Notes**
+
+Plain HTTP APIs have been removed from Frankfurt release, please use HTTPS instead.
+
+N/A
+
+**Other**
+
+N/A
+
 Version: 1.4.0 Jakarta Release
 -------------------------------
 
