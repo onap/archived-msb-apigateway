@@ -30,7 +30,7 @@ Version: 1.5.0 Kohn Release
 **Security Notes**
 
 Quick Links:
-        - `MSB project page for Jakarta Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+        - `MSB project page for Kohn Release <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
 
         - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
 
