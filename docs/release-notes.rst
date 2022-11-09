@@ -17,7 +17,7 @@ Version: 1.5.0 Kohn Release
 
 **New Features**
 
-- MSB-692 MSB apigateway performance improvement
+- MSB-692 MSB Apigateway performance improvement
 
 **Bug Fixes**
 
