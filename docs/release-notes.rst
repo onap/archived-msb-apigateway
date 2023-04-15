@@ -10,6 +10,44 @@ MSB is platform independent, while it is integrated with Kubernetes(OOM) to prov
 Release Notes
 =============
 
+Version: 1.6.0 London Release
+-------------------------------
+
+:Release Date: 2022-4-15
+
+**New Features**
+
+**Bug Fixes**
+
+- MSB-755	The route from the MSB module to the usecase-ui module does not support HTTP
+
+**Fixed Security Issues**
+
+- MSB-755  PACKAGES UPGRADES IN DIRECT DEPENDENCIES FOR LONDON RELEASE
+
+**Known Issues**
+
+**Security Notes**
+
+Quick Links:
+        - `MSB project page for LondonRelease <https://wiki.onap.org/display/DW/Microservices+Bus+Project>`_
+
+        - `Passing Badge information for MSB <https://bestpractices.coreinfrastructure.org/en/projects/1601>`_
+
+**Upgrade Notes**
+
+N/A
+
+**Deprecation Notes**
+
+Plain HTTP APIs have been removed from Frankfurt release, please use HTTPS instead.
+
+N/A
+
+**Other**
+
+N/A
+
 Version: 1.5.0 Kohn Release
 -------------------------------
 
