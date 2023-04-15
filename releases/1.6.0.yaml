@@ -1,0 +1,5 @@
+---
+distribution_type: maven
+log_dir: msb-apigateway-maven-stage-master/1394/
+project: msb-apigateway
+version: 1.6.0
