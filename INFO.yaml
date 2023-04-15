@@ -31,10 +31,10 @@ repositories:
     - 'msb/apigateway'
 committers:
     - <<: *onap_releng_ptl
-    - name: 'Ming Jian'
-      email: 'jian.ming@zte.com.cn'
+    - name: 'Jiahang Wang'
+      email: 'wang.jiahang@zte.com.cn'
       company: 'ZTE'
-      id: 'imacming'
+      id: 'jiahangwang'
       timezone: 'China/Beijing'
     - name: 'Kanagaraj Manickam'
       email: 'kanagaraj.manickam@huawei.com'
