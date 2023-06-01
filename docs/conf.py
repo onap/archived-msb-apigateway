@@ -1,10 +1,15 @@
 project = "onap"
-release = "master"
-version = "master"
+release = "london"
+version = "london"
+branch = 'london'
 
 author = "Open Network Automation Platform"
 # yamllint disable-line rule:line-length
 copyright = "ONAP. Licensed under Creative Commons Attribution 4.0 International License"
+
+exclude_patterns = [
+    '.tox'
+]
 
 pygments_style = "sphinx"
 html_theme = "sphinx_rtd_theme"
@@ -30,13 +35,9 @@ extensions = [
 # Change to {releasename} after you have created the new 'doc' branch.
 #
 
-branch = 'latest'
-
 intersphinx_mapping = {}
 doc_url = 'https://docs.onap.org/projects'
 master_doc = 'index'
-
-exclude_patterns = ['.tox']
 
 spelling_word_list_filename='spelling_wordlist.txt'
 spelling_lang = "en_GB"
