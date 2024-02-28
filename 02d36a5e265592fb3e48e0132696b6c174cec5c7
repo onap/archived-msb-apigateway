@@ -1,0 +1,9 @@
+Code-Review+2: Jinquan Ni <ni.jinquan@zte.com.cn>
+Verified+1: ONAP Required GHA <releng+onap.required.gha@linuxfoundation.org>
+Verified+1: Jinquan Ni <ni.jinquan@zte.com.cn>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Thomas Kulik <thomas.kulik@telekom.de>
+Submitted-at: Wed, 28 Feb 2024 08:28:05 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/msb/apigateway/+/137393
+Project: msb/apigateway
+Branch: refs/heads/master
